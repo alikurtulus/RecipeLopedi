@@ -22,17 +22,21 @@ const MealPlan = new mongoose.Schema({
     type:String,
     required:true
   },
-  recipes:{
+  meals:[{
+    name:{
+      type:String,
+      required:
+    }
+  }]
+  recipes:[{
     type:String,
     required:true
+  }],
+  creator:{
+    type:mongoose.Types.ObjectId,
+    required:true,
+    ref:'User'
   },
-  modifiedBy: {
-   type: mongoose.Schema.ObjectId,
-   ref: 'User'
- },
- createdBy: {
-   type: mongoose.Schema.ObjectId,
-   ref: 'User'
- }
+
 
 })

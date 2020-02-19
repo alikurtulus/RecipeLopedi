@@ -21,7 +21,7 @@ app.use((req, res, next) => {                                   // When the clie
 mongoose
         .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-vvtq0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,{ useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
-          app.listen(3000, () => {                                          // We run server and listen on 3000 port.
+          app.listen( process.env.PORT || 3000, () => {                                          
             console.log('The Server is running')
           })
         })
