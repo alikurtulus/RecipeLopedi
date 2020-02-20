@@ -11,27 +11,47 @@ const MealPlan = new mongoose.Schema({
     required:true
   },
   targetCalories:{
-    type:Number,
-    required:true
+    type:Number
+
   },
   diet:{
-    type:String,
-    required:true
+    type:String
+
   },
   exclude:{
-    type:String,
-    required:true
+    type:String
+
   },
   meals:[{
-    name:{
+    day:{
       type:String,
-      required:
-    }
-  }]
-  recipes:[{
-    type:String,
-    required:true
+
+    },
+    recipes:[{
+      type:{
+        type:String,
+        required:true
+      },
+      title:{
+        type:String,
+        required:true
+      },
+      readyInMinutes:{
+        type:Number,
+        required:true
+      },
+      image:{
+        type:String,
+        required:true
+      },
+      servings:{
+        type:Number,
+        required:true
+      }
+    }]
+
   }],
+  ,
   creator:{
     type:mongoose.Types.ObjectId,
     required:true,
