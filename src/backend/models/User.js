@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')                                            //We set up mongoose for creating schema
 const uniqueValidator = require('mongoose-unique-validator')                    // We use validator for our schema
-mongoose.set('useCreateIndex', true);
+mongoose.set('useCreateIndex', true)
 
 const userSchema = new mongoose.Schema({
   username:{
@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     required:true,
   },
   image:{
+    type:String,
+    required:true
+  },
+  gender:{
     type:String,
     required:true
   },
