@@ -93,3 +93,5 @@ const recipeSchema = new mongoose.Schema({
 
 
 })
+recipeSchema.plugin(uniqueValidator)                                            //We plugin wiht mogooseValidator with our schema.
+module.exports = mongoose.model('Recipe',recipeSchema)                          //We called User model with recipeSchema

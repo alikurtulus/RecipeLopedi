@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')                                       
 const HttpError =require('./models/HttpError')
 const mongoose = require('mongoose')
 const userRouter = require('./routes/user-routes')
+const recipeRouter = require('./routes/recipe-routes')
 
 app.use(bodyParser.json())                                                      // We catch data from request and turn this data to json object with bodyparser.
 app.use((req, res, next) => {                                                   // We need to write this middleware. Because We decide to  how to get a request from the client.This is like protocol between server and client for the communication.
@@ -15,6 +16,8 @@ app.use((req, res, next) => {                                                   
   next()
 })
 app.use('/api/users',userRouter)
+app.use('/api/recipes',recipeRouter)
+
 app.use((req, res, next) => {                                                   // When the client try to access wrong routes. We need to say the client is going wrong way.
   const error = new HttpError('Could not find this route', 404)
   throw error
