@@ -1,0 +1,2 @@
+export const FETCH_JOKE = 'FETCH_JOKE'
+export const FETCH_RANDOM_RECIPES = 'FETCH_RANDOM_RECIPES'

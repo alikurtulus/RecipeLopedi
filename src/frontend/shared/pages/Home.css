@@ -1,0 +1,15 @@
+h2{
+  margin:30px auto;
+  text-align: center;
+  font-size: 3rem;
+  font-family: 'Rubik Mono One', sans-serif;
+}
+.cards-container{
+  margin: 60px auto 20px auto;
+}
+.main-container{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
