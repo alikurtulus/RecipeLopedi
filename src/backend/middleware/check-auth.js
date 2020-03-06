@@ -13,7 +13,7 @@ module.exports = ( req, res, next) => {
 
     const decodeToken = jwt.verify(token,process.env.JWT_SECRET_KEY)            // for verifying token we need token and our secret key.
      console.log(decodeToken)
-     req.userData = decodeToken                               // We will use userid to delete and edit  recipes and meals. we need that.
+     req.userData = decodeToken                                                 // We will use userid to delete and edit  recipes and meals. we need that.
      //console.log(req.userData.userId)
      next()                                                                     // It is authenticated go next middleware
   }

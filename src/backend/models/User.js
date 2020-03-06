@@ -46,5 +46,5 @@ const userSchema = new mongoose.Schema({
     ref:'Recipe'
   }]
 })
-userSchema.plugin(uniqueValidator)                                              //We plugin wiht mogooseValidator with our schema.
+userSchema.plugin(uniqueValidator)                                              //We plugin with mongooseValidator with our schema.
 module.exports = mongoose.model('User',userSchema)                              //We called User model with userSchema

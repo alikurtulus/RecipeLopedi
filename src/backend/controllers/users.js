@@ -15,7 +15,7 @@ const signUp = async(req, res, next) => {
     return next(error)
   }
 
-  const {username,email,password,age,gender} = req.body                         // We get all inputs with req.body
+  const {username,email,password,passwordConfirmation,image,age,gender} = req.body                         // We get all inputs with req.body
   let existingUser
    try{
          existingUser =  await User.findOne({email:email})
@@ -29,6 +29,10 @@ const signUp = async(req, res, next) => {
      const error =  new HttpError('user already exists ',422)
      return next(error)
    }
+   if(passwordConfirmation !== password){
+     const error = new HttpError('password does not match ',422)
+     return next(error)
+   }
 
    let hashedPassword
    try {
@@ -38,12 +42,13 @@ const signUp = async(req, res, next) => {
      const error =  new HttpError('Sign Up failed ,please try again ',500)
      return next(error)
    }
+  
    const newUser = new User({
      username,
      email,
      password:hashedPassword,
      age,
-     image:"https://krausefx.com/assets/posts/profilePictures/FelixKrause2014.jpg",
+     image:req.file.path,
      gender,
      recipes:[],
      mealplans:[],
@@ -142,6 +147,9 @@ const profile = async(req, res, next) => {
      }
 
     res.status(200).json({user:existingUser.toObject({getters:true})})
+}
+const editUser = async (req, res, next) => {
+  
 }
 exports.signUp = signUp
 exports.login = login

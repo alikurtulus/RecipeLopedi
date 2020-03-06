@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const MealPlan = new mongoose.Schema({
+const mealPlanSchem = new mongoose.Schema({
   title:{
     type:String,
     required:true,
@@ -51,12 +51,14 @@ const MealPlan = new mongoose.Schema({
     }]
 
   }],
-  ,
+
   creator:{
     type:mongoose.Types.ObjectId,
     required:true,
     ref:'User'
-  },
+  }
 
 
 })
+mealPlanSchem.plugin(uniqueValidator)                                            //We plugin wiht mogooseValidator with our schema.
+module.exports = mongoose.model('MealPlan',mealPlanSchem)                        //We called User model with recipeSchema
