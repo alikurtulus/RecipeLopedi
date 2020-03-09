@@ -1,37 +1,29 @@
 import React,{useState, useEffect} from 'react'
 import {Form,Row,Col,Container,CardDeck} from 'react-bootstrap'
-import CardBox from '../components/UIElements/CardBox'
+import CardCuisine from '../components/UIElements/CardCusine'
 import axios from 'axios'
+import cuisines from '../lib/cuisines'
+import './SecondHome.css'
+import { Link } from 'react-router-dom'
 
 const SecondHome = props => {
-  const [recipe,setRecipe] = useState()
-  let recipes = []
 
-  const cuisines = ['African','American','British','Caribbean','Chinese',
-                   'Eastern European','European','French','German','Greek','Indian',
-                   'Irish','Italian','Japanese','Jewish','Korean','Latin American',
-                   'Mediterranean','Mexican','Middle Eastern','Nordic','Spanish','Thai','Vietnamese']
-      async function fetchCuisine(){
-
-        try{
-        
-        }
-        catch(err){
-          console.log(err)
-        }
-      }
-      useEffect(() => {
-        fetchCuisine()
-      })
   return (
-    <Container>
+    <div className='cuisines-page'>
+      <Container className='card-box'>
       <Row>
          <CardDeck>
-           {recipes.map(recipe=> <Col sm={3} > <CardBox /></Col>
+           {cuisines.map(cus=>
+            <Col sm={3} key={cus.id} >
+              <Link to={`cuisine/${cus.id}`}>  <CardCuisine  cuisine={cus.cuisine} image={cus.mainImage} /></Link>  
+            </Col>
            )}
          </CardDeck>
       </Row>
     </Container>
+
+    </div>
+    
   )
 }
 export default SecondHome

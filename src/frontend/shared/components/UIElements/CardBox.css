@@ -6,3 +6,11 @@
 
 
 }
+.title-text{
+   font-size: 1.1rem;
+   text-align: center;
+   font-weight: bold;
+}
+.details{
+   font-size: 0.9rem;
+}

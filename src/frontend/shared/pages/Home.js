@@ -7,6 +7,7 @@ const Home = props => {
   return(
     <React.Fragment>
        <Hero />
+        <div className='borders'></div>
        <SecondHome />
     </React.Fragment>
   )
