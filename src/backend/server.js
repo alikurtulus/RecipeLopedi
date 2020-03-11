@@ -10,7 +10,7 @@ const recipeRouter = require('./routes/recipe-routes')
 const mealPlanRouter = require('./routes/mealplan-routes')
 
 app.use(bodyParser.json())                                                      // We catch data from request and turn this data to json object with BodyParser.
-app.use('/uploads/images', express.static(path.join('uploads','images')))      // We create middleware for uploading images and we called this middleware here.
+app.use('/uploads/images', express.static(path.join('uploads','images')))       // We create middleware for uploading images and we called this middleware here.
 app.use((req, res, next) => {                                                   // We need to write this middleware. Because We decide to  how to get a request from the client.This is like protocol between server and client for the communication.
   res.setHeader('Access-Control-Allow-Origin','*')
   res.setHeader('Access-Control-Allow-Headers',
@@ -45,7 +45,7 @@ app.use((err,req,res,next) => {                                                 
 mongoose
         .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-vvtq0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,{ useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
-          app.listen( process.env.PORT || 3000, () => {
+          app.listen( process.env.PORT || 5000, () => {
             console.log('The Server is running')
           })
         })

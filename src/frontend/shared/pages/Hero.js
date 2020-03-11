@@ -15,8 +15,7 @@ const Hero = props => {
    const joke  = useSelector(state => state.recipes.joke)
    const randomRecipes = useSelector(state => state.recipes.randomRecipes)
    
-   console.log(joke)
-   console.log(randomRecipes)
+
  return (
 
    <React.Fragment >

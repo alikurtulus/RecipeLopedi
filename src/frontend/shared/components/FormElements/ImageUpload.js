@@ -39,7 +39,7 @@ const ImageUpload = props =>{
               setIsValid(false)
               fileIsValid=false
         }
-       props.onInput(props.id, pickedFile, fileIsValid)
+        props.onInput(props.id, pickedFile, fileIsValid)
    }
     return (
 
@@ -48,7 +48,7 @@ const ImageUpload = props =>{
                 <FormControl
                     as='input'
                     type='text'
-                   
+                    isValid={props.isValid} 
                     style={{display:'none'}}
                     ref={filePickerRef}
                      type="file"
@@ -67,7 +67,7 @@ const ImageUpload = props =>{
             </InputGroup>
           
             
-            <UploadBar />
+          
          
         </Form.Group>  
 

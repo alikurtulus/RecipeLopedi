@@ -1,3 +1,18 @@
 .recipedetails-box{
-    margin-top: 40px !important;
+    margin-top: 30px !important;
+}
+.badges{
+    font-size: 1.3rem;;
+}
+ .recipe-title {
+  font-size: 1.7rem;;
+ 
+  font-weight: bold;
+}
+.recipe-summary{
+    margin-top: 10px;
+    font-size: 1.3rem;
+}
+.badge{
+    margin-right: 5px;
 }

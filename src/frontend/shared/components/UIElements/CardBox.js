@@ -14,7 +14,7 @@ const CardBox = props => {
           <Card.Title className='title-text'>{props.title}</Card.Title>
 
         <ListGroup className="list-group-flush details">
-           <ListGroupItem><strong>Cooking Time:</strong> {props.readyInMinutes}</ListGroupItem>
+           <ListGroupItem><strong>ReadyInMinutes:</strong> {props.readyInMinutes}</ListGroupItem>
            <ListGroupItem><strong>Servings:</strong> {props.servings}</ListGroupItem>
            <ListGroupItem><strong>PricePerServing:</strong> {props.price}</ListGroupItem>
          </ListGroup>

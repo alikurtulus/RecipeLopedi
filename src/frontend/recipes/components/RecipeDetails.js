@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { useParams, useLocation} from "react-router";
-import {Container,Row,Col,Figure,Table,Card,ListGroup, Spinner} from 'react-bootstrap'
+import {Container,Row,Col,Figure,Table,Card,ListGroup, Spinner,Badge} from 'react-bootstrap'
 import cuisines from '../../shared/lib/cuisines'
+import './RecipeDetails.css'
 
  const RecipeDetails = props =>  {
    const [recipe, setRecipe] = useState([])
@@ -23,35 +24,46 @@ import cuisines from '../../shared/lib/cuisines'
          {recipe.length !== 0 &&
         <Container className='recipedetails-box'>
                 <Row>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <Figure>
                             <Figure.Image
-                                width={220}
-                                height={220}
+                                width={280}
+                                height={280}
                                 alt="171x180"
                                 src={recipe.image}
                             />
   
                         </Figure>
                     </Col>
-                    <Col sm={9}>
+                    <Col sm={8}>
                         <Row>
-                            <Col>
-                             <h3>{recipe.title}</h3>
-                             <p>{recipe.summary}</p>
+                            <Col className='some-details'>
+                             <h3 className='recipe-title'>{recipe.title}</h3>
+                             <p className='recipe-summary'>{recipe.summary}</p>
+                             <p className='badges'>
+                                 <Badge variant="primary" className='badge' >
+                                     Rating: {recipe.rating}
+                                 </Badge>
+                                 <Badge variant="warning" className='badge'>
+                                     Serving: {recipe.serving}
+                                 </Badge>
+                                 <Badge variant="success" className='badge'>
+                                     PerServingPrice: {recipe.pricePerServing}
+                                 </Badge>
+                                 <Badge variant="danger" className='badge'>
+                                     ReadyInMinutes: {recipe.readyInMinutes}
+                                 </Badge>
+                            </p>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
                                 <Table responsive>
-                                    
                                     <thead>
                                         <tr>
                                         {recipe.NutritionIndicators.map( n => 
-                                            
-                                            <th>{n.name} </th>
-                                         )}    
-                                            
+                                             <th>{n.name} </th>
+                                        )}    
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,8 +81,8 @@ import cuisines from '../../shared/lib/cuisines'
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={3}>
-                        <Card style={{ width: '17rem' }}>
+                    <Col sm={4}>
+                        <Card   style={{ width: '18rem' }}>
                                 <ListGroup variant="flush">
                                     {recipe.Ingredients.map(ingredient => 
                                         <ListGroup.Item>{ingredient}</ListGroup.Item>
@@ -79,8 +91,10 @@ import cuisines from '../../shared/lib/cuisines'
                                 </ListGroup>
                         </Card>
                     </Col>
-                    <Col sm={9}>
-                        <Card style={{ width: '50rem' }}>
+                    <Col sm={8}>
+                  
+                        <Card   style={{ width: '46rem' }}>
+                               
                                 <ListGroup variant="flush">
                                     {recipe.Instructions.map(method =>
 

@@ -1,5 +1,6 @@
-import {FETCH_JOKE,FETCH_RANDOM_RECIPES} from '../actions/types'
+import {FETCH_JOKE,FETCH_RANDOM_RECIPES,FETCH_CUISINES} from '../actions/types'
 import axios from 'axios'
+import cuisines from '../../shared/lib/cuisines'
 
 
 export const fetchJoke =  () => async dispatch => {
@@ -20,4 +21,7 @@ const responseData = await axios.get(`https://api.spoonacular.com/recipes/random
     payload:responseData.data.recipes
 })
    console.log(responseData.data)
+}
+export const fetchCuisines = () => {
+
 }

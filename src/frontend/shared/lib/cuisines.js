@@ -947,7 +947,7 @@ export default [
         id:56,
         title:"Imam bayildi with BBQ lamb & tzatziki",
         image:"https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--356518_11.jpg?itok=tT6ASU-F",
-        readyInbMinutes:105,
+        readyInMinutes:105,
         serving:6,
         summary:"There are hundreds of versions of this Turkish aubergine dish. It is authentically quite oily, but reduce the oil if you prefer",
         Ingredients:["3 aubergines","2 tbsp olive oil, plus extra for brushing","1 Spanish onion, finely chopped","2 garlic cloves, crushed","1 tsp cinnamon","8 ripe tomatoes , peeled","small bunch flat-leaf parsley, chopped","12 lamb chops or cutlets","paprika, for seasoning","1 lemon, halved","150g tub Greek yogurt","½ cucumber, seeds scooped out, grated","2 tbsp chopped mint"],

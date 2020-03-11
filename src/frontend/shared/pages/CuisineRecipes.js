@@ -37,7 +37,7 @@ const fetchRecipes = () =>{
                                         <CardBox 
                                             price={recipe.pricePerServing}
                                             image={recipe.image}
-                                            servings={recipe.servings}
+                                            servings={recipe.serving}
                                             title={recipe.title}
                                             readyInMinutes={recipe.readyInMinutes}
                                             rid={recipe.id}

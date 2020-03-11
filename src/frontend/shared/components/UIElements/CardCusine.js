@@ -7,7 +7,7 @@ import './CardCuisine.css'
     <Card border="secondary" style={{ width: '18rem' }} className='card-cuisine'>
         <Card.Img variant="top" src={props.image} />
         <Card.Body>
-            <Card.Title centered >{props.cuisine}</Card.Title>
+            <Card.Title  >{props.cuisine}</Card.Title>
         </Card.Body>
     </Card>
     )

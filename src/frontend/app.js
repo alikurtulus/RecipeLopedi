@@ -3,53 +3,86 @@ import ReactDOM from 'react-dom'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Navbar from './shared/components/Navigation/Navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './shared/pages/Home'
-import SingUp from './users/components/SignUp'
-import Login from './users/components/Login'
+
+
+import {AuthContext} from './shared/context/auth-context'
 import {Spinner} from 'react-bootstrap'
-import login from './users/components/Login';
-import singUp from './users/components/SignUp';
+import {useAuth} from './shared/hooks/auth-hook'
 import {Provider} from 'react-redux'
 import store from './store'
-import CuisineRecipes from './shared/pages/CuisineRecipes'
-import RecipeDetails from './recipes/components/RecipeDetails'
+
+
+const Home = React.lazy(() => import('./shared/pages/Home'))
+const Auth = React.lazy(() => import('./users/components/Auth'))
+const CuisineRecipes = React.lazy(() => import('./shared/pages/CuisineRecipes'))
+const RecipeDetails = React.lazy(() => import('./recipes/components/RecipeDetails'))
+const Profile = React.lazy(() => import('./users/components/Profile'))
 
 
 
-class App extends React.Component{
-  constructor(props){
-    super(props)
+const  App = () => {
+  const {token, login, logout, userId} = useAuth()
 
-  }
-  render(){
+  
     let routes 
-     routes = 
-    (  
-      <Switch>
-          <Route path='/singUp'  exact>
-             <SingUp />
-          </Route>
-          <Route path='/login'  exact >
-            <Login />
-          </Route> 
-         
-          <Route path='/cuisine/recipe/:id'  >
+    if(token){
+      routes = (
+
+        <Switch>
+           <Route path='/' exact>
+             <Home />
+           </Route>
+           <Route path='/profile'  exact>
+                  <Profile />
+                </Route>
+           <Route path='/cuisine/recipe/:id'  >
             <RecipeDetails />
-          </Route> 
-          <Route path='/cuisine/:id' exact>
-            <CuisineRecipes />
-          </Route>  
-                 
-          <Route path='/' exact >
-            <Home />
-          </Route>
-      
-      </Switch>      
-     )
+            </Route> 
+            <Route path='/cuisine/:id' exact>
+             <CuisineRecipes />
+            </Route>  
+           <Redirect to='/' />
+
+        </Switch>
+
+      )
+    }
+    else{
+      routes = 
+          (  
+            <Switch>
+                <Route path='/auth'  exact>
+                  <Auth />
+                </Route>
+              
+                <Route path='/cuisine/recipe/:id'  >
+                  <RecipeDetails />
+                </Route> 
+                <Route path='/cuisine/:id' exact>
+                  <CuisineRecipes />
+                </Route>  
+                <Route path='/' exact >
+                  <Home />
+                </Route>
+                <Redirect to='/auth' />
+            
+            </Switch>      
+          )
         
+    }
+    
     return(
       <React.Fragment>
+         
         <Provider store={store}>
+        <AuthContext.Provider
+              value={
+              {isLoggedIn:!!token,
+              token:token,
+              userId:userId,
+              login:login,
+              logout:logout}
+            }>
         <Router>
           <Navbar />
           <main>
@@ -62,13 +95,14 @@ class App extends React.Component{
             </Suspense>
           </main>
         </Router>
+        </AuthContext.Provider>
         </Provider>
         
 
       </React.Fragment>
 
     )
-  }
+
 }
 ReactDOM.render(
   <App />,document.getElementById('root')

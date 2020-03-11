@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {NavLink}  from 'react-router-dom'
 import './Navbar.css'
 import {Container,Navbar, Nav} from 'react-bootstrap'
+import {AuthContext} from '../../context/auth-context'
 
 const navbar = props =>{
+  const auth = useContext(AuthContext)
 
    return (
 
@@ -31,14 +33,31 @@ const navbar = props =>{
               MealPlans
               </Nav.Link>
           </Nav>
-         <Nav className="justify-content-end">
-            <Nav.Link as={NavLink} to='/login' >
-              Login
-            </Nav.Link>
-            <Nav.Link as={NavLink} to='/singUp'>
-             SingUp
-            </Nav.Link>
-         </Nav>
+         
+          <Nav className="justify-content-end">
+            {!auth.isLoggedIn && 
+                <Nav.Link as={NavLink} to='/auth'>
+                Authentication
+                </Nav.Link>
+            }
+            {auth.isLoggedIn && (
+                <React.Fragment>
+                    <Nav.Link onClick={auth.logout} as={NavLink} to='/auth'>
+                  Logout
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to='/profile'>
+                     Profile
+                  </Nav.Link>
+                  </React.Fragment>
+                
+            )
+                 
+            }
+            
+           </Nav>
+
+         
+      
        </Navbar.Collapse>
      </Navbar>
 
