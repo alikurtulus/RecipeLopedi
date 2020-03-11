@@ -2,15 +2,28 @@
     color: white;
     text-align: center;
   }
-  
-  .card.authentication {
+.authentication {
     width: 90%;
     max-width: 25rem;
-    margin: 7rem auto;
+    margin: auto;
     text-align: center;
+    
+    
+   
   }
-  
+ 
   .authentication form {
+    margin-right: 1rem;
+    margin-left: 1rem;
     margin-bottom: 1rem;
   }
+  .auth-main{
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-image: url('https://images.pexels.com/photos/277253/pexels-photo-277253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+   
   
+  }

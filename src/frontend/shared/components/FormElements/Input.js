@@ -61,7 +61,7 @@ const input = props => {
                     value={inputState.value}
                         />
                 <Form.Text className="text-muted">
-                {!inputState.isValid && inputState.isTouched && <p>{props.errorText} </p>}
+                {!inputState.isValid && inputState.isTouched && <p className='errorMesage'>{props.errorText} </p>}
                 </Form.Text>
             </Form.Group>            
        ) 
@@ -83,7 +83,7 @@ const input = props => {
                     )}
                 </Form.Control>
                 <Form.Text className="text-muted">
-                {!inputState.isValid && inputState.isTouched && <p>{props.errorText} </p>}
+                {!inputState.isValid && inputState.isTouched && <p className='errorMesage'>{props.errorText} </p>}
                 </Form.Text>
             </Form.Group>     
         )
@@ -101,7 +101,7 @@ const input = props => {
                            onBlur={touchHandler}
                            value={inputState.value} />
                    <Form.Text className="text-muted">
-                {!inputState.isValid && inputState.isTouched && <p>{props.errorText} </p>}
+                {!inputState.isValid && inputState.isTouched && <p className='errorMesage'>{props.errorText} </p>}
                 </Form.Text>       
                 </Form.Group>             
            )
