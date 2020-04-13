@@ -9,7 +9,7 @@ const navbar = props =>{
 
    return (
 
-       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav-bar-cs">
+       <Navbar collapseOnSelect expand="lg"  variant="dark" className="nav-bar-cs">
          <Navbar.Brand href="#home">
          <img
            alt=""
@@ -29,6 +29,11 @@ const navbar = props =>{
             <Nav.Link as={NavLink} to='/recipes'> 
               Recipes
             </Nav.Link>
+            {auth.isLoggedIn && (
+            <Nav.Link as={NavLink} to='/recipes/new'> 
+              Add a Recipe
+            </Nav.Link>
+            )}
             <Nav.Link as={NavLink} to='/mealplans'>
               MealPlans
               </Nav.Link>

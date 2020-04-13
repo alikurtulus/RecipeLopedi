@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true,
-    maxlength: 280
+    maxLength: 280
   }
 }, {
   timestamps: true, // this adds `createdAt` and `updatedAt` properties

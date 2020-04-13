@@ -16,7 +16,7 @@ import './RecipeDetails.css'
    
    }
 
-  useEffect(() => fetchRecipeData(),[])
+  useEffect(() => {fetchRecipeData()},[])
 
     return (
         <React.Fragment>

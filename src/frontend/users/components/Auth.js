@@ -13,8 +13,9 @@ const genderType = ['Choose','Female','Male','Other']
 
 const singUp = props => {
     const [isLoginMode,setIsLoginMode] = useState(true)
+    const [error,SetError] = useState('')
     const auth  = useContext(AuthContext)
-    const [formState,inputHandler, setFormData] = useForm({
+    const [formState,inputHandler, setFormData]= useForm({
       email:{
         value:'',
         isValid:false
@@ -89,13 +90,17 @@ const singUp = props => {
            formData.append('passwordConfirmation',formState.inputs.passwordConfirmation.value)
            formData.append('gender',formState.inputs.gender.value)
            formData.append('image',formState.inputs.image.value)
+           if(formState.inputs.password.value !== formState.inputs.passwordConfirmation.value){
+            SetError('Password does not match')
+           }
+          
   
            const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+'/users/signUp', formData)
-       
+            console.log(responseData)
              auth.login(responseData.data.userId, responseData.data.token)
          }
          catch(err) {
-  
+           
           }}
         }
     return (
@@ -105,30 +110,28 @@ const singUp = props => {
 
                 <Card  border="secondary"  style={{ width: '24rem' }}>
                       <Form >
-                                <Input 
-                                element='input'
-                                type='email'
-                                id='email'
-                                name='email'
-                                label='Email'
-                                validators={[VALIDATOR_EMAIL()]}
-                                errorText='Please enter an email...'
-                                placeholder='Please enter an email...'
-                                onInput={inputHandler}
-
-                                />
-                                <Input 
-                                element='input'
-                                type='password'
-                                id='password'
-                                name='password'
-                                validators={[VALIDATOR_MINLENGTH(6)]}
-                                label='Password'
-                                errorText='Please enter a password...'
-                                placeholder='Please enter a password...'
-                                onInput={inputHandler}
-
-                                />
+                          <Input 
+                            element='input'
+                            type='email'
+                            id='email'
+                            name='email'
+                            label='Email'
+                            validators={[VALIDATOR_EMAIL()]}
+                            errorText='Please enter an email...'
+                            placeholder='Please enter an email...'
+                            onInput={inputHandler}
+                        />
+                        <Input 
+                            element='input'
+                            type='password'
+                            id='password'
+                            name='password'
+                            validators={[VALIDATOR_MINLENGTH(6)]}
+                            label='Password'
+                            errorText= 'Please enter a password...' 
+                            placeholder='Please enter a password...'
+                            onInput={inputHandler}
+                        />
                         {!isLoginMode && (
                         <React.Fragment>
                               <Input 
