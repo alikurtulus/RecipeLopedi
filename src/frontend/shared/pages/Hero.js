@@ -6,17 +6,18 @@ import AsyncSelect from 'react-select/async'
 import {Form,Container,Button,Row, Col,CardDeck,Spinner} from 'react-bootstrap'
 import axios from 'axios'
 import CardBox from '../components/UIElements/CardBox'
-import {fetchJoke,fetchRandomRecipes} from '../../redux-stuff/actions/recipeActions'
+import {fetchHeroPage} from '../../redux-stuff/actions/recipeActions'
 const Hero = props => {
   const history = useHistory()
   
  const dispatch = useDispatch()
    useEffect(() =>{
-     dispatch(fetchJoke())
-     dispatch(fetchRandomRecipes())
+     dispatch(fetchHeroPage())
    } ,[dispatch])
-   const joke  = useSelector(state => state.recipes.joke)
-   const randomRecipes = useSelector(state => state.recipes.randomRecipes)
+   const heroData = useSelector(state => state.recipes.heroInfo)
+
+   const joke  = heroData[0]
+   const randomRecipes = heroData[1]
    const [selectedOption, setSelectedOption] = useState({})
    const [results, setResults]= useState()
 
@@ -72,8 +73,8 @@ const Hero = props => {
  return (
    
    <React.Fragment >
-   {joke.length === 0 && randomRecipes.length === 0 &&  <Spinner animation="border" variant="primary" />}
-   {joke.length !== 0 && randomRecipes.length !== 0 &&  <div className='main-container'>
+   {joke === undefined && randomRecipes === undefined &&  <Spinner animation="border" variant="primary" />}
+   {joke !== undefined && randomRecipes !== undefined &&  <div className='main-container'>
    <Container>
     <h2>RecipeLopedi</h2>
     <Form onSubmit={handleSubmit}>

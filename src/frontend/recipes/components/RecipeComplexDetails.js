@@ -10,6 +10,7 @@ import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
   const  RecipeComplexDetails = () =>  {
     const dispatch = useDispatch()
     const [index, setIndex] = useState(0);
+    const [nutrientIndicators,setNutrientIndicators] = useState([{name:'energy'},{name:'fat'},{name:'saturates'},{name:'carbs'},{name:'sugars'},{name:'fibre'},{name:'protein'},{name:'salt'}])
     const {id} = useParams()
 
 
@@ -30,8 +31,8 @@ import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
     
     return (
         <React.Fragment>
-         {recipe === undefined   &&  similarRecipes === undefined && <Spinner animation="border" variant="primary" /> }
-         {recipe !==  undefined  && similarRecipes !== undefined &&
+         {recipe === undefined   &&  similarRecipes === undefined && recipeNutrition === undefined && <Spinner animation="border" variant="primary" /> }
+         {recipe !==  undefined  && similarRecipes !== undefined && recipeNutrition !== undefined &&
         <Container className='recipedetails-box'>
                 <Row>
                     <Col sm={4}>
@@ -68,6 +69,34 @@ import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
                             </p>
                             </Col>
                         </Row>
+                        <Row>
+                            <Col>
+                                <Table responsive>
+                                    <thead>
+                                        <tr>
+                                        {nutrientIndicators.map( n => 
+                                             <th>{n.name} </th>
+                                        )}    
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                           <td>{recipeNutrition.calories}cal</td>
+                                           <td>{recipeNutrition.fat}</td>
+                                           <td>{recipeNutrition.bad[2].amount}</td>
+                                           <td>{recipeNutrition.carbs}</td>
+                                           <td>{recipeNutrition.bad[4].amount}</td>
+                                           <td>{recipeNutrition.good[17].amount}</td>
+                                           <td>{recipeNutrition.protein}</td>
+                                            <td>1.3g</td>
+                                        </tr>
+                                    
+                                    </tbody>
+                                </Table>
+                                
+                            </Col>
+                        </Row>
+
                     </Col>
                 </Row>
                 <Row>
