@@ -90,6 +90,7 @@ const singUp = props => {
            formData.append('passwordConfirmation',formState.inputs.passwordConfirmation.value)
            formData.append('gender',formState.inputs.gender.value)
            formData.append('image',formState.inputs.image.value)
+           console.log(formState.inputs.image.value)
            if(formState.inputs.password.value !== formState.inputs.passwordConfirmation.value){
             SetError('Password does not match')
            }
@@ -144,9 +145,7 @@ const singUp = props => {
                                 errorText='Please enter a passsword with min 6 characters'
                                 placeholder='Please enter confirm your password...'
                                 onInput={inputHandler}
-                                    
                                 />
-
                               <Input 
                                 element='input'
                                 type='text'
@@ -159,7 +158,6 @@ const singUp = props => {
                                 onInput={inputHandler}
                               
                               />
-
                               <Input
                                 element='input'
                                 type='number'

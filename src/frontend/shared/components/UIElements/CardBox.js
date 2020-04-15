@@ -18,8 +18,8 @@ const CardBox = props => {
   return (
 
     <Card border="secondary" style={{ width: '18rem'}}>
-      <Card.Img variant="top" src={props.image}  />
-        <Card.Body>
+      <Card.Img variant="top" className='card-image' src={props.mySimilar === 'similar'  ?  `https://spoonacular.com/recipeImages/${props.image}` :   props.image}  />
+        <Card.Body className='card-body'>
           <Card.Title className='title-text'>{props.title}</Card.Title>
               <ListGroup className="list-group-flush details">
                 <ListGroupItem><strong>ReadyInMinutes:</strong> {props.readyInMinutes}</ListGroupItem>
@@ -27,7 +27,7 @@ const CardBox = props => {
               </ListGroup>
           <div className='more-btn'>
           <Link  to={url}>
-            <Button  variant="primary"
+            <Button  variant="primary" className='more-btn'
                 >See more..
             </Button>
           </Link>

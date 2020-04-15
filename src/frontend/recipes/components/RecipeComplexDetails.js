@@ -1,32 +1,43 @@
 import React,{useState,useEffect} from 'react'
 import { useParams} from "react-router";
+import { useSelector, useDispatch}  from 'react-redux'
 import axios from 'axios'
 import './RecipeDetails.css'
-import {Container,Row,Col,Figure,Table,Card,ListGroup, Spinner,Badge} from 'react-bootstrap'
+import {Container,Row,Col,Figure,Table,Card,CardDeck,ListGroup, Spinner,Badge,Carousel} from 'react-bootstrap'
+import CardBox from '../../shared/components/UIElements/CardBox'
+import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
 
   const  RecipeComplexDetails = () =>  {
-      const [recipe,setRecipe] = useState()
-      const {id} = useParams()
-     
-      const fetchRecipe = async () => {
-          const responseData = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}`)
-          setRecipe(responseData.data)
-          console.log(responseData.data)
-      }
-   useEffect(() => {fetchRecipe()} ,[id])
+    const dispatch = useDispatch()
+    const [index, setIndex] = useState(0);
+    const {id} = useParams()
 
 
+    useEffect( () => { 
+        dispatch(fetchRecipeDetailsInfo(id))
+    },[])
+ 
+   
+    const recipeData  = useSelector(state => state.recipes.recipeDetailsInfo )
+    const recipe = recipeData[0]
+    const similarRecipes = recipeData[1]
+    const recipeNutrition = recipeData[2]
+
+
+    const handleSelect = (selectedIndex, e) => {
+          setIndex(selectedIndex)
+    }
+    
     return (
         <React.Fragment>
-         {recipe === undefined &&  <Spinner animation="border" variant="primary" /> }
-         {recipe !== undefined &&
+         {recipe === undefined   &&  similarRecipes === undefined && <Spinner animation="border" variant="primary" /> }
+         {recipe !==  undefined  && similarRecipes !== undefined &&
         <Container className='recipedetails-box'>
                 <Row>
                     <Col sm={4}>
                         <Figure>
-                            <Figure.Image
-                                width={300}
-                                height={300}
+                            <Figure.Image className='card-recipe-image'
+                               
                                 alt="171x180"
                                 src={recipe.image}
                             />
@@ -57,14 +68,11 @@ import {Container,Row,Col,Figure,Table,Card,ListGroup, Spinner,Badge} from 'reac
                             </p>
                             </Col>
                         </Row>
-                        <Row>
-                          
-                        </Row>
                     </Col>
                 </Row>
                 <Row>
                     <Col sm={4}>
-                        <Card   style={{ width: '18rem' }}>
+                        <Card   style={{ width: '22rem' }}>
                                 <ListGroup variant="flush">
                                     {recipe.extendedIngredients.map(ingredient => 
                                         <ListGroup.Item>{ingredient.originalString}</ListGroup.Item>
@@ -87,7 +95,31 @@ import {Container,Row,Col,Figure,Table,Card,ListGroup, Spinner,Badge} from 'reac
                         </Card>
                     </Col>
                 </Row>
+                <Row className='cards-container'>
+                
+                  <CardDeck>
+                    {similarRecipes.map(similar => 
+                    <Col sm={3} key={similar.id}>
+                        <CardBox 
+                                 cId={similar.id}
+                                 title={similar.title}
+                                 image={similar.image}
+                                 servings={similar.servings}
+                                 readyInMinutes={similar.readyInMinutes}
+                                 mySimilar='similar'
+                        />
+                    </Col>    
+                    )}
+                  </CardDeck>
+                </Row>
+                
+                  
+    
+                
            </Container>
+
+           
+           
         }
         </React.Fragment>
     )

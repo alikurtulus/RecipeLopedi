@@ -2,7 +2,7 @@ import React,   {Suspense} from 'react'
 import ReactDOM from 'react-dom'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Navbar from './shared/components/Navigation/Navbar'
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {AuthContext} from './shared/context/auth-context'
 import {Spinner} from 'react-bootstrap'
 import {useAuth} from './shared/hooks/auth-hook'

@@ -20,7 +20,7 @@ const Ingredient = props => {
         <Card.Body>
             <Input 
                 element='input'
-                type='iName'
+                type='text'
                 id='iName'
                 name='iName'
                 label='Name'
@@ -28,17 +28,10 @@ const Ingredient = props => {
                 errorText='Please enter a ingredient name...'
                 placeholder='Please enter a Ingredient name...'
                 onInput={props.onInputHandler} />
-            <ImageUpload
-                    id='iImage' 
-                    name='iImage'
-                    label='Image'
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText='Please import an Ingredient image file.'
-                    onInput={props.onInputHandler}          
-            />    
+           
             <Input 
                 element='input'
-                type='amount'
+                type='number'
                 id='amount'
                 name='amount'
                 label='Amount'
@@ -49,7 +42,7 @@ const Ingredient = props => {
             />
             <Input 
                 element='input'
-                type='measure'
+                type='text'
                 id='measure'
                 name='measure'
                 label='Measure'

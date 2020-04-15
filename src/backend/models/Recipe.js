@@ -61,7 +61,7 @@ const recipeSchema = new mongoose.Schema({
     required:true
   },
   servings:{
-    type:String,
+    type:Number,
     required:true
   },
   ratings:[{

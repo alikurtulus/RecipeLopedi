@@ -1,8 +1,10 @@
-import {FETCH_JOKE,FETCH_RANDOM_RECIPES} from '../actions/types'
+import {FETCH_JOKE,FETCH_RANDOM_RECIPES,FETCH_RECIPE_DETAILS_INFO} from '../actions/types'
 
 const initialState = {
     joke:[],
-    randomRecipes:[]
+    randomRecipes:[],
+    recipeDetailsInfo:[]
+
 }
 
 export default function(state=initialState,action){
@@ -18,6 +20,12 @@ export default function(state=initialState,action){
                 ...state,
                 randomRecipes:action.payload
             } 
+        case FETCH_RECIPE_DETAILS_INFO:
+            return{
+                ...state,
+                recipeDetailsInfo:action.payload
+            }
+
         default :
             return state
     }

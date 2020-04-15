@@ -1,5 +1,6 @@
 .recipedetails-box{
     margin-top: 30px !important;
+    max-height: 100vh;
 }
 .badges{
     font-size: 1.3rem;;
@@ -15,4 +16,10 @@
 }
 .badge{
     margin-right: 5px;
+}
+.card-recipe-image{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    object-position:50% 50%;
 }
