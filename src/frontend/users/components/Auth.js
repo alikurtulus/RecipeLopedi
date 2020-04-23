@@ -82,6 +82,7 @@ const singUp = props => {
          }
         else {
          try {
+           
            const formData = new FormData()
            formData.append('email',formState.inputs.email.value)
            formData.append('username',formState.inputs.username.value)
@@ -95,7 +96,7 @@ const singUp = props => {
             SetError('Password does not match')
            }
           
-  
+          console.log(formData.get('image'))
            const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+'/users/signUp', formData)
             console.log(responseData)
              auth.login(responseData.data.userId, responseData.data.token)

@@ -15,7 +15,7 @@ const signUp = async(req, res, next) => {
     return next(error)
   }
 
-  const {username,email,password,passwordConfirmation,image,age,gender} = req.body                         // We get all inputs with req.body
+  const {username,email,password,passwordConfirmation,age,gender} = req.body                         // We get all inputs with req.body
   let existingUser
    try{
          existingUser =  await User.findOne({email:email})

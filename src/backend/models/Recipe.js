@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+mongoose.set('useCreateIndex', true);
+const ingredientSchema = require("./Ingredient").schema;
+const instructionSchema = require("./Instruction").schema;
 
 
 const commentSchema = new mongoose.Schema({
@@ -23,6 +26,8 @@ const commentSchema = new mongoose.Schema({
     }
   }
 })
+
+
 const recipeSchema = new mongoose.Schema({
   title:{
     type:String,
@@ -32,30 +37,8 @@ const recipeSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  ingredients:[{
-    name:{
-      type:String,
-      required:true
-    },
-    image:{
-      type:String,
-      required:true
-    },
-    amount:{
-      type:Number,
-      required:true
-    },
-    measure:{
-      type:String,
-      required:true
-    }
-  }],
-  instructions:[{
-    content:{
-      type:String,
-      required:true
-    }
-  }],
+  ingredients:[ingredientSchema],
+  instructions:[instructionSchema],
   readyInMinutes:{
     type:Number,
     required:true
@@ -64,17 +47,21 @@ const recipeSchema = new mongoose.Schema({
     type:Number,
     required:true
   },
+  price:{
+    type:Number,
+    required:true
+  },
+  creator:{
+    type:mongoose.Types.ObjectId,
+    required:true,
+    ref:'User'
+  },
   ratings:[{
     point:{
       type:Number,
       required:true
     }
   }],
-  creator:{
-    type:mongoose.Types.ObjectId,
-    required:true,
-    ref:'User'
-  },
   comments:[commentSchema],
   nutrients:[{
     name:{
@@ -86,12 +73,10 @@ const recipeSchema = new mongoose.Schema({
       required:true
     }
   }],
-  price:{
-    type:Number,
-    required:true
-  }
+ 
 
 
 })
 recipeSchema.plugin(uniqueValidator)                                            //We plugin wiht mogooseValidator with our schema.
 module.exports = mongoose.model('Recipe',recipeSchema)                          //We called User model with recipeSchema
+

@@ -2,6 +2,8 @@ const HttpError = require('../models/HttpError')
 const bcrypt = require('bcryptjs')
 const jwt= require('jsonwebtoken')
 const Recipe = require('../models/Recipe')
+const Ingredient = require('../models/Ingredient')
+const Instruction = require('../models/Instruction')
 const User = require('../models/User')
 const {validationResult} = require('express-validator')
 const mongoose = require('mongoose')
@@ -44,23 +46,48 @@ const getRecipesByUserId = async (req, res, next) => {                          
 const createRecipe = async (req, res, next) =>{                                 //We create a new recipe
   const errors = validationResult(req)
   if(!errors.isEmpty()){
-    const error = new HttpError('Invalid inputs passed, please check your data.',422)
+    const error = new HttpError('Invalid inputs passed, please check your data. 2',422)
     return next(error)
   }
-  const {title,ingredients,instructions,readyInMinutes, servings, ratings,comments, nutrients,price} = req.body
+  const {title,ingredients,instructions,readyInMinutes,servings, ratings,comments, nutrients,price} = req.body
+  console.log(req.file)
+   let newIngredients = JSON.parse(ingredients)
+   let newInstructions = JSON.parse(instructions)
+   const myIngredients = []
+   let myInstructions = []
+  
+   
 
+   for(let i = 0;i<newIngredients.length;i++){
+     console.log(newIngredients[i])
+    let createIngredient = new Ingredient({
+      name:newIngredients[i].name,
+      amount:newIngredients[i].amount,
+      measure:newIngredients[i].measure
+    })
+    myIngredients.push(createIngredient)
+   }
+   for(let i = 0;i<newInstructions.length;i++){
+    let createInstruction = new Instruction({
+      content:newInstructions[i].content
+    })
+    myInstructions.push(createInstruction)
+   }
+
+ 
   const createdRecipe = new Recipe({
     title,
     image:req.file.path,
-    ingredients,
-    instructions,
+    ingredients:myIngredients,
+    instructions:myInstructions,
     readyInMinutes,
     servings,
-    ratings:[],
+    price,
     creator:req.userData.userId,
+    ratings:[],
     comments:[],
     nutrients:[],
-    price
+    
   })
   let user
   try{
@@ -84,6 +111,7 @@ const createRecipe = async (req, res, next) =>{                                 
   }
   catch(err){
     const error = new HttpError('Created recipe failed, please create again 2',500)
+  
     return next(error)
   }
   res.status(201).json({recipe:createdRecipe})
@@ -108,11 +136,12 @@ const updateRecipe = async (req, res, next) => {
       const error = new HttpError('You are not allowed to update this recipe ',403)
       return next(error)
    }
-    const {title,ingredients,instructions,readyInMinutes, servings, nutrients,price} = req.body
+    const {title,name,amount,measure,readyInMinutes,content,servings, ratings,comments, nutrients,price} = req.body
+   
     existingRecipe.title = title
     existingRecipe.image = req.file.path
-    existingRecipe.ingredients= ingredients
-    existingRecipe.instructions = instructions
+    existingRecipe.ingredients.push({name:name,amount:amount,measure:measure})
+    existingRecipe.instructions.push({content:content})
     existingRecipe.readyInMinutes = readyInMinutes
     existingRecipe.servings = servings
     existingRecipe.nutrients  = nutrients

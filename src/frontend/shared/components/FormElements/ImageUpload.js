@@ -1,6 +1,7 @@
 import React, {useRef, useState, useEffect} from 'react'
-import {Form,InputGroup, Button, FormControl, ProgressBar } from 'react-bootstrap'
+import {Form,InputGroup,Container,Row,Col,Figure, Button, FormControl, ProgressBar } from 'react-bootstrap'
 import UploadBar from '../UIElements/UploadBar'
+import './ImageUpload.css'
 
 
 const ImageUpload = props =>{
@@ -44,30 +45,50 @@ const ImageUpload = props =>{
     return (
 
         <Form.Group controlid={props.cId} >
-            <InputGroup className="mb-3">
-                <FormControl
-                    as='input'
-                    type='text'
-                    isValid={props.isValid} 
-                    style={{display:'none'}}
-                    ref={filePickerRef}
-                     type="file"
-                   
-                    aria-describedby="basic-addon2"
-                    onChange={pickedHandler}
-                    accept=".jpg,.png,.jpeg" 
-                    
-                />
-                 <Form.Control  id='image-path' value={fileName} onChange={pickedHandler} />
-              
-              <InputGroup.Append>
-                <Button variant="outline-secondary" onClick={pickImageHandler}>Pick Image</Button> 
-              </InputGroup.Append>
-             
-            </InputGroup>
-          
+            <InputGroup className="mb-3 ">
+              <Container>
+              <Row>
+                  <Col className='image-upload-container'>
+                    <Figure className='image-upload__preview' >
+                      {previewUrl && 
+                        <Figure.Image
+                          width={181}
+                          height={180}
+                          alt="preview"
+                          className='image-name'
+                          src={previewUrl}
+                        />
+                      }
+                        <Figure.Caption>
+                        {!previewUrl && <p>Please pick an image</p>}
+                        </Figure.Caption>
+                    </Figure>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className='input-button'>
+                      <FormControl
+                        as='input'
+                        type='text'
+                        isValid={props.isValid} 
+                        style={{display:'none'}}
+                        ref={filePickerRef}
+                        type="file"
+                        aria-describedby="basic-addon2"
+                        onChange={pickedHandler}
+                        accept=".jpg,.png,.jpeg" 
+                      />
+                    <Form.Control  id='image-path' value={fileName} onChange={pickedHandler} />
             
-          
+                    <InputGroup.Append>
+                      <Button variant="outline-secondary" onClick={pickImageHandler}>Pick Image</Button> 
+                    </InputGroup.Append>
+                  </Col>
+                </Row>
+              </Container>   
+            
+            </InputGroup>
+  
          
         </Form.Group>  
 

@@ -5,29 +5,24 @@ import axios from 'axios'
 import './RecipeDetails.css'
 import {Container,Row,Col,Figure,Table,Card,CardDeck,ListGroup, Spinner,Badge,Carousel} from 'react-bootstrap'
 import CardBox from '../../shared/components/UIElements/CardBox'
-import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
+import {fetchRecipeDetailsInfo, fetchHeroPage} from '../../redux-stuff/actions/recipeActions'
 
   const  RecipeComplexDetails = () =>  {
     const dispatch = useDispatch()
     const [index, setIndex] = useState(0);
     const [nutrientIndicators,setNutrientIndicators] = useState([{name:'energy'},{name:'fat'},{name:'saturates'},{name:'carbs'},{name:'sugars'},{name:'fibre'},{name:'protein'},{name:'salt'}])
     const {id} = useParams()
-
-
     useEffect( () => { 
-        dispatch(fetchRecipeDetailsInfo(id))
-    },[])
+        const fetchData = async () => {
+          await  dispatch(fetchRecipeDetailsInfo(id))
+        }
+        fetchData()
+    },[dispatch,id])
  
-   
     const recipeData  = useSelector(state => state.recipes.recipeDetailsInfo )
     const recipe = recipeData[0]
     const similarRecipes = recipeData[1]
     const recipeNutrition = recipeData[2]
-
-
-    const handleSelect = (selectedIndex, e) => {
-          setIndex(selectedIndex)
-    }
     
     return (
         <React.Fragment>
@@ -36,13 +31,11 @@ import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
         <Container className='recipedetails-box'>
                 <Row>
                     <Col sm={4}>
-                        <Figure>
+                        <Figure  border="secondary">
                             <Figure.Image className='card-recipe-image'
-                               
                                 alt="171x180"
                                 src={recipe.image}
                             />
-  
                         </Figure>
                     </Col>
                     <Col sm={8}>
@@ -96,23 +89,20 @@ import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
                                 
                             </Col>
                         </Row>
-
                     </Col>
                 </Row>
                 <Row>
                     <Col sm={4}>
-                        <Card   style={{ width: '22rem' }}>
+                        <Card  style={{ width: '22rem' }}>
                                 <ListGroup variant="flush">
                                     {recipe.extendedIngredients.map(ingredient => 
-                                        <ListGroup.Item>{ingredient.originalString}</ListGroup.Item>
-                                        
+                                        <ListGroup.Item>{ingredient.originalString}</ListGroup.Item>   
                                      )}
                                 </ListGroup>
                         </Card>
                     </Col>
                     <Col sm={8}>
-                  
-                        <Card   style={{ width: '46rem' }}>
+                        <Card  style={{ width: '46rem' }}>
                                
                                 <ListGroup variant="flush">
                                     {recipe.analyzedInstructions[0].steps.map(method =>
@@ -124,11 +114,13 @@ import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
                         </Card>
                     </Col>
                 </Row>
+                <h3 className='similar-header'>Similar Recipes</h3>
                 <Row className='cards-container'>
                 
-                  <CardDeck>
+                  <CardDeck className='card-deck'>
+                  
                     {similarRecipes.map(similar => 
-                    <Col sm={3} key={similar.id}>
+                    <Col className='card-similar-recipe' sm={3} key={similar.id}>
                         <CardBox 
                                  cId={similar.id}
                                  title={similar.title}

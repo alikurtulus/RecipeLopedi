@@ -13,9 +13,9 @@ router.post('/new',
  [
   check('title').not().isEmpty(),
   check('ingredients').not().isEmpty(),
-  check('servings').not().isEmpty(),
-  check('readyInMinutes').not().isEmpty(),
   check('instructions').not().isEmpty(),
+  check('readyInMinutes').not().isEmpty(),
+  check('servings').not().isEmpty(),
   check('price').not().isEmpty()
 ],recipeController.createRecipe)
 router.put('/:rid',
@@ -23,6 +23,7 @@ router.put('/:rid',
   [
   check('title').not().isEmpty(),
   check('ingredients').not().isEmpty(),
+  check('instructions').not().isEmpty(),
   check('servings').not().isEmpty(),
   check('readyInMinutes').not().isEmpty(),
   check('instructions').not().isEmpty(),

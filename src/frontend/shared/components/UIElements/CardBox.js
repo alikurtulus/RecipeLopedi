@@ -4,7 +4,7 @@ import './CardBox.css'
 import  {Link} from 'react-router-dom'
 const CardBox = props => {
     let url
-    console.log(props.cid)
+   
     if(props.cid === undefined){
 
       url= { pathname:`recipe/details/${props.id}` }
@@ -33,7 +33,7 @@ const CardBox = props => {
           </Link>
           </div>
         </Card.Body>
-       </Card>
+  </Card>
      )
 }
 export default CardBox

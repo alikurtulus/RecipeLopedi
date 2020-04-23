@@ -37,7 +37,7 @@ export const fetchHeroPage = () => async dispatch => {
 
 export const fetchRecipeDetailsInfo = (id) => async dispatch => {
     let urlOne = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}`
-    let urlTwo = ` https://api.spoonacular.com/recipes/${id}/similar?number=4&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}`
+    let urlTwo = ` https://api.spoonacular.com/recipes/${id}/similar?number=10&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}`
     let urThree = `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}`
 
     const requestOne = await  axios.get(urlOne);

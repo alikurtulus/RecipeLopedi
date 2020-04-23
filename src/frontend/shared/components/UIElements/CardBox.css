@@ -1,13 +1,13 @@
 .more-btn{
    display: flex;
-   justify-content: center;
-   align-self: flex-end;
-   margin: 10px auto;
+   justify-content:center;
+   align-items: flex-end;
+   margin: 10px  auto  5px auto;
 
 
 }
 .title-text{
-   font-size: 1.1rem;
+   font-size: 1.0rem;
    text-align: center;
    font-weight: bold;
 }
@@ -25,4 +25,7 @@
    height:280px;
    object-fit:cover;
    object-position:50% 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }

@@ -12,7 +12,11 @@ const Hero = props => {
   
  const dispatch = useDispatch()
    useEffect(() =>{
-     dispatch(fetchHeroPage())
+     const fetchData = async () => {
+       await  dispatch(fetchHeroPage())  
+     }
+     fetchData()
+    
    } ,[dispatch])
    const heroData = useSelector(state => state.recipes.heroInfo)
 

@@ -7,34 +7,32 @@ import {VALIDATOR_MINLENGTH,VALIDATOR_EMAIL, VALIDATOR_REQUIRE}  from '../../sha
 
 const Instruction = props => {
     return(
-        <Accordion >
-        <Card>
-            <Accordion.Toggle as={Card.Header} eventKey={props.iId}>
-            + Instruction
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey={props.iId}>
-                <Card.Body>
-                    <Input 
-                        element='textarea'
-                        type='content'
-                        id='content'
-                        name='content'
-                        label='Content'
-                        validators={[VALIDATOR_REQUIRE()]}
-                        errorText='Please enter a content...'
-                        placeholder='Please enter a content...'
-                        onInput={props.onInputHandler} />
-                    <div className='div-buttons'>
-                        <Button variant="success">Submit</Button>
-                        <Button variant="danger" onClick={props.deleteInstruction} >Remove  </Button>       
-                    </div>       
-                </Card.Body>
-            </Accordion.Collapse>
-        </Card>       
-    </Accordion>
-
-
-
+        <Accordion className='accordion-item' >
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey={props.iId}>
+                    + Instruction
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey={props.iId}>
+                        <Card.Body>
+                            <Input 
+                                element='textarea'
+                                type='content'
+                                id='content'
+                                name='content'
+                                label='Content'
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText='Please enter a content...'
+                                placeholder='Please enter a content...'
+                                onInput={props.onInputHandler} />
+                                
+                            <div className='div-buttons'>
+                                <Button variant="success" onClick={props.addInstructionHandler}>Submit</Button>
+                                <Button variant="danger" onClick={props.deleteInstruction} >Remove  </Button>       
+                            </div>       
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>       
+        </Accordion>
 
     )
 

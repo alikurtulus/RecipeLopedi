@@ -1,21 +1,26 @@
 .div-buttons{
     display: flex;
-    align-items: center;
+    align-items:flex-end;
     justify-content: flex-end;
-    
+}
+.accordion-item{
+    margin-bottom: 0.4rem;
+    margin-top: 0.4rem;
+}
+.accordion-card-item{
+    height: 100%;
 }
 .new-recipe-container {
-    width: 90%;
-    max-width: 45rem;
+    width: 100%;
+    max-width: 80rem;
     margin:   auto;
-   
-    
 }
-
 .form-container{
-    margin:1.4rem;
+    margin: 1.4rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
 }
-
 .recipe-main{
     height: 100vh;
     background-position: center;

@@ -110,9 +110,7 @@ const input = props => {
         <React.Fragment>
            
             {element}
-            
-           
-             
+
         </React.Fragment>
     )
 }

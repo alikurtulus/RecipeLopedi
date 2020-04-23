@@ -1,6 +1,6 @@
 import React ,{useContext, useState, useEffect} from 'react'
 import axios from 'axios'
-import {Container,Form,Row,Col,Figure,Table,Card,ListGroup, Spinner,Badge, Accordion,Button} from 'react-bootstrap'
+import {Container,Form,Row,Col,Table,Card,Modal,ListGroup, Spinner,Badge,Button} from 'react-bootstrap'
 import ImageUpload from '../../shared/components/FormElements/ImageUpload'
 import Input from '../../shared/components/FormElements/Input'
 import {useForm} from '../../shared/hooks/form-hooks'
@@ -13,7 +13,6 @@ import {AuthContext} from '../../shared/context/auth-context'
 
  const NewRecipe = props => {
     const auth  = useContext(AuthContext)
-
     const [formState,inputHandler, setFormData]= useForm({
       title:{
         value:"",
@@ -21,6 +20,22 @@ import {AuthContext} from '../../shared/context/auth-context'
       },
       image:{
         value:null,
+        isValid:false
+      },
+      name:{
+        value:"",
+        isValid:false
+      },
+      amount:{
+        value:"",
+        isValid:false
+      },
+      measure:{
+        value:"",
+        isValid:false
+      },
+      content:{
+        value:"",
         isValid:false
       },
       readyInMinutes:{
@@ -35,109 +50,98 @@ import {AuthContext} from '../../shared/context/auth-context'
         value:"",
         isValid:false
       },
-      ingredients:[{
-        name:{
-            value:"",
-            isValid:false
-          },
-          amount:{
-            value:"",
-            isValid:false
-          },
-          measure:{
-            value:"",
-            isValid:false
-          }
-      }
-      ],
-      instructions:[
-          {
-            content:{
-                value:"",
-                isValid:false
-              }
-          }
-      ]
-     
-
     },false)
     const [ingredients,setIngredients] = useState([])
     const [ingredientCount,setIngredientCount] = useState(0)
     const [instructionCount, setInstructionCount] = useState(0)
     const [instructions, setInstructions] = useState([])
+    const [ingredientData,setIngredientData] = useState([])
+    const [instructionData, setInstructionData] = useState([])
+    const [show, setShow] = useState(false);                                 //Error modal
+    const handleClose = () => setShow(false);                                // We  use this for closing the modal.
+    const handleShow = () => setShow(true);                                  // We use this for showing the modal.
+    const [errorMessage,setErrorMessage] = useState('')
 
         
     const addIngredient = () => {
-        setIngredientCount(ingredientCount=> ingredientCount + 1)
+      
         setIngredients(prev => [...prev,ingredientCount])
+        setIngredientCount(ingredientCount=> ingredientCount + 1)
+        console.log(ingredientData)
     }
     const addInstruction = () => {
-        setInstructionCount(instructionCount => instructionCount + 1)
+    
         setInstructions(prev => [...prev, instructionCount])
+        setInstructionCount(instructionCount => instructionCount + 1)
     }
     const handleIngredientRemove = (index) => {
         setIngredients(ingredients.filter(ingredient => ingredient !== index))
         setIngredientCount(ingredientCount => ingredientCount - 1)   
     }
     const handleInstructionRemove = (index) => {
-        setInstructions(ingredients.filter(ingredient => ingredient !== index))
-        setInstructionCount(ingredientCount => ingredientCount - 1)  
+        setInstructions(instructions.filter(instruction => instruction !== index))
+        setInstructionCount(instructionCount => instructionCount - 1)  
     }
-    const handleSubmit =  (e) => {
-        e.preventDefault()
-        setFormData({...formState.inputs},false)
-        
+    const handleSaveIngredient = (index) => {
 
+        let  newArr = [...ingredientData]
+        newArr[index] = {name:formState.inputs.iName.value,amount:formState.inputs.amount.value,measure:formState.inputs.measure.value}
+        setIngredientData(newArr)
+        console.log(ingredientData)
+    }
+    const handleSaveInstruction = (index) => {
+      let newArr = [...instructionData]
+      newArr[index] = {content:formState.inputs.content.value}
+      setInstructionData(newArr)
+      console.log(instructionData)
+    }
+    const handleSubmit =  async e => {
+
+        e.preventDefault()     
         try{
-            console.log(formState.inputs)
+
             const formData = new FormData()
-            const my_ingredients = new Array()
-            const my_instructions = new Array()
-        
-            my_ingredients.push({name:formState.inputs.iName.value,amount:parseFloat(formState.inputs.amount.value),measure:formState.inputs.measure.value})
-            console.log(my_ingredients)
-           
-            my_instructions.push({content:formState.inputs.content.value})
-            
             formData.append('title',formState.inputs.title.value)
             formData.append('image',formState.inputs.image.value)
-            formData.append('ingredients',JSON.stringify(my_ingredients))
-            formData.append('instructions',JSON.stringify(my_instructions))
-            formData.append('readyInMinutes',parseFloat(formState.inputs.readyInMinutes.value))
-            formData.append('servings',parseFloat(formState.inputs.servings.value))
-            formData.append('price',parseFloat(formState.inputs.price.value))
-          
-           
-            console.log(formData.get('ingredients'))
-            console.log(formData.get('instructions'))
-            console.log(formData.get('image'))
-            console.log(formData.get('price'))
-            console.log(formData.get('servings'))
-            console.log(formData.get('title'))
-           
-            const responseData =  axios.post(
+            formData.append('ingredients',JSON.stringify(ingredientData))
+            formData.append("instructions",JSON.stringify(instructionData))
+            formData.append('readyInMinutes',formState.inputs.readyInMinutes.value)
+            formData.append('servings',formState.inputs.servings.value)
+            formData.append('price',formState.inputs.price.value)
+            formData.append('creator',auth.userId)
+            
+            const responseData = await axios.post(
                 process.env.REACT_APP_BACKEND_URL+'/recipes/new',
                  formData,{
-                 headers: {"Authorization" : `Bearer ${auth.token}`} })
-        
-            console.log(responseData)
-            console.log('2g')
-            
-           
-          
-        }
+                 headers: {Authorization : `Bearer ${auth.token}`} })
+                 console.log(responseData)
+          }
+
         catch(err){
-           console.log(err.message)
+          console.log(err)
+          setErrorMessage(err.message)
+          setShow(true);
         }
     }
-
     return (
         <div className='recipe-main'>
             <h3>-</h3>
+           {show && <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Error Message</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Invalid inputs passed, please check your data.</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>} 
             <Container className='new-recipe-container' >
-                
                 <Card  border="secondary" className='recipe-form'>
-                    <Form className='form-container' >
+                    <Form className='form-container' onSubmit={handleSubmit} >
+                      <Row>
+                        <Col sm={6}>
                         <Input 
                             element='input'
                             type='text'
@@ -147,7 +151,8 @@ import {AuthContext} from '../../shared/context/auth-context'
                             validators={[VALIDATOR_REQUIRE()]}
                             errorText='Please enter a title...'
                             placeholder='Please enter a title...'
-                            onInput={inputHandler} />
+                            onInput={inputHandler}
+                        />
                         <Input 
                             element='input'
                             type='number'
@@ -157,23 +162,8 @@ import {AuthContext} from '../../shared/context/auth-context'
                             validators={[VALIDATOR_REQUIRE()]}
                             errorText='Please enter a readyInMinutes...'
                             placeholder='Please enter a readyInMinutes...'
-                            onInput={inputHandler} />    
-                        <ImageUpload
-                                id='image' 
-                                name='image'
-                                validators={[VALIDATOR_REQUIRE()]}
-                                errorText='Please import an image file.'
-                                onInput={inputHandler}
-                                
-                        />
-                        <Button className='increment-btn' variant="warning" size="lg" block onClick={addIngredient}>
-                            Add Ingredient
-                        </Button>
-                        {ingredients.map(index => {
-                            return ( <Ingredient  key={index} onInputHandler={inputHandler} deleteIngredientHandler={() => handleIngredientRemove(index)} iId={index} />)
-                        }
-                        )}
-                       
+                            onInput={inputHandler}
+                        /> 
                         <Input 
                             element='input'
                             type='number'
@@ -183,7 +173,8 @@ import {AuthContext} from '../../shared/context/auth-context'
                             validators={[VALIDATOR_REQUIRE()]}
                             errorText='Please enter a servings...'
                             placeholder='Please enter a servings...'
-                            onInput={inputHandler} />
+                            onInput={inputHandler}
+                        />
                         <Input 
                             element='input'
                             type='number'
@@ -193,14 +184,46 @@ import {AuthContext} from '../../shared/context/auth-context'
                             validators={[VALIDATOR_REQUIRE()]}
                             errorText='Please enter a price...'
                             placeholder='Please enter a price...'
-                            onInput={inputHandler} />
+                            onInput={inputHandler}
+                        />
+                        <Button className='increment-btn' variant="warning" size="lg" block onClick={addIngredient}>
+                            Add Ingredient
+                        </Button>
+                        {ingredients.map(index => {
+                            return <Ingredient 
+                             key={index}
+                             addIngredientHandler={() => handleSaveIngredient(index)}
+                             onInputHandler={inputHandler}
+                             deleteIngredientHandler={() => handleIngredientRemove(index)} iId={index} />
+                        }
+                        )}
+                        </Col>
+                        <Col sm={6}>
+                        <ImageUpload
+                                id='image' 
+                                name='image'
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText='Please import an image file.'
+                                onInput={inputHandler}
+                        />
                         <Button className='increment-btn' variant="warning" size="lg" block onClick={addInstruction}>
                             Add Instruction
                         </Button>
                         {instructions.map(index => {
-                            return   <Instruction key={index} iId={index} onInputHandler={inputHandler} deleteInstruction={() => handleInstructionRemove(index)} />
+                            return   <Instruction 
+                            key={index} iId={index}
+                            onInputHandler={inputHandler}
+                            addInstructionHandler = {() => handleSaveInstruction(index)}
+                            deleteInstruction={() => handleInstructionRemove(index)} />
                         })}
-                    <Button  type='submit' className='submit-btn' size="lg" block  onClick={handleSubmit}>Add Recipe</Button>
+                        </Col>
+                      
+                      </Row>
+                      
+                       
+                      
+                       
+                        <Button  type='submit' className='submit-btn' size="lg" block >Add Recipe</Button>
                     </Form>
                 </Card>
             </Container>
