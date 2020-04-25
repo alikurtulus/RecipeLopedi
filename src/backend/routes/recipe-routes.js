@@ -5,9 +5,17 @@ const recipeController = require('../controllers/recipes')
 const checkAuth = require('../middleware/check-auth')
 const fileUpload = require('../middleware/file-upload')
 
-router.get('/',recipeController.getAllRecipes)
+
+
+router.get('/all',recipeController.getAllRecipes)
 router.get('/user/:uid',recipeController.getRecipesByUserId)
+router.get('/usersRecipes/details/:rid',recipeController.getRecipeById)
+
 router.use(checkAuth)
+router.post('/comment/recipe/:rid',recipeController.createComment)
+router.post('/user/myfavouriteRecipe/:rid',recipeController.addFavouriteRecipe)
+router.post('/user/usermyfavouriteRecipe/delete/:rid',recipeController.removeFavouriteRecipe)
+router.post('/recipe/rating/:rid',recipeController.getRecipeRating)
 router.post('/new',
  fileUpload.single('image'),
  [

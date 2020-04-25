@@ -26,8 +26,8 @@ const Instruction = props => {
                                 onInput={props.onInputHandler} />
                                 
                             <div className='div-buttons'>
-                                <Button variant="success" onClick={props.addInstructionHandler}>Submit</Button>
-                                <Button variant="danger" onClick={props.deleteInstruction} >Remove  </Button>       
+                                <Button variant="success" className='btn-left-submit' onClick={props.addInstructionHandler}>Submit</Button>
+                                <Button variant="danger" className='btn-right-remove' onClick={props.deleteInstruction} >Remove  </Button>       
                             </div>       
                         </Card.Body>
                     </Accordion.Collapse>

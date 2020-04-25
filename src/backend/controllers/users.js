@@ -144,9 +144,27 @@ const profile = async(req, res, next) => {
      }
      if(!existingUser){
        const error = new HttpError('User does not exist',422)
+       return next(error)
      }
 
     res.status(200).json({user:existingUser.toObject({getters:true})})
+}
+const getUserById = async (req,res,next) => {
+  const {userId} = req.body
+  let existingUser 
+  try{
+    existingUser = await User.findById(userId)
+        if(!existingUser){
+          const error = new HttpError('User does not exist',422)
+          return next(error)
+        }
+        res.status(200).json({user:existingUser.toObject({getters:true})})
+    
+  }
+  catch(err){
+     const error = new HttpError('Profile failed, please try again', 500)
+       return next(error)
+  }
 }
 const editUser = async (req, res, next) => {
   
@@ -154,3 +172,4 @@ const editUser = async (req, res, next) => {
 exports.signUp = signUp
 exports.login = login
 exports.profile = profile
+exports.getUserById = getUserById

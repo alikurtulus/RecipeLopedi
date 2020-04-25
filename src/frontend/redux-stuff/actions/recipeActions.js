@@ -1,4 +1,4 @@
-import {FETCH_JOKE,FETCH_RANDOM_RECIPES,FETCH_CUISINES,FETCH_RECIPE_DETAILS_INFO,FETCH_HERO_DATA} from '../actions/types'
+import {FETCH_CUISINES,FETCH_RECIPE_DETAILS_INFO,FETCH_HERO_DATA,FETCH_USERS_RECIPES,FETCH_USERS_RECIPE_DETAILS_INFO} from '../actions/types'
 import axios from 'axios'
 import cuisines from '../../shared/lib/cuisines'
 
@@ -60,4 +60,30 @@ export const fetchRecipeDetailsInfo = (id) => async dispatch => {
         // react on errors.
       })
 
+}
+export  const fetchUsersRecipes = () => async dispatch => {
+    try{ 
+       const responseData = await axios.get(`http://localhost:5000/api/recipes/all`);
+        dispatch({
+          type:FETCH_USERS_RECIPES,
+          payload:responseData.data.recipes
+        })
+   }
+   catch(err){
+
+   }
+   
+}
+export const fetchUsersRecipeDetails = (rid) => async dispatch => {
+  try{
+    const responseData = await axios.get(`http://localhost:5000/api/recipes/usersRecipes/details/${rid}`)
+    console.log(responseData.data.recipe)
+    dispatch({
+      type:FETCH_USERS_RECIPE_DETAILS_INFO,
+      payload:responseData.data.recipe
+    })
+  }
+  catch(err){
+    console.log(err)
+  }
 }

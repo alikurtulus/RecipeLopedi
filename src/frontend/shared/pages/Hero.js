@@ -59,7 +59,6 @@ const Hero = props => {
     e.preventDefault()
     let queryString
     if(selectedOption.label.indexOf(' ') >= 0 ) {
-
       queryString = selectedOption.label.split(' ')
       queryString =  queryString.join('+')
       console.log(queryString)
@@ -69,7 +68,6 @@ const Hero = props => {
     }
     const responseData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${queryString}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}`)
     console.log(responseData )
-  
     history.push('/recipes/searches',{data:responseData.data.results})
 
   }
@@ -108,7 +106,6 @@ const Hero = props => {
         <CardDeck>
         {randomRecipes.map(recipe =>
         <Col sm={3} key={recipe.id}>
-        
           <CardBox
               id={recipe.id}
               price={recipe.pricePerServing}

@@ -2,7 +2,6 @@ import React,   {Suspense} from 'react'
 import ReactDOM from 'react-dom'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Navbar from './shared/components/Navigation/Navbar'
-
 import {AuthContext} from './shared/context/auth-context'
 import {Spinner} from 'react-bootstrap'
 import {useAuth} from './shared/hooks/auth-hook'
@@ -17,13 +16,14 @@ const CuisineRecipes = React.lazy(() => import('./shared/pages/CuisineRecipes'))
 const RecipeDetails = React.lazy(() => import('./recipes/components/RecipeDetails'))
 const Profile = React.lazy(() => import('./users/components/Profile'))
 const NewRecipe = React.lazy(() => import('./recipes/components/NewRecipe'))
+const UsersRecipes = React.lazy(()=> import('./recipes/components/UsersRecipes'))
+const UserRecipesDetails = React.lazy(() => import('./recipes/components/UserRecipesDetails'))
 
 
 
 const  App = () => {
   const {token, login, logout, userId} = useAuth()
 
-  
     let routes 
     if(token){
       routes = (
@@ -37,6 +37,12 @@ const  App = () => {
             </Route>
            <Route path='/cuisine/recipe/:id'  >
             <RecipeDetails />
+            </Route>
+            <Route  path = '/recipes/usersRecipes/details/:rid'>
+                  <UserRecipesDetails />
+            </Route>
+            <Route exact path="/recipes/all">
+                  <UsersRecipes />
             </Route>
             <Route path='/recipes/searches' >
                   <RecipeSearches />
@@ -65,7 +71,13 @@ const  App = () => {
                 </Route>
                 <Route path='/cuisine/recipe/:id'  >
                   <RecipeDetails />
-                </Route> 
+                </Route>
+                <Route  path ='/recipes/usersRecipes/details/:rid'>
+                  <UserRecipesDetails />
+               </Route>
+                <Router exact path="/recipes/all">
+                  <UsersRecipes />
+                </Router>
                 <Route path='/cuisine/:id' exact>
                   <CuisineRecipes />
                 </Route>

@@ -1,10 +1,12 @@
-import {FETCH_RECIPE_DETAILS_INFO,FETCH_HERO_DATA} from '../actions/types'
+import {FETCH_RECIPE_DETAILS_INFO,FETCH_HERO_DATA,FETCH_USERS_RECIPES,FETCH_USERS_RECIPE_DETAILS_INFO} from '../actions/types'
 
 const initialState = {
     joke:[],
     randomRecipes:[],
     recipeDetailsInfo:[],
-    heroInfo:[]
+    heroInfo:[],
+    usersRecipes:[],
+    usersRecipeDetailsInfo:[]
 
 }
 
@@ -22,6 +24,16 @@ export default function(state=initialState,action){
                 ...state,
                 heroInfo:action.payload
             }    
+        case FETCH_USERS_RECIPES:
+            return{
+                ...state,
+                usersRecipes:action.payload
+            }
+        case FETCH_USERS_RECIPE_DETAILS_INFO:
+            return{
+                ...state,
+                usersRecipeDetailsInfo:action.payload
+            }            
 
         default :
             return state

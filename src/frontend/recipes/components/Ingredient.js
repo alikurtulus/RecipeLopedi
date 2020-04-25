@@ -47,8 +47,8 @@ const Ingredient = props => {
                         onInput={props.onInputHandler}
                     />
                     <div className='div-buttons'>
-                        <Button variant="success" onClick={props.addIngredientHandler}>Submit</Button>
-                        <Button variant="danger" onClick={props.deleteIngredientHandler} >Remove  </Button>
+                        <Button variant="success" className='btn-left-submit' onClick={props.addIngredientHandler}>Submit</Button>
+                        <Button variant="danger" className='btn-right-remove' onClick={props.deleteIngredientHandler} >Remove  </Button>
                     </div>
                 </Card.Body>
                 </Accordion.Collapse>

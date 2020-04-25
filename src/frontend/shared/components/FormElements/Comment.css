@@ -1,0 +1,15 @@
+.avatar-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.comments-container{
+    margin: 1.5rem auto;
+}
+.username{
+    text-align: center;
+}
+.avatar-img{
+    height: 20vh;
+  
+}

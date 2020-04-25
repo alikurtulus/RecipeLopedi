@@ -1,11 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import { useParams} from "react-router";
 import { useSelector, useDispatch}  from 'react-redux'
-import axios from 'axios'
 import './RecipeDetails.css'
-import {Container,Row,Col,Figure,Table,Card,CardDeck,ListGroup, Spinner,Badge,Carousel} from 'react-bootstrap'
+import {Container,Row,Col,Figure,Table,Card,CardDeck,ListGroup, Spinner,Badge} from 'react-bootstrap'
 import CardBox from '../../shared/components/UIElements/CardBox'
-import {fetchRecipeDetailsInfo, fetchHeroPage} from '../../redux-stuff/actions/recipeActions'
+import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
 
   const  RecipeComplexDetails = () =>  {
     const dispatch = useDispatch()
@@ -23,6 +22,7 @@ import {fetchRecipeDetailsInfo, fetchHeroPage} from '../../redux-stuff/actions/r
     const recipe = recipeData[0]
     const similarRecipes = recipeData[1]
     const recipeNutrition = recipeData[2]
+    console.log(similarRecipes)
     
     return (
         <React.Fragment>

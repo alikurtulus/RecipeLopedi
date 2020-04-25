@@ -26,7 +26,7 @@ const navbar = props =>{
             <Nav.Link as={NavLink}  to='/' >
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to='/recipes'> 
+            <Nav.Link as={NavLink} to='/recipes/all'> 
               Recipes
             </Nav.Link>
             {auth.isLoggedIn && (
@@ -60,9 +60,6 @@ const navbar = props =>{
             }
             
            </Nav>
-
-         
-      
        </Navbar.Collapse>
      </Navbar>
 

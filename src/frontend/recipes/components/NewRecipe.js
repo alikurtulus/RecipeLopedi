@@ -1,6 +1,7 @@
-import React ,{useContext, useState, useEffect} from 'react'
+import React ,{useContext, useState ,useEffect} from 'react'
 import axios from 'axios'
-import {Container,Form,Row,Col,Table,Card,Modal,ListGroup, Spinner,Badge,Button} from 'react-bootstrap'
+import {useHistory} from 'react-router-dom'
+import {Container,Form,Row,Col,Card,Modal,Button} from 'react-bootstrap'
 import ImageUpload from '../../shared/components/FormElements/ImageUpload'
 import Input from '../../shared/components/FormElements/Input'
 import {useForm} from '../../shared/hooks/form-hooks'
@@ -13,6 +14,7 @@ import {AuthContext} from '../../shared/context/auth-context'
 
  const NewRecipe = props => {
     const auth  = useContext(AuthContext)
+    const history = useHistory()
     const [formState,inputHandler, setFormData]= useForm({
       title:{
         value:"",
@@ -115,6 +117,9 @@ import {AuthContext} from '../../shared/context/auth-context'
                  formData,{
                  headers: {Authorization : `Bearer ${auth.token}`} })
                  console.log(responseData)
+            
+            history.push('/recipes/all')
+
           }
 
         catch(err){
