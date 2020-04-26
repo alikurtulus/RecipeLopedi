@@ -13,10 +13,11 @@ import Comment from '../../shared/components/FormElements/Comment'
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const [isError,setError] = useState('')
+    const [isCommented,setIsComment]= useState(false)
     const [userComment,setUserComment] = useState('')
     const [isFavourite,setIsFavourite] = useState(true)
     const [isRated,setIsRated] = useState(true)
-    const [selectedRecipe,setSelectedRecipe] = useState('')
+    const [selectedRecipe,setSelectedRecipe] = useState()
     const [totalRating,setTotalRating] = useState(0)
     const [rating,setRating] = useState(0)
     const auth  = useContext(AuthContext)
@@ -29,9 +30,8 @@ import Comment from '../../shared/components/FormElements/Comment'
         }
         fetchData()
     },[dispatch,rid])
- 
-    const recipe  = useSelector(state => state.recipes.usersRecipeDetailsInfo )
-    console.log(recipe)
+    let recipe  = useSelector(state => state.recipes.usersRecipeDetailsInfo )
+  
     const ratingChanged = (newRating) => {
         setRating(newRating)
         setIsRated(false)
@@ -72,8 +72,7 @@ import Comment from '../../shared/components/FormElements/Comment'
             if(recipe.ratings){
                 let ratingTotal = recipe.ratings.length +1
                 let total = 0
-                recipe.ratings.map(rat => { 
-                   
+                recipe.ratings.map(rat => {
                     total += rat.point
                 })
                 total += rating
@@ -88,13 +87,19 @@ import Comment from '../../shared/components/FormElements/Comment'
         const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+`/recipes/comment/recipe/${rid}`,{content:userComment,userId:auth.userId},
         {
         headers: {Authorization : `Bearer ${auth.token}`} })
-        setSelectedRecipe(responseData.data)
+        console.log(responseData.data)
+
+        setSelectedRecipe(responseData.data.recipe.comments.reverse())
+        setIsComment(true)
+        console.log(selectedRecipe.recipe)
+        setUserComment('')
+      
     }
     const handleChange =  (e) => {
         setUserComment(e.target.value)
         console.log(userComment)
     }
-    useEffect(() => {},[selectedRecipe])
+    
 
     return (
         <React.Fragment>
@@ -118,7 +123,7 @@ import Comment from '../../shared/components/FormElements/Comment'
                   <Figure  border="secondary">
                       <Figure.Image className='card-recipe-image'
                           alt="171x180"
-                          src={`http://localhost:5000/${recipe.image}`}
+                          src={process.env.REACT_APP_ASSET_URL +`/${recipe.image}`}
                       />
                   </Figure>
               </Col>
@@ -202,9 +207,13 @@ import Comment from '../../shared/components/FormElements/Comment'
           {recipe.comments === undefined   && <Spinner animation="border" variant="primary" /> }
           {recipe.comments !==  undefined  &&
              <div>
-               {recipe.comments.map(com => 
-               <Comment user={com.user} content={com.content} />
+               {!isCommented &&  recipe.comments.reverse().map(com => 
+               <Comment user={com.user} content={com.content} updatedAt={com.updatedAt} />
                  )} 
+                 {isCommented && selectedRecipe.length !== 0 &&  selectedRecipe.map(com => 
+               <Comment user={com.user} content={com.content} updatedAt={com.updatedAt} />
+                 )}
+               
              </div>
             
           }

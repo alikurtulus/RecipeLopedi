@@ -88,7 +88,7 @@ import {AuthContext} from '../../shared/context/auth-context'
 
         let  newArr = [...ingredientData]
         newArr[index] = {name:formState.inputs.iName.value,amount:formState.inputs.amount.value,measure:formState.inputs.measure.value}
-        setIngredientData(newArr)
+         setIngredientData(newArr)
         console.log(ingredientData)
     }
     const handleSaveInstruction = (index) => {
@@ -224,11 +224,7 @@ import {AuthContext} from '../../shared/context/auth-context'
                         </Col>
                       
                       </Row>
-                      
-                       
-                      
-                       
-                        <Button  type='submit' className='submit-btn' size="lg" block >Add Recipe</Button>
+                      <Button  type='submit' className='submit-btn' size="lg" block >Add Recipe</Button>
                     </Form>
                 </Card>
             </Container>
