@@ -369,7 +369,7 @@ const deleteComment = async (req,res,next) => {
   const recipeId = req.params.rid
   let existingRecipe 
   try{
-    existingRecipe = await Recipe.findById(recipeId).populate('creator').populate('comments.user',)
+    existingRecipe = await Recipe.findById(recipeId).populate('creator').populate('comments.user')
     if(!existingRecipe){
       const error  = new HttpError('This recipe does not exist',405)
       return next(error)
@@ -382,13 +382,7 @@ const deleteComment = async (req,res,next) => {
         const error  = new HttpError('This user does not exist',405)
         return next(error)
       }
-     
-      let isCommentId = existingRecipe.comments.map(com => com.id === commentId)
-      console.log(isCommentId)
-      if(!isCommentId){
-        const error  = new HttpError('This comment does not exist',405)
-        return next(error)
-      }
+   
       existingRecipe.comments = existingRecipe.comments.filter(c => c.id !== commentId)
       try{
          await existingRecipe.save()
@@ -407,7 +401,9 @@ const deleteComment = async (req,res,next) => {
     const error  = new HttpError('Something went me wrong',500)
     return next(error)
   }
+  res.status(200).json({recipe:existingRecipe.toObject({getters:true})})
 }
+
 const updateComment = async(req,res,next) => {
   const recipeId = req.params.rid
   let existingRecipe
@@ -423,15 +419,31 @@ const updateComment = async(req,res,next) => {
       const error  = new HttpError('This comment does not exist',405)
       return next(error)
     }
-    selectedComment.content = newContent
-    
-    
+  
+    let myIndex 
+     existingRecipe.comments.some(function(c,index){
+      if(c.id === commentId){
+        return myIndex = index
+      }
+    })
+    console.log(myIndex)
+    if(myIndex > -1){
+      existingRecipe.comments[myIndex].content = newContent
+    }
+    try{
+      await existingRecipe.save()
+    }
+    catch(err){
+      const error  = new HttpError('Something went wrong2',500)
+      return next(error)
+    }
 
   }
   catch(err){
     const error  = new HttpError('Something went me wrong',500)
     return next(error)
   }
+  res.status(200).json({recipe:existingRecipe.toObject({getters:true})})
 }
 
 exports.getAllRecipes = getAllRecipes
@@ -445,3 +457,4 @@ exports.addFavouriteRecipe = addFavouriteRecipe
 exports.removeFavouriteRecipe = removeFavouriteRecipe
 exports.createComment = createComment
 exports.deleteComment = deleteComment
+exports.updateComment = updateComment

@@ -6,25 +6,23 @@ import './Comment.css'
 
  const Comment = props => {
     const auth  = useContext(AuthContext)
-    const [isEdit,setIsEdit] = useState(false)
     const [currentUser,setCurrentUser] = useState('')
     const [date,SetDate] = useState('')
     const [recentUser,setRecentUser] = useState(auth.userId)
-    const [updatedComment,setUpdatedComment] = useState('')
+   
     
      useEffect(() => {
           const getUser = async () => {
-              const res =  await axios.post(process.env.REACT_APP_BACKEND_URL+`/users/user`,{userId:props.user}, {
+              const res =  await axios.post(process.env.REACT_APP_BACKEND_URL+`/users/user/`,{userId:props.user}, {
                 headers: {Authorization : `Bearer ${auth.token}`} })
                 setCurrentUser(res.data.user)
-                console.log(res.data.user)
-                console.log(auth.userId)
+             
                 let date = new Date(props.updatedAt);
                 let year = date.getFullYear();
                 let month = date.getMonth()+1;
                 let dt = date.getDate();
                 setRecentUser(auth.userId)
-                console.log('ben burdayim')
+               
 
                 if (dt < 10) {
                 dt = '0' + dt;
@@ -37,18 +35,7 @@ import './Comment.css'
           }
           getUser()
      },[])
-     const handleRemove = (e)=> {
-         e.preventDefault()
 
-     }
-     const handleEdit = (e) => {
-         e.preventDefault()
-         setIsEdit(!isEdit)
-     }
-     const handleChange = (e) => {
-        setUpdatedComment(e.target.value)
-     }
-     
     return (
         <div  className='comments-container'>
             <React.Fragment>
@@ -75,25 +62,24 @@ import './Comment.css'
                             </p>
                             <p className='date'>{date}</p>
                             <div className='btn-crud-buttons'>
-                                {recentUser === props.user ?  <Button variant="link" onClick={handleRemove}>Delete</Button>: ''}
-                                {recentUser  === props.user ? <Button variant="link" onClick={handleEdit}>Edit</Button> : ''}
+                                {recentUser === props.user ?  <Button variant="link" onClick={props.deleteComment}>Delete</Button>: ''}
+                                {recentUser  === props.user ? <Button variant="link" onClick={props.updateComment}>Edit</Button> : ''}
                             </div>
                             <div>
-                            {isEdit ?<InputGroup className="mb-3">
+                            {props.isEdit && props.selectedIndex === props.id ?<InputGroup className="mb-3">
                                         <FormControl
-                                        placeholder="Give some comments ..."
-                                        aria-label="Recipient's username"
-                                        aria-describedby="basic-addon2"
-                                        onChange={handleChange}
+                                            placeholder="Give some comments ..."
+                                            aria-label="Recipient's username"
+                                            aria-describedby="basic-addon2"
+                                            onChange={props.updateCommentChange}
+                                           
                                         />
                                         <InputGroup.Append>
-                                        <Button variant="success" >Save</Button>
+                                        <Button variant="success" onClick={props.updatedCommentSave} >Save</Button>
                                         </InputGroup.Append>
                                     </InputGroup> : ''}
 
                             </div>
-                           
-                           
                         </Col>
                     </Row>
             }  

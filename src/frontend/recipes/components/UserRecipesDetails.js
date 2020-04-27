@@ -16,11 +16,14 @@ import Comment from '../../shared/components/FormElements/Comment'
     const [isCommented,setIsComment]= useState(false)
     const [userComment,setUserComment] = useState('')
     const [isFavourite,setIsFavourite] = useState(true)
+    const [selectedIndex,setSelectedIndex] = useState()
     const [isRated,setIsRated] = useState(true)
-    const [selectedRecipe,setSelectedRecipe] = useState()
+    const [selectedRecipe,setSelectedRecipe] = useState([])
     const [totalRating,setTotalRating] = useState(0)
     const [rating,setRating] = useState(0)
+    const [updatedComment,setUpdatedComment] = useState('')
     const auth  = useContext(AuthContext)
+    const [isEdit,setIsEdit] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const {rid} = useParams()
@@ -31,6 +34,11 @@ import Comment from '../../shared/components/FormElements/Comment'
         fetchData()
     },[dispatch,rid])
     let recipe  = useSelector(state => state.recipes.usersRecipeDetailsInfo )
+    let recComments
+    if(recipe.comments !==  undefined){
+         recComments = recipe.comments.reverse()
+    }
+    
   
     const ratingChanged = (newRating) => {
         setRating(newRating)
@@ -80,25 +88,62 @@ import Comment from '../../shared/components/FormElements/Comment'
             }
         }
         averageRating()
-    },[ratingChanged,rating,totalRating])   
-    
+    },[rating,totalRating])   
+
+
+
+    const handleCommentChange =  (e) => {
+       
+        setUserComment(e.target.value)
+       
+    }
     const handleSendComment = async (e) => {
         e.preventDefault()
         const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+`/recipes/comment/recipe/${rid}`,{content:userComment,userId:auth.userId},
         {
         headers: {Authorization : `Bearer ${auth.token}`} })
         console.log(responseData.data)
-
         setSelectedRecipe(responseData.data.recipe.comments.reverse())
         setIsComment(true)
-        setUserComment('')
       
     }
-    const handleChange =  (e) => {
-        setUserComment(e.target.value)
-        console.log(userComment)
+ 
+    const handleUpdateChange = (e) => {
+        e.preventDefault()
+        setUpdatedComment(e.target.value)
+      
     }
-    
+    const handleRemoveComment = async (index,userId) => {
+        console.log(index)
+       const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL +`/recipes/recipe/comments/delete/${rid}`,{commentId:index,userId:userId},{
+        headers: {Authorization : `Bearer ${auth.token}`} })
+        console.log(responseData)
+        setSelectedRecipe(responseData.data.recipe.comments)
+        setIsComment(true)
+        
+    }
+    const handleUpdateComment =   (index,userId) => {
+        let selectedComment =  recipe.comments.filter(c => c.id === index)
+        if(selectedComment){
+            setIsEdit(!isEdit)
+            setSelectedIndex(index)
+            setUpdatedComment({updatedComment:''})
+            
+        }
+        
+
+    }
+    const handleUpdateCommentSave = async (index,userId) => {
+       
+        const responseData = await axios.put(process.env.REACT_APP_BACKEND_URL +`/recipes/recipe/comments/update/${rid}`,{commentId:index,userId:userId,newContent:updatedComment},{
+            headers: {Authorization : `Bearer ${auth.token}`} })
+            console.log(responseData)
+            setIsComment(true)
+            setSelectedIndex(index)
+            setUpdatedComment({updatedComment:''})
+            setSelectedRecipe(responseData.data.recipe.comments)
+           
+    }
 
     return (
         <React.Fragment>
@@ -192,7 +237,7 @@ import Comment from '../../shared/components/FormElements/Comment'
                          placeholder="Give some comments ..."
                          aria-label="Recipient's username"
                          aria-describedby="basic-addon2"
-                         onChange={handleChange}
+                         onChange={handleCommentChange}
                          />
                          <InputGroup.Append>
                          <Button variant="success" onClick={handleSendComment}>Comment</Button>
@@ -206,11 +251,37 @@ import Comment from '../../shared/components/FormElements/Comment'
           {recipe.comments === undefined   && <Spinner animation="border" variant="primary" /> }
           {recipe.comments !==  undefined  &&
              <div>
-               {!isCommented &&  recipe.comments.reverse().map(com => 
-                <Comment user={com.user} content={com.content} updatedAt={com.updatedAt} />
+               {!isCommented && recComments.map(com => 
+                <Comment 
+                    key={com.id}
+                    id={com.id}
+                    user={com.user}
+                    content={com.content}
+                    updatedAt={com.updatedAt}
+                    isEdit={isEdit}
+                    selectedIndex={selectedIndex}
+                    deleteComment={() => handleRemoveComment(com.id,com.user)} 
+                    updateComment={() => handleUpdateComment(com.id,com.user)}
+                    updateCommentChange={handleUpdateChange}
+                    updatedCommentSave ={() => handleUpdateCommentSave(com.id,com.user)}
+                    updatedComment={updatedComment}
+                />
                  )} 
                {isCommented && selectedRecipe.length !== 0 &&  selectedRecipe.map(com => 
-                <Comment user={com.user.id} content={com.content} updatedAt={com.updatedAt} />
+                <Comment
+                    key={com.id}
+                    id={com.id}
+                    user={com.user.id}
+                    content={com.content}
+                    updatedAt={com.updatedAt}
+                    isEdit={isEdit}
+                    selectedIndex={selectedIndex}
+                    deleteComment={() => handleRemoveComment(com.id,com.user.id)} 
+                    updateComment={() => handleUpdateComment(com.id,com.user.id)}
+                    updateCommentChange={handleUpdateChange}
+                    updatedCommentSave ={() => handleUpdateCommentSave(com.id,com.user.id)}
+                    updatedComment={updatedComment}
+                     />
                  )}
              </div>
           }
