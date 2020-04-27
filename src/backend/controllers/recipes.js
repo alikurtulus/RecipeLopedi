@@ -102,7 +102,7 @@ const addFavouriteRecipe = async (req,res,next ) =>{
     let user
     try{
        const {userId} = req.body
-      user = await User.findById(userId)                             
+      user = await User.findById(userId,'-password').exec()                          
     }
     catch(err){
       const errors = new HttpError('Something went wrong 2',500)
@@ -147,7 +147,7 @@ const removeFavouriteRecipe = async (req,res,next) => {
     const {userId} = req.body
     let user
     try{
-        user = await User.findById(userId)
+        user = await User.findById(userId,'-password').exec()
         if(!user){
           const error = new HttpError('Could not find any recipes provided user id',404)
           return next(error)
@@ -339,7 +339,7 @@ const createComment = async (req,res,next) => {
     const {userId,content} = req.body
     let user 
     try{
-      user = await User.findById(userId)
+      user = await User.findById(userId,'-password').exec()
       if(!user){
         const error  = new HttpError('This user does not exist',405)
         return next(error)
@@ -348,7 +348,7 @@ const createComment = async (req,res,next) => {
 
     }
     catch(err){
-      const error  = new HttpError('Sometinh went wrong',405)
+      const error  = new HttpError('Something went wrong',405)
       return next(error)
     }
     try{
@@ -365,6 +365,74 @@ const createComment = async (req,res,next) => {
   }
   res.status(200).json({recipe:existingRecipe.toObject({getters:true})})
 }
+const deleteComment = async (req,res,next) => {
+  const recipeId = req.params.rid
+  let existingRecipe 
+  try{
+    existingRecipe = await Recipe.findById(recipeId).populate('creator').populate('comments.user',)
+    if(!existingRecipe){
+      const error  = new HttpError('This recipe does not exist',405)
+      return next(error)
+    }
+    const {commentId,userId} = req.body
+    let user 
+    try{
+      user = await User.findById(userId,'-password').exec()
+      if(!user){
+        const error  = new HttpError('This user does not exist',405)
+        return next(error)
+      }
+     
+      let isCommentId = existingRecipe.comments.map(com => com.id === commentId)
+      console.log(isCommentId)
+      if(!isCommentId){
+        const error  = new HttpError('This comment does not exist',405)
+        return next(error)
+      }
+      existingRecipe.comments = existingRecipe.comments.filter(c => c.id !== commentId)
+      try{
+         await existingRecipe.save()
+      }
+      catch(err){
+        const error  = new HttpError('Something wennt wrong',500)
+        return next(error)
+      }
+    }
+    catch(err){
+      const error  = new HttpError('Something went wrong',405)
+      return next(error)
+    }
+  }
+  catch(err){
+    const error  = new HttpError('Something went me wrong',500)
+    return next(error)
+  }
+}
+const updateComment = async(req,res,next) => {
+  const recipeId = req.params.rid
+  let existingRecipe
+  try{
+    existingRecipe = await Recipe.findById(recipeId).populate('creator').populate('comments.user')
+    if(!existingRecipe){
+      const error  = new HttpError('This recipe does not exist',405)
+       return next(error)
+    }
+    const {commentId,userId,newContent} = req.body
+    let selectedComment = existingRecipe.comments.filter(c => c.id === commentId)
+    if(!selectedComment){
+      const error  = new HttpError('This comment does not exist',405)
+      return next(error)
+    }
+    selectedComment.content = newContent
+    
+    
+
+  }
+  catch(err){
+    const error  = new HttpError('Something went me wrong',500)
+    return next(error)
+  }
+}
 
 exports.getAllRecipes = getAllRecipes
 exports.getRecipesByUserId = getRecipesByUserId
@@ -376,3 +444,4 @@ exports.getRecipeRating = getRecipeRating
 exports.addFavouriteRecipe = addFavouriteRecipe
 exports.removeFavouriteRecipe = removeFavouriteRecipe
 exports.createComment = createComment
+exports.deleteComment = deleteComment

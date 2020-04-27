@@ -153,7 +153,7 @@ const getUserById = async (req,res,next) => {
   const {userId} = req.body
   let existingUser 
   try{
-    existingUser = await User.findById(userId)
+    existingUser = await User.findById(userId,'-password').exec()
         if(!existingUser){
           const error = new HttpError('User does not exist',422)
           return next(error)

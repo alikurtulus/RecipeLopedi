@@ -1,22 +1,30 @@
 import React,{useEffect,useState,useContext} from 'react'
-import {Card,Row,Col,Container,Figure} from 'react-bootstrap'
+import {Card,Row,Col,Container,Figure,Button,InputGroup,FormControl} from 'react-bootstrap'
 import axios from 'axios';
 import {AuthContext} from '../../context/auth-context'
 import './Comment.css'
 
  const Comment = props => {
     const auth  = useContext(AuthContext)
+    const [isEdit,setIsEdit] = useState(false)
     const [currentUser,setCurrentUser] = useState('')
     const [date,SetDate] = useState('')
+    const [recentUser,setRecentUser] = useState(auth.userId)
+    const [updatedComment,setUpdatedComment] = useState('')
+    
      useEffect(() => {
           const getUser = async () => {
               const res =  await axios.post(process.env.REACT_APP_BACKEND_URL+`/users/user`,{userId:props.user}, {
                 headers: {Authorization : `Bearer ${auth.token}`} })
                 setCurrentUser(res.data.user)
+                console.log(res.data.user)
+                console.log(auth.userId)
                 let date = new Date(props.updatedAt);
                 let year = date.getFullYear();
                 let month = date.getMonth()+1;
-                 let dt = date.getDate();
+                let dt = date.getDate();
+                setRecentUser(auth.userId)
+                console.log('ben burdayim')
 
                 if (dt < 10) {
                 dt = '0' + dt;
@@ -29,10 +37,20 @@ import './Comment.css'
           }
           getUser()
      },[])
+     const handleRemove = (e)=> {
+         e.preventDefault()
+
+     }
+     const handleEdit = (e) => {
+         e.preventDefault()
+         setIsEdit(!isEdit)
+     }
+     const handleChange = (e) => {
+        setUpdatedComment(e.target.value)
+     }
      
     return (
         <div  className='comments-container'>
-           
             <React.Fragment>
             {currentUser === undefined && <div></div>}
             {currentUser !== undefined && 
@@ -47,7 +65,6 @@ import './Comment.css'
                                             alt="171x180"
                                             src={process.env.REACT_APP_ASSET_URL+`/${currentUser.image}`}
                                         />
-                                        
                                     </Figure>
                                 </div>
                         </Col>
@@ -57,9 +74,28 @@ import './Comment.css'
                               {props.content}
                             </p>
                             <p className='date'>{date}</p>
+                            <div className='btn-crud-buttons'>
+                                {recentUser === props.user ?  <Button variant="link" onClick={handleRemove}>Delete</Button>: ''}
+                                {recentUser  === props.user ? <Button variant="link" onClick={handleEdit}>Edit</Button> : ''}
+                            </div>
+                            <div>
+                            {isEdit ?<InputGroup className="mb-3">
+                                        <FormControl
+                                        placeholder="Give some comments ..."
+                                        aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2"
+                                        onChange={handleChange}
+                                        />
+                                        <InputGroup.Append>
+                                        <Button variant="success" >Save</Button>
+                                        </InputGroup.Append>
+                                    </InputGroup> : ''}
+
+                            </div>
+                           
+                           
                         </Col>
                     </Row>
-                
             }  
             </React.Fragment>
                           

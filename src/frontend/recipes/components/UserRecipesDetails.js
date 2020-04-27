@@ -91,7 +91,6 @@ import Comment from '../../shared/components/FormElements/Comment'
 
         setSelectedRecipe(responseData.data.recipe.comments.reverse())
         setIsComment(true)
-        console.log(selectedRecipe.recipe)
         setUserComment('')
       
     }
@@ -208,14 +207,12 @@ import Comment from '../../shared/components/FormElements/Comment'
           {recipe.comments !==  undefined  &&
              <div>
                {!isCommented &&  recipe.comments.reverse().map(com => 
-               <Comment user={com.user} content={com.content} updatedAt={com.updatedAt} />
+                <Comment user={com.user} content={com.content} updatedAt={com.updatedAt} />
                  )} 
-                 {isCommented && selectedRecipe.length !== 0 &&  selectedRecipe.map(com => 
-               <Comment user={com.user} content={com.content} updatedAt={com.updatedAt} />
+               {isCommented && selectedRecipe.length !== 0 &&  selectedRecipe.map(com => 
+                <Comment user={com.user.id} content={com.content} updatedAt={com.updatedAt} />
                  )}
-               
              </div>
-            
           }
          
      </Container>

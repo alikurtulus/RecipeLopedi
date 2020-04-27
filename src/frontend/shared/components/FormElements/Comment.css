@@ -38,3 +38,7 @@ p{
     word-break: break-all;
     padding-right: 1.2rem;
 }
+.btn-crud-buttons{
+    display: flex;
+    justify-content: flex-end;
+}
