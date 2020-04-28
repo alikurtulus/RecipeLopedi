@@ -37,3 +37,24 @@
 .btn-left-submit{
   margin-right: 1.1rem;
 }
+.date-picker{
+  display: flex;
+  flex-direction: column;
+}
+.plan-container{
+  margin-top: 2rem;
+  
+}
+.nutrients-container{
+  margin-top: 2rem;
+  padding: 1.2rem;
+}
+.meals-container{
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  padding: 1.2rem;
+}
+.btn-see-more{
+  text-align: center;
+}

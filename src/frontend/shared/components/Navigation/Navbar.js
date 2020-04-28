@@ -34,9 +34,14 @@ const navbar = props =>{
               Add a Recipe
             </Nav.Link>
             )}
+            {auth.isLoggedIn && (
+              <Nav.Link as={NavLink} to='/mealplans/new'>
+               Add a MealPlan
+            </Nav.Link>
+            )}
             <Nav.Link as={NavLink} to='/mealplans'>
               MealPlans
-              </Nav.Link>
+            </Nav.Link>
           </Nav>
          
           <Nav className="justify-content-end">

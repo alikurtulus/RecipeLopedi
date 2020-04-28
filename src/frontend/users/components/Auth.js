@@ -181,7 +181,6 @@ const singUp = props => {
                                 placeholder='Please choose your gender..'
                                 options={genderType}
                                 onInput={inputHandler}
-                            
                               />
                               <ImageUpload
                                 id='image' 

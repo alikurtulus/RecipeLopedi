@@ -18,6 +18,7 @@ const Profile = React.lazy(() => import('./users/components/Profile'))
 const NewRecipe = React.lazy(() => import('./recipes/components/NewRecipe'))
 const UsersRecipes = React.lazy(()=> import('./recipes/components/UsersRecipes'))
 const UserRecipesDetails = React.lazy(() => import('./recipes/components/UserRecipesDetails'))
+const NewMealPlan = React.lazy(() => import ('./mealplans/NewMealPlan'))
 
 
 
@@ -39,7 +40,7 @@ const  App = () => {
             <RecipeDetails />
             </Route>
             <Route  path = '/recipes/usersRecipes/details/:rid'>
-                  <UserRecipesDetails />
+              <UserRecipesDetails />
             </Route>
             <Route exact path="/recipes/all">
                   <UsersRecipes />
@@ -52,7 +53,10 @@ const  App = () => {
             </Route>
             <Route path='/recipe/details/:id' >
                  <RecipeComplexDetails   />
-            </Route>   
+            </Route>
+            <Route path='/mealplans/new'>
+               <NewMealPlan />
+             </Route> 
             <Route path='/cuisine/:id' exact>
              <CuisineRecipes />
             </Route>  
@@ -72,15 +76,18 @@ const  App = () => {
                 <Route path='/cuisine/recipe/:id'  >
                   <RecipeDetails />
                 </Route>
-                <Route  path ='/recipes/usersRecipes/details/:rid'>
-                  <UserRecipesDetails />
-               </Route>
+                <Route  path = '/recipes/usersRecipes/details/:rid'>
+                    <UserRecipesDetails />
+                  </Route>
                 <Router exact path="/recipes/all">
                   <UsersRecipes />
                 </Router>
                 <Route path='/cuisine/:id' exact>
                   <CuisineRecipes />
                 </Route>
+                <Route path='/mealplans/new'>
+                  <NewMealPlan />
+                </Route> 
                 <Route path='/recipes/searches' >
                   <RecipeSearches />
                 </Route>  

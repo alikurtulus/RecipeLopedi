@@ -31,14 +31,16 @@ const createMealPlan = async (req, res, next) => {
       const error = new HttpError('Invalid inputs passed, please check your data.',422)
       return next(error)
     }
-    const {title, timeFrame, targetCalories, diet, exclude, meals} = req.body
+    const {title,date,timeFrame, targetCalories, diet, exclude, meals,nutrients} = req.body
     const newMealPlan = new MealPlan({
       title,
+      date,
       timeFrame,
       targetCalories,
       diet,
       exclude,
       meals,
+      nutrients,
       creator:req.userData.userId
     })
     let user
@@ -90,6 +92,7 @@ const updateMealPlan = async (req, res, next) => {
   }
   const {title, timeFrame, targetCalories, diet, exclude, meals} = req.body
   existingMealPlan.title = title
+  existingMealPlan.targetCalories = targetCalories
   existingMealPlan.timeFrame = timeFrame
   existingMealPlan.diet = diet
   existingMealPlan.exclude = exclude

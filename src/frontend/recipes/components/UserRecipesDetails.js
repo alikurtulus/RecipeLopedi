@@ -38,8 +38,6 @@ import Comment from '../../shared/components/FormElements/Comment'
     if(recipe.comments !==  undefined){
          recComments = recipe.comments.reverse()
     }
-    
-  
     const ratingChanged = (newRating) => {
         setRating(newRating)
         setIsRated(false)
@@ -105,6 +103,7 @@ import Comment from '../../shared/components/FormElements/Comment'
         console.log(responseData.data)
         setSelectedRecipe(responseData.data.recipe.comments.reverse())
         setIsComment(true)
+        setUserComment('')
       
     }
  
@@ -130,7 +129,6 @@ import Comment from '../../shared/components/FormElements/Comment'
             setUpdatedComment({updatedComment:''})
             
         }
-        
 
     }
     const handleUpdateCommentSave = async (index,userId) => {
@@ -238,13 +236,13 @@ import Comment from '../../shared/components/FormElements/Comment'
                          aria-label="Recipient's username"
                          aria-describedby="basic-addon2"
                          onChange={handleCommentChange}
+                         value={userComment}
                          />
                          <InputGroup.Append>
                          <Button variant="success" onClick={handleSendComment}>Comment</Button>
                          </InputGroup.Append>
                       </InputGroup>
                      </Col>
-              
               }
       
           </Row>
