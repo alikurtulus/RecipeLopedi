@@ -11,9 +11,11 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../recipes/components/NewRecipe.css'
 import ExcludeItem from '../mealplans/ExcludeItem'
 import DailyPlan from './DailyPlan'
+import WeeklyPlan from './WeeklyPlan'
+import qs from 'qs'
 
-const diets = ['Choose','Gluten Free','Ketogenic','Vegetarian','Lacto-Vegetarian','Ovo-Vegetarian','Vegan','Pescetarian','Paleo','Primal','Whole30']
-const timeFrames = ['Choose','Day','Week']
+const diets = ['Gluten Free','Ketogenic','Vegetarian','Lacto-Vegetarian','Ovo-Vegetarian','Pescetarian','Paleo','Primal','Whole30']
+const timeFrames = ['Day','Week']
 const NewMealPlan = props => {
     const auth  = useContext(AuthContext)
     const history = useHistory()
@@ -21,8 +23,11 @@ const NewMealPlan = props => {
     const [excludeCount,setExcludeCount] = useState(0)
     const [excludeData, setExcludeData] = useState([])
     const [startDate, setStartDate] = useState(new Date());
-    const [isDailyPlan,setIsDaily] = useState(false)
+    const [isDaily,setIsDaily] = useState(false)
+    const [isWeekly,setIsWeekly] = useState(false)
+    const [weeklyPlanData,setWeeklyPlanData] = useState({})
     const [dailyPlanData,setDailyPlanData] = useState({})
+    const [isSearched,setIsSearched] = useState(false)
     const [formState,inputHandler, setFormData]= useForm({
       title:{
         value:"",
@@ -47,11 +52,42 @@ const NewMealPlan = props => {
       }
      
     },false)
+    const handleSubmit = async e => {
+        e.preventDefault()
+   
+        try{
+           let mainMealData 
+           if(formState.inputs.timeFrame.value === 'Day'){
+             mainMealData = dailyPlanData
+           }
+           else{
+             mainMealData = weeklyPlanData
+           }
+          let data = {
+            title:formState.inputs.title.value,
+            date:startDate,
+            timeFrame:formState.inputs.timeFrame.value,
+            targetCalories:formState.inputs.targetCalories.value,
+            diet:formState.inputs.diet.value,
+            exclude:excludeData.join(),
+            myPlan:mainMealData,
+            creator:auth.userId
+
+          }
+          const responseData = await axios.post(
+            process.env.REACT_APP_BACKEND_URL+'/mealplans/new',
+            data,{
+             headers: {Authorization : `Bearer ${auth.token}`} })
+             console.log(responseData)
+        
+        }
+        catch(err){
+          console.log(err.message)
+        }
+    }
     const addExclude = () => {
-      
         setExcludes(prev => [...prev,excludeCount])
         setExcludeCount(excludeCount=> excludeCount + 1)
-        
     }
     const handleExcludeRemove = (index) => {
         setExcludes(excludes.filter(exclude => exclude !== index))
@@ -70,17 +106,25 @@ const NewMealPlan = props => {
         let myDiet = formState.inputs.diet.value
         let myTargetCalories = formState.inputs.targetCalories.value
         let myExcludes = excludeData.join()
-        
-        const responseData = await axios.get(`https://api.spoonacular.com/mealplanner/generate?timeFrame=${myTimeFrame}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&diet=${myDiet}&targetCalories=${myTargetCalories}&exclude=${myExcludes}`)
-        console.log(responseData)
-        if(responseData.data.meals){
-            setDailyPlanData(responseData.data)
-            setIsDaily(true)
-            console.log(dailyPlanData)
-
+        try{
+          const responseData = await axios.get(`https://api.spoonacular.com/mealplanner/generate?timeFrame=${myTimeFrame}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&diet=${myDiet}&targetCalories=${myTargetCalories}&exclude=${myExcludes}`)
+          console.log(responseData)
+          if(responseData.data.meals){
+              setDailyPlanData(responseData.data)
+              setIsDaily(true)
+              setIsWeekly(false)
+          }
+          else{
+              setIsWeekly(true)
+              setIsDaily(false)
+              setWeeklyPlanData(responseData.data)
+          }
+          setIsSearched(true)
+        }
+        catch(err){
+          console.log(err.message)
         }
 
-      
     }
    
     return (
@@ -89,7 +133,7 @@ const NewMealPlan = props => {
          
             <Container className='new-recipe-container' >
                 <Card  border="secondary" className='recipe-form'>
-                    <Form className='form-container'  >
+                    <Form className='form-container' onSubmit={handleSubmit} >
                       <Row>
                         <Col sm={6}>
                             <Input 
@@ -114,14 +158,17 @@ const NewMealPlan = props => {
                                 options={diets}
                                 onInput={inputHandler}
                               />
-                            <Form.Group controlId="exampleForm.SelectCustom" className='date-picker'>
-                                <Form.Label>Date</Form.Label>
-                                <DatePicker
-                                    showPopperArrow={false}
-                                    selected={startDate}
-                                    onChange={date => setStartDate(date)} 
-                                />
-                            </Form.Group>
+                            <div className='btn-date-container' >
+                                <Form.Group controlId="exampleForm.SelectCustom" className='date-picker'>
+                                    <Form.Label>Date</Form.Label>
+                                    <DatePicker
+                                        showPopperArrow={false}
+                                        selected={startDate}
+                                        onChange={date => setStartDate(date)} 
+                                    />
+                                </Form.Group>
+                              {isSearched && auth.token && <Button  type='submit' variant='success' size="lg">Add Meal Plan</Button> } 
+                            </div>
                         </Col>
                         <Col sm={6}>
                             <Input 
@@ -159,18 +206,20 @@ const NewMealPlan = props => {
                         )}
                         </Col>
                       </Row>
-                      <Button  type='submit' className='submit-btn' size="lg" block onClick={handleSearch} > Search Meal Plan</Button>
+                      <Button   className='submit-btn' size="lg" block onClick={handleSearch} > Search Meal Plan</Button>
                     
                     </Form>
                    
                 </Card>
             </Container>
-            <Container className='new-recipe-container plan-container' >
-              <Card  border="secondary" className='recipe-form'>
-                {isDailyPlan && dailyPlanData !== undefined  &&  <DailyPlan data={dailyPlanData} />}
-              </Card>
-            </Container>
-
+            {isSearched && 
+              <Container className='new-recipe-container plan-container' >
+                <Card  border="secondary" className='recipe-form'>
+                  {isDaily && dailyPlanData !== undefined  &&  <DailyPlan data={dailyPlanData} />}
+                  {isWeekly && weeklyPlanData !== undefined && <WeeklyPlan data={weeklyPlanData} /> }
+                </Card>
+              </Container>
+            }
         </div>
     )
 }

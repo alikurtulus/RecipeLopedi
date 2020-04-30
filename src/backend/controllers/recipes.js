@@ -185,7 +185,7 @@ const createRecipe = async (req, res, next) =>{                                 
     return next(error)
   }
   const {title,ingredients,instructions,readyInMinutes,servings, ratings,comments, nutrients,price} = req.body
-  console.log(req.file)
+
    let newIngredients = JSON.parse(ingredients)
    let newInstructions = JSON.parse(instructions)
    const myIngredients = []
@@ -246,7 +246,7 @@ const createRecipe = async (req, res, next) =>{                                 
   }
   catch(err){
     const error = new HttpError('Created recipe failed, please create again 2',500)
-  
+
     return next(error)
   }
   res.status(201).json({recipe:createdRecipe})

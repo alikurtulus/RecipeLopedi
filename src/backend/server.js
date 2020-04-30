@@ -9,7 +9,13 @@ const userRouter = require('./routes/user-routes')
 const recipeRouter = require('./routes/recipe-routes')
 const mealPlanRouter = require('./routes/mealplan-routes')
 
-app.use(bodyParser.json())                                                      // We catch data from request and turn this data to json object with BodyParser.
+app.use(bodyParser.json())    
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);       
+                                                                                // We catch data from request and turn this data to json object with BodyParser.
 app.use('/uploads/images', express.static(path.join('uploads','images')))       // We create middleware for uploading images and we called this middleware here.
 app.use((req, res, next) => {                                                   // We need to write this middleware. Because We decide to  how to get a request from the client.This is like protocol between server and client for the communication.
   res.setHeader('Access-Control-Allow-Origin','*')

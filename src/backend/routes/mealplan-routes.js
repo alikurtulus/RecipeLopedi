@@ -6,7 +6,7 @@ const checkAuth = require('../middleware/check-auth')
 
 router.get('/user/:uid',mealController.getMealPlansByUserId)
 router.use(checkAuth)
-router.post('/', mealController.createMealPlan)
+router.post('/new', mealController.createMealPlan)
 router.put('/:mid',mealController.updateMealPlan)
 router.delete('/:mid',mealController.deleteMealPlan)
 
