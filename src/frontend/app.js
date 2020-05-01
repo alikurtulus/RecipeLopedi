@@ -7,6 +7,7 @@ import {Spinner} from 'react-bootstrap'
 import {useAuth} from './shared/hooks/auth-hook'
 import {Provider} from 'react-redux'
 import store from './store'
+import MealPlanList from './mealplans/MealPlanList'
 
 const RecipeComplexDetails = React.lazy(() => import('./recipes/components/RecipeComplexDetails'))
 const RecipeSearches = React.lazy(() => import ('./recipes/components/RecipeSearches'))
@@ -19,8 +20,8 @@ const NewRecipe = React.lazy(() => import('./recipes/components/NewRecipe'))
 const UsersRecipes = React.lazy(()=> import('./recipes/components/UsersRecipes'))
 const UserRecipesDetails = React.lazy(() => import('./recipes/components/UserRecipesDetails'))
 const NewMealPlan = React.lazy(() => import ('./mealplans/NewMealPlan'))
-
-
+const MealPlans = React.lazy(() => import('./mealplans/MealPlans'))
+const MealPlanDetails = React.lazy(() => import('./mealplans/MealPlanDetails'))
 
 const  App = () => {
   const {token, login, logout, userId} = useAuth()
@@ -56,7 +57,13 @@ const  App = () => {
             </Route>
             <Route path='/mealplans/new'>
                <NewMealPlan />
-             </Route> 
+             </Route>
+             <Route exact path='/mealplans/all'>
+               <MealPlans />
+             </Route>
+             <Route exact path='/mealplan/details/:mid'>
+                <MealPlanDetails />
+             </Route>
             <Route path='/cuisine/:id' exact>
              <CuisineRecipes />
             </Route>  
@@ -87,6 +94,12 @@ const  App = () => {
                 </Route>
                 <Route path='/mealplans/new'>
                   <NewMealPlan />
+                </Route> 
+                <Route  exact path='/mealplan/details/:mid'>
+                   <MealPlanDetails />
+                </Route>
+                <Route exact path='/mealplans/all'>
+                  <MealPlans />
                 </Route> 
                 <Route path='/recipes/searches' >
                   <RecipeSearches />

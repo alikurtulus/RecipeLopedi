@@ -22,7 +22,8 @@ const mealPlanSchema = new mongoose.Schema({
     required:true
   },
   diet:{
-    type:String
+    type:String,
+    required:true
   },
   exclude:{
     type:String

@@ -26,31 +26,42 @@ const getMealPlansByUserId = async (req, res, next) => {
   }
   res.status(200).json({mealplans:user.mealplans.map(mealplan => mealplan.toObject({getters:true}))})
 }
+
 const handleMealPlans = (arr,myMeals,myNutrients) =>{
-  let mydaily = qs.parse(arr.meals)
-      for(let i=0;i<arr.meals.length;i++){
-        let newMeal = new Meal({
-          title:mydaily[i].title,
-          readyInMinutes:mydaily[i].readyInMinutes,
-          servings:mydaily[i].servings,
-          sourceUrl:mydaily[i].sourceUrl
-        })
-        myMeals.push(newMeal)
-      }
-
-      let newNutrient = new Nutrient({
-        calories:arr.nutrients.calories,
-        carbohydrates:arr.nutrients.carbohydrates,
-        fat:arr.nutrients.fat,
-        protein:arr.nutrients.protein
-
+  try{
+    let mydaily = qs.parse(arr.meals)
+    for(let i=0;i<arr.meals.length;i++){
+      let newMeal = new Meal({
+        title:mydaily[i].title,
+        readyInMinutes:mydaily[i].readyInMinutes,
+        servings:mydaily[i].servings,
+        sourceUrl:mydaily[i].sourceUrl
       })
-      myNutrients.push(newNutrient)
+      myMeals.push(newMeal)
+    }
 
+    let newNutrient = new Nutrient({
+      calories:arr.nutrients.calories,
+      carbohydrates:arr.nutrients.carbohydrates,
+      fat:arr.nutrients.fat,
+      protein:arr.nutrients.protein
 
-      return [myMeals,myNutrients]
+    })
+    myNutrients.push(newNutrient)
+    return [myMeals,myNutrients]
+  }
+  catch(err){
+    const error = new HttpError('Invalid inputs passed, please check your data. 2',422)
+    return error
+  }
 }
-const createMealPlan = async (req, res, next) =>{      
+
+const createMealPlan = async (req, res, next) =>{     
+  const errors = validationResult(req)
+  if(!errors.isEmpty()){
+    const error = new HttpError('Invalid inputs passed, please check your data. 2',422)
+    return next(error)
+  } 
    
     const {title,date,timeFrame,targetCalories,myPlan,diet,exclude,creator} = req.body
     let allResult = []
@@ -184,7 +195,40 @@ const deleteMealPlan = async (req, res, next) => {
   res.status(200).json({message:'Delete mealplan'})
 
 }
+const getAllMeals = async (req,res,next) => {
+  let mealPlans
+  try{
+     mealPlans = await MealPlan.find({}).exec()
+     if(!mealPlans){
+      const error = new HttpError('Could not find any mealplans',404)
+      return next(error)
+     }
+  }
+  catch(err){
+    const error = new HttpError('Something went wrong, please try again',500)
+    return next(error)
+  }
+  res.status(201).json({mealplans:mealPlans.map(mealplan => mealplan.toObject({getters:true}))})
+}
+const getMealPlanById = async (req, res, next) => {
+  const mealPlanId = req.params.mid
+  let existingMealPlan 
+  try{
+    existingMealPlan = await MealPlan.findById(mealPlanId).exec()
+    if(!existingMealPlan){
+      const error = new HttpError('Could not find any mealplan',404)
+      return next(error)
+    }
+    res.status(201).json({mealplan:existingMealPlan.toObject({getters:true})})
+  }
+  catch(err){
+    const error = new HttpError('Something went wrong, please try again',500)
+    return next(error)
+  }
+}
 exports.createMealPlan = createMealPlan
 exports.updateMealPlan  = updateMealPlan
 exports.deleteMealPlan = deleteMealPlan
 exports.getMealPlansByUserId = getMealPlansByUserId
+exports.getAllMeals = getAllMeals
+exports.getMealPlanById = getMealPlanById

@@ -1,12 +1,11 @@
 import React,{useContext,useState,useEffect} from 'react'
 import {Container,Form,Row,Col,Card,CardDeck,Modal,Button,ListGroup,Table,ListGroupItem } from 'react-bootstrap'
-import '../recipes/components/NewRecipe.css'
 
 const nutrientIndicators = ['calories','carbohydrates','fat','protein']
 const  DailyPlan = props => {
     return (
         <React.Fragment>
-            <Row>
+            <Row className='meals-container'>
                 <Col sm={12}>
                       <Row className='meals-container'>
                         {props.data.meals === undefined   && <Spinner animation="border" variant="primary" /> }
@@ -25,7 +24,6 @@ const  DailyPlan = props => {
                             </Col>
                             )
                         )}
-
                       </Row>
                 </Col>
             </Row>
@@ -46,10 +44,25 @@ const  DailyPlan = props => {
                                 {props.data.nutrients === undefined && (<div></div>)}
                                 {props.data.nutrients !== undefined && (
                                     <>
-                                      <td>{props.data.nutrients.calories}cal</td>
-                                      <td>{props.data.nutrients.carbohydrates}</td>
-                                      <td>{props.data.nutrients.fat}</td>
-                                      <td>{props.data.nutrients.protein}</td>
+                                    {props.data.nutrients[0] !== undefined &&
+                                      ( <>
+                                        <td>{props.data.nutrients[0].calories}cal</td>
+                                        <td>{props.data.nutrients[0].carbohydrates}</td>
+                                        <td>{props.data.nutrients[0].fat}</td>
+                                        <td>{props.data.nutrients[0].protein}</td>
+                                        </>
+                                      )
+                                    }
+                                    {props.data.nutrients[0] === undefined &&
+                                      ( <>
+                                        <td>{props.data.nutrients.calories}cal</td>
+                                        <td>{props.data.nutrients.carbohydrates}</td>
+                                        <td>{props.data.nutrients.fat}</td>
+                                        <td>{props.data.nutrients.protein}</td>
+                                        </>
+                                      )
+                                    }
+                                     
                                     </>
                                 )}
                                
@@ -57,11 +70,9 @@ const  DailyPlan = props => {
                         
                         </tbody>
                     </Table>
-                    
                 </Col>
                   
                 }
-               
            </Row>
     
       </React.Fragment>

@@ -14,8 +14,8 @@ import DailyPlan from './DailyPlan'
 import WeeklyPlan from './WeeklyPlan'
 import qs from 'qs'
 
-const diets = ['Gluten Free','Ketogenic','Vegetarian','Lacto-Vegetarian','Ovo-Vegetarian','Pescetarian','Paleo','Primal','Whole30']
-const timeFrames = ['Day','Week']
+const diets = ['Choose your diet','Gluten Free','Ketogenic','Vegetarian','Lacto-Vegetarian','Ovo-Vegetarian','Pescetarian','Paleo','Primal','Whole30']
+const timeFrames = ['Choose timeframe','Day','Week']
 const NewMealPlan = props => {
     const auth  = useContext(AuthContext)
     const history = useHistory()
@@ -28,6 +28,12 @@ const NewMealPlan = props => {
     const [weeklyPlanData,setWeeklyPlanData] = useState({})
     const [dailyPlanData,setDailyPlanData] = useState({})
     const [isSearched,setIsSearched] = useState(false)
+    const [mid,setMealPlanId] = useState('')
+    const [isAdded,setIsAdded] = useState(true)
+    const [show, setShow] = useState(false);                                 //Error modal
+    const handleClose = () => setShow(false);                                // We  use this for closing the modal.
+    const handleShow = () => setShow(true);                                 // We use this for showing the modal.
+    const [errorMessage,setErrorMessage] = useState('')
     const [formState,inputHandler, setFormData]= useForm({
       title:{
         value:"",
@@ -38,11 +44,11 @@ const NewMealPlan = props => {
           isValid:false
       },
       diet:{
-        value:"",
+        value:"Gluten Free",
         isValid:false
       },
       timeFrame:{
-          value:"",
+          value:"Day",
           isValid:false
       },
       exclude:{
@@ -56,33 +62,58 @@ const NewMealPlan = props => {
         e.preventDefault()
    
         try{
-           let mainMealData 
-           if(formState.inputs.timeFrame.value === 'Day'){
-             mainMealData = dailyPlanData
+           
+           if(isAdded){
+            let mainMealData 
+            if(formState.inputs.timeFrame.value === 'Day'){
+              mainMealData = dailyPlanData
+            }
+            else{
+              mainMealData = weeklyPlanData
+            }
+           let data = {
+             title:formState.inputs.title.value,
+             date:startDate,
+             timeFrame:formState.inputs.timeFrame.value,
+             targetCalories:formState.inputs.targetCalories.value,
+             diet:formState.inputs.diet.value,
+             exclude:excludeData.join(),
+             myPlan:mainMealData,
+             creator:auth.userId
+ 
+           }
+           try{  const responseData = await axios.post(
+             process.env.REACT_APP_BACKEND_URL+'/mealplans/new',
+             data,{
+              headers: {Authorization : `Bearer ${auth.token}`} })
+              console.log(responseData)
+              setMealPlanId(responseData.data.mealplan.id)
+             
+              history.push('/mealplans/all')  
+             }
+              catch(err){
+               setErrorMessage(err.message)
+               setShow(true);
+           }
            }
            else{
-             mainMealData = weeklyPlanData
+            try{ 
+               const responseData = await axios.delete(
+               process.env.REACT_APP_BACKEND_URL+ `/mealplans/${mid}`,{
+               headers: {Authorization : `Bearer ${auth.token}`} })
+              
+               
+            
+              }
+               catch(err){
+                setErrorMessage(err.message)
+                setShow(true);
+            }
            }
-          let data = {
-            title:formState.inputs.title.value,
-            date:startDate,
-            timeFrame:formState.inputs.timeFrame.value,
-            targetCalories:formState.inputs.targetCalories.value,
-            diet:formState.inputs.diet.value,
-            exclude:excludeData.join(),
-            myPlan:mainMealData,
-            creator:auth.userId
-
-          }
-          const responseData = await axios.post(
-            process.env.REACT_APP_BACKEND_URL+'/mealplans/new',
-            data,{
-             headers: {Authorization : `Bearer ${auth.token}`} })
-             console.log(responseData)
-        
         }
         catch(err){
-          console.log(err.message)
+          setErrorMessage(err.message)
+          setShow(true);
         }
     }
     const addExclude = () => {
@@ -122,7 +153,8 @@ const NewMealPlan = props => {
           setIsSearched(true)
         }
         catch(err){
-          console.log(err.message)
+          setErrorMessage(err.message)
+          setShow(true);
         }
 
     }
@@ -130,6 +162,17 @@ const NewMealPlan = props => {
     return (
         <div className='recipe-main'>
             <h3>-</h3>
+            {show && <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Error Message</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Invalid inputs passed, please check your data.</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>} 
          
             <Container className='new-recipe-container' >
                 <Card  border="secondary" className='recipe-form'>
@@ -167,7 +210,10 @@ const NewMealPlan = props => {
                                         onChange={date => setStartDate(date)} 
                                     />
                                 </Form.Group>
-                              {isSearched && auth.token && <Button  type='submit' variant='success' size="lg">Add Meal Plan</Button> } 
+                              {isSearched && auth.token &&
+                               <Button  type='submit' variant={isAdded ? 'success' : 'danger'} size="lg">
+                                {isAdded ? ' Add Meal Plan' : 'Remove Meal Plan'}
+                               </Button> } 
                             </div>
                         </Col>
                         <Col sm={6}>
@@ -216,7 +262,7 @@ const NewMealPlan = props => {
               <Container className='new-recipe-container plan-container' >
                 <Card  border="secondary" className='recipe-form'>
                   {isDaily && dailyPlanData !== undefined  &&  <DailyPlan data={dailyPlanData} />}
-                  {isWeekly && weeklyPlanData !== undefined && <WeeklyPlan data={weeklyPlanData} /> }
+                  {isWeekly && weeklyPlanData !== undefined && <WeeklyPlan data={weeklyPlanData} week={true} /> }
                 </Card>
               </Container>
             }

@@ -39,7 +39,7 @@ const navbar = props =>{
                Add a MealPlan
             </Nav.Link>
             )}
-            <Nav.Link as={NavLink} to='/mealplans'>
+            <Nav.Link as={NavLink} to='/mealplans/all'>
               MealPlans
             </Nav.Link>
           </Nav>
@@ -58,10 +58,8 @@ const navbar = props =>{
                   <Nav.Link as={NavLink} to='/profile'>
                      Profile
                   </Nav.Link>
-                  </React.Fragment>
-                
-            )
-                 
+                  </React.Fragment>  
+             )
             }
             
            </Nav>

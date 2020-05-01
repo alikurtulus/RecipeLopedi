@@ -1,9 +1,37 @@
 import React,{useContext,useState,useEffect} from 'react'
-import {Container,Form,Row,Col,Card,CardDeck,Modal,Button,ListGroup,Table,ListGroupItem } from 'react-bootstrap'
+import {Container,Form,Row,Col,Card,CardDeck,Modal,Button,ListGroup,Table,ListGroupItem,Spinner} from 'react-bootstrap'
 import '../recipes/components/NewRecipe.css'
+import DailyPlan2 from './DailyPlan2'
 import DailyPlan from './DailyPlan'
 
 const  WeeklyPlan = props => {
+
+    const [myData,setMyData] = useState()
+    
+    useEffect(()=>{
+        if(props.week !== true){
+            const chunkArray = (myArr,chunkSize) =>{
+                let index = 0
+                const arrayLength = myArr.length;
+                const tempArray = [];
+               for( index=0;index<arrayLength;index +=chunkSize){
+                  let myChunk = myArr.slice(index, index+chunkSize)
+                  // Do something if you want with the group
+                  tempArray.push(myChunk);
+               }
+               return tempArray
+            }
+            let data = chunkArray(props.data.meals,3)
+            setMyData({meals:data,nutrients:props.data.nutrients})
+        }
+
+        
+        
+    },[])
+
+    
+   
+
     return (
         <div>
             {props.data === undefined &&   <Spinner animation="border" variant="primary" /> }
@@ -34,11 +62,15 @@ const  WeeklyPlan = props => {
                
                 </React.Fragment>
                  }
+                 {props.data.week == undefined && 
+                        <React.Fragment>
+                              <DailyPlan2 data={myData} />
+                        </React.Fragment> 
+                 }
+                 
                 
-           
-            
-            
-          
+                
+                 
 
         </div>
     )

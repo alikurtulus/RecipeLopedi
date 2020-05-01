@@ -179,11 +179,7 @@ const removeFavouriteRecipe = async (req,res,next) => {
 }
 
 const createRecipe = async (req, res, next) =>{                                 //We create a new recipe
-  const errors = validationResult(req)
-  if(!errors.isEmpty()){
-    const error = new HttpError('Invalid inputs passed, please check your data. 2',422)
-    return next(error)
-  }
+ 
   const {title,ingredients,instructions,readyInMinutes,servings, ratings,comments, nutrients,price} = req.body
 
    let newIngredients = JSON.parse(ingredients)
