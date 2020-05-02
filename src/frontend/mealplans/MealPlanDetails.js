@@ -31,10 +31,12 @@ const  MealPlanDetails = props => {
                         <div>  
                             <p><strong>Target Calories: </strong>{mealPlan.targetCalories}</p>
                             <p><strong>TimeFrame: </strong>{mealPlan.timeFrame}</p>
+                            <p><strong>Excludes: </strong>{mealPlan.exclude === '' ? '-' : mealPlan.exclude} </p>
                         </div>
                         <div >
                             <p><strong>Date: </strong>{mealPlan.date.substring(0, 10)}</p>
                             <p><strong>Date: </strong>{mealPlan.diet} </p>
+                           
                         </div>
                     </Row>
                     <hr/>

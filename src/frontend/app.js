@@ -34,7 +34,7 @@ const  App = () => {
            <Route path='/' exact>
              <Home />
            </Route>
-           <Route path='/profile'  exact>
+           <Route path='/users/profile'  exact>
               <Profile />
             </Route>
            <Route path='/cuisine/recipe/:id'  >
@@ -107,6 +107,7 @@ const  App = () => {
                 <Route path='/recipe/details/:id' >
                  <RecipeComplexDetails   />
                 </Route>
+
                 <Route path='/' exact >
                   <Home />
                 </Route>

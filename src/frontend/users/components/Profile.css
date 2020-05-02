@@ -1,0 +1,35 @@
+.profile-container{
+    margin-top: 1.6rem;
+}
+.user-details-container{
+    padding: 1.8rem 1.8rem 0  1.8rem;
+}
+.btn-edt-container{
+    text-align: center;
+}
+.btn-container{
+    margin-top: 1.8rem;
+    display: flex;
+    justify-content:flex-end;
+    align-items: flex-end;
+}
+.avatar{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    object-position:50% 50%;
+}
+.btns-container{
+  display: flex;
+  justify-content:flex-end;
+}
+.btn-button{
+    margin-left:1.2rem;
+    margin-bottom: 1rem;
+}
+.bottom-container-title{
+
+    padding: 0.8rem 0;
+    border-bottom: 0.2rem solid red;
+    text-align: center; 
+}

@@ -24,9 +24,9 @@
 }
 
 h3{
-    border-bottom: 3px solid red;  
+    border-bottom:0.2rem solid red;  
     display: inline;
-    padding-bottom: 2px;
+    padding-bottom: 1rem;
 }
 .card-similar-recipe{
     margin: 2px 0 8px 8px;

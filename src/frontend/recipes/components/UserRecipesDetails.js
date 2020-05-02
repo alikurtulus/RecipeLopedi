@@ -189,7 +189,7 @@ import Comment from '../../shared/components/FormElements/Comment'
                           </p>
                           {auth.token && 
                              <div>
-                              <h4>Rating</h4>
+                              <h4 className='rating'>Rating</h4>
                               <ReactStars
                               count={5}
                               onChange={ratingChanged}

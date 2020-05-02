@@ -68,12 +68,13 @@ const singUp = props => {
       }
       const authSubmitHandler = async event =>{
         event.preventDefault()
-        console.log(isLoginMode)
+       
   
         if(isLoginMode){
           try {
          
-            const responseData =  await  axios.post(process.env.REACT_APP_BACKEND_URL+'/users/login', {email:formState.inputs.email.value,password:formState.inputs.password.value})
+            const responseData =  await  axios.post(process.env.REACT_APP_BACKEND_URL+'/users/login',
+            {email:formState.inputs.email.value,password:formState.inputs.password.value})
             auth.login(responseData.data.userId, responseData.data.token)
           }
           catch(err){
@@ -96,9 +97,9 @@ const singUp = props => {
             SetError('Password does not match')
            }
           
-          console.log(formData.get('image'))
+         
            const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+'/users/signUp', formData)
-            console.log(responseData)
+          
              auth.login(responseData.data.userId, responseData.data.token)
          }
          catch(err) {

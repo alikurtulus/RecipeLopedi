@@ -18,7 +18,7 @@ const MealPlans = props => {
         {mealPlans === undefined && <div></div>}
         {mealPlans !== undefined && (
             <div className='mealplan-container'>
-               <MealPlanList mplans={mealPlans}/> 
+               <MealPlanList mplans={props.myMealPlans !== undefined ? props.myMealPlans : mealPlans}/> 
             </div>
         )}
        </>

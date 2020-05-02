@@ -131,14 +131,14 @@ const login = async(req, res, next) => {
 
 }
 const profile = async(req, res, next) => {
-
-    console.log(req)
+    
   let existingUser
-  try{
-        existingUser = await User.findById(req.userData.userId,'-password').exec()
+  try{  
+        existingUser = await User.findById(req.userData.userId,'-password').populate('mealplans').populate('recipes').populate('myFavouriteRecipes').exec()
         console.log(existingUser)
      }
   catch(err){
+    
        const error = new HttpError('Profile failed, please try again', 500)
        return next(error)
      }
@@ -146,7 +146,6 @@ const profile = async(req, res, next) => {
        const error = new HttpError('User does not exist',422)
        return next(error)
      }
-
     res.status(200).json({user:existingUser.toObject({getters:true})})
 }
 const getUserById = async (req,res,next) => {
@@ -166,6 +165,7 @@ const getUserById = async (req,res,next) => {
        return next(error)
   }
 }
+
 const editUser = async (req, res, next) => {
   
 }
@@ -173,3 +173,4 @@ exports.signUp = signUp
 exports.login = login
 exports.profile = profile
 exports.getUserById = getUserById
+

@@ -18,7 +18,11 @@ router.post('/login',[
   check('email').normalizeEmail().isEmail(),
   check('password').isLength({min:6})
 ],usersController.login)
+
+
 router.use(checkAuth)
-router.post('/user',usersController.getUserById)
 router.get('/profile',usersController.profile)
+router.post('/user',usersController.getUserById)
+
+
 module.exports = router

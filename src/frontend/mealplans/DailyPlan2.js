@@ -28,6 +28,8 @@ const  DailyPlan2 = props => {
                                             <ListGroup className="list-group-flush details">
                                                 <ListGroupItem><strong>ReadyInMinutes:</strong> {meal.readyInMinutes}</ListGroupItem>
                                                 <ListGroupItem><strong>Servings:</strong> {meal.servings}</ListGroupItem>
+                                               
+
                                                 </ListGroup>
                                             <a variant="primary" className='btn-see-more' target="_blank" href={meal.sourceUrl}>See more</a>
                                         </Card.Body>

@@ -55,7 +55,7 @@ const navbar = props =>{
                     <Nav.Link onClick={auth.logout} as={NavLink} to='/auth'>
                   Logout
                   </Nav.Link>
-                  <Nav.Link as={NavLink} to='/profile'>
+                  <Nav.Link as={NavLink} to='/users/profile'>
                      Profile
                   </Nav.Link>
                   </React.Fragment>  

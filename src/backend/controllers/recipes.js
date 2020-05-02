@@ -31,7 +31,7 @@ const getRecipesByUserId = async (req, res, next) => {                          
    const userId = req.params.uid
    let existingUser
    try{
-      existingUser = await User.findById(userId).populate('recipes')
+      existingUser = await User.findById(userId,'-password').exec().populate('recipes')
    }
    catch(err){
      const error = new HttpError('Could not find any recipes provided user id',500)
