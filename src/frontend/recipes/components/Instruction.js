@@ -6,6 +6,8 @@ import {VALIDATOR_MINLENGTH,VALIDATOR_EMAIL, VALIDATOR_REQUIRE}  from '../../sha
 
 
 const Instruction = props => {
+   
+   
     return(
         <Accordion className='accordion-item' >
                 <Card>
@@ -20,6 +22,8 @@ const Instruction = props => {
                                 id='content'
                                 name='content'
                                 label='Content'
+                                initialValue={props.iId.content}
+                                initialValid={true}
                                 validators={[VALIDATOR_REQUIRE()]}
                                 errorText='Please enter a content...'
                                 placeholder='Please enter a content...'

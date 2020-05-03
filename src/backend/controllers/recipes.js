@@ -178,7 +178,12 @@ const removeFavouriteRecipe = async (req,res,next) => {
   }
 }
 
-const createRecipe = async (req, res, next) =>{                                 //We create a new recipe
+const createRecipe = async (req, res, next) =>{   
+  const errors = validationResult(req)
+  if(!errors.isEmpty()){
+    const error = new HttpError('Invalid inputs passed, please check your data.',422)
+    return next(error)
+  }                              //We create a new recipe
  
   const {title,ingredients,instructions,readyInMinutes,servings, ratings,comments, nutrients,price} = req.body
 
@@ -260,6 +265,7 @@ const updateRecipe = async (req, res, next) => {
     existingRecipe = await Recipe.findById(recipeId).populate('creator')
   }
   catch(err){
+    console.log(err.message)
     const error = new HttpError('Something went wrong could not update place', 500)
     return next(error)
    }
@@ -267,12 +273,34 @@ const updateRecipe = async (req, res, next) => {
       const error = new HttpError('You are not allowed to update this recipe ',403)
       return next(error)
    }
-    const {title,name,amount,measure,readyInMinutes,content,servings, ratings,comments, nutrients,price} = req.body
+   const {title,ingredients,instructions,readyInMinutes,servings, ratings,comments, nutrients,price} = req.body
+
+   let newIngredients = JSON.parse(ingredients)
+   let newInstructions = JSON.parse(instructions)
+   const myIngredients = []
+   let myInstructions = []
+  
    
+
+   for(let i = 0;i<newIngredients.length;i++){
+     console.log(newIngredients[i])
+    let createIngredient = new Ingredient({
+      name:newIngredients[i].name,
+      amount:newIngredients[i].amount,
+      measure:newIngredients[i].measure
+    })
+    myIngredients.push(createIngredient)
+   }
+   for(let i = 0;i<newInstructions.length;i++){
+    let createInstruction = new Instruction({
+      content:newInstructions[i].content
+    })
+    myInstructions.push(createInstruction)
+   }
     existingRecipe.title = title
     existingRecipe.image = req.file.path
-    existingRecipe.ingredients.push({name:name,amount:amount,measure:measure})
-    existingRecipe.instructions.push({content:content})
+    existingRecipe.ingredients = myIngredients
+    existingRecipe.instructions = myInstructions
     existingRecipe.readyInMinutes = readyInMinutes
     existingRecipe.servings = servings
     existingRecipe.nutrients  = nutrients

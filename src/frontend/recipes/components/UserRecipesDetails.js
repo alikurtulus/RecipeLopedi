@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
-import { useParams} from "react-router";
+import { useParams, useLocation} from "react-router";
 import ReactStars from 'react-stars'
+import {useHistory} from 'react-router-dom'
 import { useSelector, useDispatch}  from 'react-redux'
 import './RecipeDetails.css'
 import {Container,Row,Col,Figure,Card,ListGroup,Button,InputGroup,FormControl,Spinner,Badge,Modal} from 'react-bootstrap'
@@ -9,9 +10,13 @@ import axios from 'axios';
 import {AuthContext} from '../../shared/context/auth-context'
 import Comment from '../../shared/components/FormElements/Comment'
 
-  const  UserRecipesDetails = () =>  {
+  const  UserRecipesDetails = props =>  {
+    let location = useLocation()
     const dispatch = useDispatch()
-    const [show, setShow] = useState(false);
+    const history = useHistory()
+    const [show, setShow] = useState(false)
+    const [isCrud,SetIsCrud] = useState(location.state.crud)
+    const [creator,setCreator] = useState(location.state.creator)
     const [isError,setError] = useState('')
     const [isCommented,setIsComment]= useState(false)
     const [userComment,setUserComment] = useState('')
@@ -34,6 +39,9 @@ import Comment from '../../shared/components/FormElements/Comment'
         fetchData()
     },[dispatch,rid])
     let recipe  = useSelector(state => state.recipes.usersRecipeDetailsInfo )
+ 
+   
+
     let recComments
     if(recipe.comments !==  undefined){
          recComments = recipe.comments.reverse()
@@ -127,13 +135,12 @@ import Comment from '../../shared/components/FormElements/Comment'
             setIsEdit(!isEdit)
             setSelectedIndex(index)
             setUpdatedComment({updatedComment:''})
-            
         }
-
     }
     const handleUpdateCommentSave = async (index,userId) => {
        
-        const responseData = await axios.put(process.env.REACT_APP_BACKEND_URL +`/recipes/recipe/comments/update/${rid}`,{commentId:index,userId:userId,newContent:updatedComment},{
+        const responseData = await axios.put(process.env.REACT_APP_BACKEND_URL +`/recipes/recipe/comments/update/${rid}`,
+        {commentId:index,userId:userId,newContent:updatedComment},{
             headers: {Authorization : `Bearer ${auth.token}`} })
             console.log(responseData)
             setIsComment(true)
@@ -142,7 +149,24 @@ import Comment from '../../shared/components/FormElements/Comment'
             setSelectedRecipe(responseData.data.recipe.comments)
            
     }
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        try{
+            const responseData = await axios.delete(process.env.REACT_APP_BACKEND_URL+`/recipes/${rid}`,{
+                headers: {Authorization : `Bearer ${auth.token}`} })
+                console.log(responseData)
+                history.push('/users/profile')
+        }
+        catch(err){
+            console.log(err)
+        }
 
+    }
+    const handleEdit = async (e) => {
+        e.preventDefault()
+        history.push('/recipe/update',{data:recipe})
+    }
+    
     return (
         <React.Fragment>
          {recipe === undefined   && <Spinner animation="border" variant="primary" /> }
@@ -199,7 +223,15 @@ import Comment from '../../shared/components/FormElements/Comment'
                               color2={'#ffd700'} />
                               <Button variant={isFavourite ? "success" :"danger" } size="lg" onClick={handleMyFavouriteClick}>
                               {isFavourite ? "Add your favourite" :"Remove your favourite" }
-                              </Button> 
+                              </Button>
+                              {isCrud !== undefined   && creator === auth.userId &&
+                              <React.Fragment>
+                                  <div  className='crud-buttons'>
+                                    <Button variant='warning' className='btn-edit' size="lg" onClick={handleEdit} >Edit</Button>
+                                    <Button variant='danger' className='btn-delete'  size="lg" onClick={handleDelete} >Delete</Button>
+                                  </div>
+                              </React.Fragment>
+                              }
                              </div>
                           }
                       </Col>

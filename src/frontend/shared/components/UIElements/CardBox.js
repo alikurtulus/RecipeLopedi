@@ -2,28 +2,33 @@ import React  from 'react'
 import {Card, Button,ListGroup,ListGroupItem } from  'react-bootstrap'
 import './CardBox.css'
 import  {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 const CardBox = props => {
     let url
+    let history = useHistory()
     let imageUrl
-    console.log(props.uId)
+   
     if(props.uId){
-      imageUrl = `http://localhost:5000/${props.image}`
+      imageUrl = process.env.REACT_APP_ASSET_URL +`/${props.image}`
+      url = {pathname:`/recipes/usersRecipes/details/${props.uId}`,
+             state:{crud:props.crud,creator:props.creator}
+           }
     }
-    else{
-      imageUrl = props.image
-    }
-    
-    if(props.cid){
+    else if(props.cid){
       url = {
         pathname:`recipe/${props.rid}`,
         state:{cuisineId:props.cid}}
+        imageUrl = props.image
     }
-    else if(props.uId){
-      url = {pathname:`usersRecipes/details/${props.uId}`}
-    }
-    else { 
+   
+    else if(props.id) { 
       url= { pathname:`recipe/details/${props.id}` }
+      imageUrl = props.image
+    }
+    const handleSeeMore = e => {
+      e.preventDefault()
+      history.push(url,{crud:props.crud})
     }
     console.log(url)
  
@@ -38,11 +43,9 @@ const CardBox = props => {
                 <ListGroupItem><strong>Servings:</strong> {props.servings}</ListGroupItem>
               </ListGroup>
           <div className='more-btn'>
-          <Link  to={url}>
-            <Button  variant="primary" className='more-btn'
+            <Button  variant="primary" className='more-btn' onClick={handleSeeMore}
                 >See more..
             </Button>
-          </Link>
           </div>
         </Card.Body>
   </Card>

@@ -19,7 +19,7 @@ const  Profile = () => {
         const fetchUser = async () =>{
             const responseData = await axios.get(process.env.REACT_APP_BACKEND_URL+'/users/profile',{
                 headers: {Authorization : `Bearer ${auth.token}`} })
-                console.log(responseData.data.user)
+               
                 setData(responseData.data.user)
          }
          fetchUser()
@@ -68,6 +68,9 @@ const  Profile = () => {
     const handleMyMealPlanClick = (e) => {
         e.preventDefault()
         setIsMealClicked(!isMealClicked)
+    }
+    const handleUpdate = (updatedUser) => {
+        setData(updatedUser)
     }
     return (
         <Container className='profile-container'>
@@ -175,7 +178,7 @@ const  Profile = () => {
                                 <>
                                     <hr />
                                     <h4 className='bottom-container-title'>User Details</h4>
-                                    <UserEdit />
+                                    <UserEdit data={data} onUpdateUser={handleUpdate} />
                                 </>
                             }
                             {!isRecClicked &&
@@ -184,7 +187,7 @@ const  Profile = () => {
                                      <>
                                         <hr />
                                         <h4 className='bottom-container-title'>My Recipes</h4>
-                                        <UserRecipes recipes={data.recipes} />
+                                        <UserRecipes crud={true} recipes={data.recipes} />
                                      </>
                                     }
                                 </>
@@ -195,7 +198,7 @@ const  Profile = () => {
                                      <>
                                         <hr />
                                         <h4 className='bottom-container-title'>My Favourites Recipes</h4>
-                                        <UserRecipes recipes={data.myFavouriteRecipes} />
+                                        <UserRecipes crud={true} recipes={data.myFavouriteRecipes} />
                                      </>
                                     }
                                 </>

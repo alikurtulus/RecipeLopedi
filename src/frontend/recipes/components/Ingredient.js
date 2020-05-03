@@ -20,6 +20,8 @@ const Ingredient = props => {
                         name='iName'
                         label='Name'
                         validators={[VALIDATOR_REQUIRE()]}
+                        initialValue={props.iId.name}
+                        initialValid={true}
                         errorText='Please enter a ingredient name...'
                         placeholder='Please enter a Ingredient name...'
                         onInput={props.onInputHandler} />
@@ -30,6 +32,8 @@ const Ingredient = props => {
                         id='amount'
                         name='amount'
                         label='Amount'
+                        initialValue={props.iId.amount}
+                        initialValid={true}
                         validators={[VALIDATOR_REQUIRE()]}
                         errorText='Please enter an amount...'
                         placeholder='Please enter an amount...'
@@ -41,6 +45,8 @@ const Ingredient = props => {
                         id='measure'
                         name='measure'
                         label='Measure'
+                        initialValue={props.iId.measure}
+                        initialValid={true}
                         validators={[VALIDATOR_REQUIRE()]}
                         errorText='Please enter a measure...'
                         placeholder='Please enter a measure...'

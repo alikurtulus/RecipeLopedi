@@ -1,6 +1,6 @@
 import React ,{useContext, useState} from 'react'
 import axios from 'axios'
-import {Form,Container, Button,Card } from 'react-bootstrap'
+import {Form,Container, Button,Card,Modal } from 'react-bootstrap'
 import ImageUpload from '../../shared/components/FormElements/ImageUpload'
 import Input from '../../shared/components/FormElements/Input'
 import {AuthContext} from '../../shared/context/auth-context'
@@ -15,6 +15,10 @@ const singUp = props => {
     const [isLoginMode,setIsLoginMode] = useState(true)
     const [error,SetError] = useState('')
     const auth  = useContext(AuthContext)
+    const [errorMsg,setErrorMsg] = useState('')
+    const [show, setShow] = useState(false);                                 //Error modal
+    const handleClose = () => setShow(false);                                // We  use this for closing the modal.
+    const handleShow = () => setShow(true);                                  // We use this for showing the modal.
     const [formState,inputHandler, setFormData]= useForm({
       email:{
         value:'',
@@ -78,7 +82,8 @@ const singUp = props => {
             auth.login(responseData.data.userId, responseData.data.token)
           }
           catch(err){
-            console.log('soda')
+            setShow(true);
+            setErrorMsg(err.response.data.message)
           }
          }
         else {
@@ -92,7 +97,7 @@ const singUp = props => {
            formData.append('passwordConfirmation',formState.inputs.passwordConfirmation.value)
            formData.append('gender',formState.inputs.gender.value)
            formData.append('image',formState.inputs.image.value)
-           console.log(formState.inputs.image.value)
+         
            if(formState.inputs.password.value !== formState.inputs.passwordConfirmation.value){
             SetError('Password does not match')
            }
@@ -103,14 +108,26 @@ const singUp = props => {
              auth.login(responseData.data.userId, responseData.data.token)
          }
          catch(err) {
-           
-          }}
+          setShow(true);
+          setErrorMsg(err.response.data.message)
+          }
+        }
         }
     return (
         <div className='auth-main'>
            <h3>-</h3>
           <Container className='authentication'>
-
+              {show && <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Notification</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>{errorMsg}</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>} 
                 <Card  border="secondary"  style={{ width: '24rem' }}>
                       <Form >
                           <Input 

@@ -124,7 +124,7 @@ import {AuthContext} from '../../shared/context/auth-context'
 
         catch(err){
           console.log(err)
-          setErrorMessage(err.message)
+          setErrorMessage(err.response.data.message)
           setShow(true);
         }
     }
@@ -135,7 +135,7 @@ import {AuthContext} from '../../shared/context/auth-context'
               <Modal.Header closeButton>
                 <Modal.Title>Error Message</Modal.Title>
               </Modal.Header>
-              <Modal.Body>Invalid inputs passed, please check your data.</Modal.Body>
+              <Modal.Body>{errorMessage}</Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                   Close

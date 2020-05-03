@@ -5,17 +5,18 @@ import  {Link} from 'react-router-dom'
 import  '../../recipes/components/UsersRecipes.css'
 
  const UserRecipes = props => {
-    
+   
     return (
         <div className='users-recipes-container'>
             <React.Fragment>
             {props.recipes.length === 0 && <Spinner animation="border" variant="primary" />}
             {props.recipes.length !== 0 &&
-               <Container   className='cards-container'>
+               <Container  className='cards-container'>
                     <Row>
                         <CardDeck>
                          {props.recipes.map(recipe => 
                                     <Col sm={3} key={recipe.id} className='recipe-card'>
+                                       
                                         <CardBox 
                                            title={recipe.title}
                                            readyInMinutes={recipe.readyInMinutes}
@@ -23,6 +24,8 @@ import  '../../recipes/components/UsersRecipes.css'
                                            price={recipe.price}
                                            servings={recipe.servings}
                                            uId={recipe.id}
+                                           crud={props.crud}
+                                           creator={recipe.creator}
                                         />          
                                     </Col>       
                          )}

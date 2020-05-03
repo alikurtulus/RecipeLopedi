@@ -22,9 +22,7 @@ const  RecipeSearches = () => {
                              
                                 {recipes.map(recipe => 
                                     <Col sm={3} key={recipe.id} >
-                                           
                                      <Link to={`/recipe/details/${recipe.id}`}><CardCuisine title={recipe.title}   image={recipe.image} /></Link>           
-                                         
                                     </Col>
                                     
                                     )}

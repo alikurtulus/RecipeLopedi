@@ -17,6 +17,7 @@ const CuisineRecipes = React.lazy(() => import('./shared/pages/CuisineRecipes'))
 const RecipeDetails = React.lazy(() => import('./recipes/components/RecipeDetails'))
 const Profile = React.lazy(() => import('./users/components/Profile'))
 const NewRecipe = React.lazy(() => import('./recipes/components/NewRecipe'))
+const RecipeEdit = React.lazy(() => import('./recipes/components/RecipeEdit'))
 const UsersRecipes = React.lazy(()=> import('./recipes/components/UsersRecipes'))
 const UserRecipesDetails = React.lazy(() => import('./recipes/components/UserRecipesDetails'))
 const NewMealPlan = React.lazy(() => import ('./mealplans/NewMealPlan'))
@@ -42,6 +43,9 @@ const  App = () => {
             </Route>
             <Route  path = '/recipes/usersRecipes/details/:rid'>
               <UserRecipesDetails />
+            </Route>
+            <Route path='/recipe/update'>
+                  <RecipeEdit />
             </Route>
             <Route exact path="/recipes/all">
                   <UsersRecipes />
@@ -85,7 +89,7 @@ const  App = () => {
                 </Route>
                 <Route  path = '/recipes/usersRecipes/details/:rid'>
                     <UserRecipesDetails />
-                  </Route>
+                </Route>
                 <Router exact path="/recipes/all">
                   <UsersRecipes />
                 </Router>

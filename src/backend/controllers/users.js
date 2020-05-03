@@ -167,10 +167,103 @@ const getUserById = async (req,res,next) => {
 }
 
 const editUser = async (req, res, next) => {
-  
+  const errors = validationResult(req)
+  if(!errors.isEmpty()){
+    const error = new HttpError('Invalid inputs passed, please check your data.',422)
+    return next(error)
+  }
+ 
+  const {id,username,email,password,passwordConfirmation,age,gender} = req.body                         // We get all inputs with req.body
+  let existingUser
+
+  try{
+     existingUser = await User.findById(id,'-password').exec()
+     if(!existingUser){
+      const error = new HttpError('This user does not exist', 404)
+      return next(error)
+     }
+     if(existingUser.id !== req.userData.userId){
+      const error = new HttpError('You are not allowed to update this user ',403)
+      return next(error)
+
+     }
+     let checkUser
+     try{
+       checkUser = await User.findOne({username:username})
+       if(checkUser && checkUser.id !== req.userData.userId){
+        const error = new HttpError('This username already   exist', 401)
+        return next(error)
+       }
+       else{
+         try{
+          checkUser = await User.findOne({email:email})
+          if(checkUser && checkUser.id !== req.userData.userId){
+            const error = new HttpError('This email already   exist', 401)
+            return next(error)
+           }
+           existingUser.username = username
+           existingUser.email = email
+           existingUser.age = age
+           existingUser.gender = gender
+           existingUser.image = req.file.path
+           if(passwordConfirmation !== password){
+            const error = new HttpError('password does not match ',422)
+            return next(error)
+          }
+        
+          let hashedPassword
+            try{  
+                  hashedPassword = await bcrypt.hash(password,12)                         // We hashed our plainText passoword. Because We do not want to store password as plaintext.
+             }
+            catch(err){
+              console.log(err.message)
+              const error =  new HttpError('Update failed ,please try again ',500)
+              return next(error)
+            }
+            existingUser.password = hashedPassword
+            try{
+              await existingUser.save()
+            }
+            catch(err){
+              console.log(err.message)
+              const error = new HttpError('Something went wrong could not update user', 500)
+              return next(error)
+            }
+         }
+         catch(err){
+          const error = new HttpError('Something went wrong', 500)
+          return next(error)
+         }
+       }
+     }
+     catch(err){
+      const error = new HttpError('Something went wrong', 500)
+      return next(error)
+     }
+
+  }
+  catch(err) {
+    const error = new HttpError('Something went wrong, please try again', 500)
+    return next(error)
+
+  }
+  res.status(200).json({user:
+    {
+       id:existingUser.id,
+       email:existingUser.email,
+       username:existingUser.username,
+       age:existingUser.age,
+       gender:existingUser.gender,
+       recipes:existingUser.recipes,
+       mealplans:existingUser.mealplans,
+       image:existingUser.image,
+       myFavouriteRecipes:existingUser.myFavouriteRecipes
+
+      }})
 }
 exports.signUp = signUp
 exports.login = login
 exports.profile = profile
 exports.getUserById = getUserById
+exports.editUser = editUser
 

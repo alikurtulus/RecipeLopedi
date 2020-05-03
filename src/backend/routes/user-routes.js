@@ -21,8 +21,19 @@ router.post('/login',[
 
 
 router.use(checkAuth)
+
 router.get('/profile',usersController.profile)
+router.put('/user/update',
+fileUpload.single('image'),
+[
+ check('username').not().isEmpty(),
+ check('age').not().isEmpty(),
+ check('gender').not().isEmpty(),
+ check('email').normalizeEmail().isEmail(),
+ check('password').isLength({min:6})
+],usersController.editUser)
 router.post('/user',usersController.getUserById)
+
 
 
 module.exports = router
