@@ -1,8 +1,10 @@
 import React  from 'react'
-import {Card, Button,ListGroup,ListGroupItem } from  'react-bootstrap'
+import {Card, Button,ListGroup,ListGroupItem,Image } from  'react-bootstrap'
 import './CardBox.css'
 import  {Link} from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
+import clockIcon from '../../../images/clock.png'
+import servedIcon from '../../../images/served.png'
 
 const CardBox = props => {
     let url
@@ -39,8 +41,8 @@ const CardBox = props => {
         <Card.Body className='card-body'>
           <Card.Title className='title-text'>{props.title}</Card.Title>
               <ListGroup className="list-group-flush details">
-                <ListGroupItem><strong>ReadyInMinutes:</strong> {props.readyInMinutes}</ListGroupItem>
-                <ListGroupItem><strong>Servings:</strong> {props.servings}</ListGroupItem>
+                <ListGroupItem><strong>ReadyInMinutes:</strong>{props.readyInMinutes}<span ><Image className='clock-icon' src={clockIcon} /></span></ListGroupItem>
+                <ListGroupItem><strong>Servings:</strong> {props.servings}<span><Image className='served-icon' src={servedIcon} /></span></ListGroupItem>
               </ListGroup>
           <div className='more-btn'>
             <Button  variant="primary" className='more-btn' onClick={handleSeeMore}

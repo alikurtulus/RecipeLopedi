@@ -8,8 +8,8 @@ const MealPlans = props => {
     useEffect(() => {
        const fetchMealPlans = async () => {
            const responseData = await axios.get(process.env.REACT_APP_BACKEND_URL + '/mealplans/all')
-        setMealPlans(responseData.data.mealplans)
-        console.log(responseData)
+           setMealPlans(responseData.data.mealplans)
+      
        }
        fetchMealPlans()
     },[])
@@ -18,7 +18,7 @@ const MealPlans = props => {
         {mealPlans === undefined && <div></div>}
         {mealPlans !== undefined && (
             <div className='mealplan-container'>
-               <MealPlanList mplans={props.myMealPlans !== undefined ? props.myMealPlans : mealPlans}/> 
+               <MealPlanList crud={props.crud} mplans={props.myMealPlans !== undefined ? props.myMealPlans : mealPlans}/> 
             </div>
         )}
        </>

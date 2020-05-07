@@ -4,11 +4,16 @@ import ReactStars from 'react-stars'
 import {useHistory} from 'react-router-dom'
 import { useSelector, useDispatch}  from 'react-redux'
 import './RecipeDetails.css'
-import {Container,Row,Col,Figure,Card,ListGroup,Button,InputGroup,FormControl,Spinner,Badge,Modal} from 'react-bootstrap'
+import {Container,Row,Col,Figure,Card,ListGroup,Button,InputGroup,FormControl,Spinner,Badge,Modal,Image} from 'react-bootstrap'
 import {fetchUsersRecipeDetails} from '../../redux-stuff/actions/recipeActions'
 import axios from 'axios';
 import {AuthContext} from '../../shared/context/auth-context'
 import Comment from '../../shared/components/FormElements/Comment'
+import likedIcon from '../../images/liked.png'
+import servedIcon from '../../images/served.png'
+import clockIcon from '../../images/clock.png'
+import moneyIcon from '../../images/price.png'
+import ratingIcon from '../../images/rating.png'
 
   const  UserRecipesDetails = props =>  {
     let location = useLocation()
@@ -31,6 +36,11 @@ import Comment from '../../shared/components/FormElements/Comment'
     const [isEdit,setIsEdit] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
+
+
+
+
     const {rid} = useParams()
     useEffect( () => { 
         const fetchData = async () => {
@@ -40,8 +50,6 @@ import Comment from '../../shared/components/FormElements/Comment'
     },[dispatch,rid])
     let recipe  = useSelector(state => state.recipes.usersRecipeDetailsInfo )
  
-   
-
     let recComments
     if(recipe.comments !==  undefined){
          recComments = recipe.comments.reverse()
@@ -95,8 +103,6 @@ import Comment from '../../shared/components/FormElements/Comment'
         }
         averageRating()
     },[rating,totalRating])   
-
-
 
     const handleCommentChange =  (e) => {
        
@@ -195,44 +201,79 @@ import Comment from '../../shared/components/FormElements/Comment'
               </Col>
               <Col sm={8}>
                   <Row>
-                      <Col className='some-details'>
+                      <Col  className='some-details'>
                           <h3 className='recipe-title'>{recipe.title}</h3>
-                          <p className='badges badges-container'>
-                              <Badge variant="warning" className='badge'>
-                                  Serving: {recipe.servings}
-                              </Badge>
-                              <Badge variant="success" className='badge'>
-                                  PerServingPrice: {recipe.pricePerServing}
-                              </Badge>
-                              <Badge variant="danger" className='badge'>
-                                  ReadyInMinutes: {recipe.readyInMinutes}
-                              </Badge>
-                              <Badge variant="primary" className='badge'>
-                                  Rating: {totalRating}
-                              </Badge>
-                          </p>
-                          {auth.token && 
-                             <div>
-                              <h4 className='rating'>Rating</h4>
-                              <ReactStars
-                              count={5}
-                              onChange={ratingChanged}
-                              size={30}
-                              edit={isRated}
-                              value={rating}
-                              color2={'#ffd700'} />
-                              <Button variant={isFavourite ? "success" :"danger" } size="lg" onClick={handleMyFavouriteClick}>
-                              {isFavourite ? "Add your favourite" :"Remove your favourite" }
-                              </Button>
-                              {isCrud !== undefined   && creator === auth.userId &&
-                              <React.Fragment>
-                                  <div  className='crud-buttons'>
-                                    <Button variant='warning' className='btn-edit' size="lg" onClick={handleEdit} >Edit</Button>
-                                    <Button variant='danger' className='btn-delete'  size="lg" onClick={handleDelete} >Delete</Button>
-                                  </div>
-                              </React.Fragment>
-                              }
-                             </div>
+                          <Row className='badges badges-container'>
+                              <Col sm={3} className='details-icon'>
+                                <div>
+                                <Image className='detail-icon-img' src={servedIcon}/>
+                                </div>
+                                <div>
+                                    <Badge variant="warning" className='badge'>
+                                        Serving: {recipe.servings}
+                                    </Badge>
+                                </div>
+                              </Col>
+                              <Col sm={3} className='details-icon'>
+                                <div>
+                                    <Image className='detail-icon-img' src={moneyIcon}/>
+                                </div>
+                                <div>
+                                    <Badge variant="success" className='badge'>
+                                        PerServingPrice: {recipe.pricePerServing}
+                                    </Badge>
+                                </div>
+                              </Col>
+                              <Col sm={3} className='details-icon'>
+                                <div>
+                                    <Image className='detail-icon-img' src={clockIcon}/>
+                                </div>
+                                <div>
+                                    <Badge variant="danger" className='badge'>
+                                        ReadyInMinutes: {recipe.readyInMinutes}
+                                    </Badge>
+                                </div>
+                              </Col>
+                              <Col sm={3} className='details-icon'>
+                                <div>
+                                    <Image className='detail-icon-img' src={ratingIcon}/>
+                                </div>
+                                <div>
+                                    <Badge variant="primary" className='badge'>
+                                        Rating: {totalRating}
+                                    </Badge>
+                                </div>
+                              </Col>
+                          </Row>
+                          {auth.token &&
+                           <React.Fragment>
+                            <div className='rating-fav-container'>
+                                <div className='rating-container'>
+                                        <h4 className='rating'>Rating</h4>
+                                        <ReactStars
+                                            count={5}
+                                            onChange={ratingChanged}
+                                            size={30}
+                                            edit={isRated}
+                                            value={rating}
+                                            color2={'#ffd700'} />
+                                </div>
+                                <div className='fav-container'>
+                                   <Button variant={isFavourite ? "link" :"danger" } size="lg" onClick={handleMyFavouriteClick}>
+                                     <Image src={likedIcon} className='like-icon' />
+                                   </Button>
+                                </div>
+                            </div>
+                            
+                                {isCrud !== undefined   && creator === auth.userId &&
+                                    <React.Fragment>
+                                        <div  className='crud-buttons'>
+                                            <Button variant='warning' className='btn-edit' size="lg" onClick={handleEdit} >Edit</Button>
+                                            <Button variant='danger' className='btn-delete'  size="lg" onClick={handleDelete} >Delete</Button>
+                                        </div>
+                                    </React.Fragment>
+                                }
+                           </React.Fragment>
                           }
                       </Col>
                   </Row>

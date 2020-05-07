@@ -4,6 +4,8 @@ import MealPlanCard from './MealPlanCard'
 import {useHistory} from 'react-router-dom'
 const  MealPlanList = props => {
     const history = useHistory()
+    console.log(props.crud)
+    console.log(props.mplans)
     const handleSeeMore = (mid,timeFrame) => {
       history.push(`/mealplan/details/${mid}`,{timeFrame:timeFrame})
     }

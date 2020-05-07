@@ -1,7 +1,7 @@
 h2{
-  margin:30px auto;
+  margin:20px auto;
   text-align: center;
-  font-size: 4rem;
+  font-size: 3.8rem;
   font-family: 'Rubik Mono One', sans-serif;
   color:red;
   text-shadow: 1px 1px 1px #000, 3px 3px 5px blue;
@@ -18,4 +18,15 @@ h2{
 .borders{
  background-color: #2D2B29;
  height: 5rem;
+}
+.logo-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+.logo-container img{
+  width: 3.8rem;
+  height: 3.8rem;
+  margin-bottom: 0.9rem;
 }

@@ -7,12 +7,12 @@
 
 }
 .title-text{
-   font-size: 1.0rem;
+   font-size: 1.2rem;
    text-align: center;
    font-weight: bold;
 }
 .details{
-   font-size: 0.9rem;
+   font-size: 1rem;
 }
 .card-image{
    width:100%;
@@ -28,4 +28,16 @@
    display: flex;
    flex-direction: column;
    justify-content: space-between;
+}
+.clock-icon{
+   width: 1.4rem;
+   height: 1.4rem;
+   margin-left: 0.4rem;
+   margin-bottom: 0.3rem;
+}
+.served-icon{
+   width: 1.4rem;
+   height: 1.4rem;
+   margin-left: 0.4rem;
+   margin-bottom: 0.3rem;
 }

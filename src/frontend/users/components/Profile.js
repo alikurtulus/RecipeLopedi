@@ -1,11 +1,16 @@
 import React, {useEffect, useState,useContext} from 'react'
 import axios from 'axios'
 import {AuthContext} from '../../shared/context/auth-context'
-import {Container,Row,Card,Col,Figure,Button, Spinner,ListGroup,Popover,OverlayTrigger  } from 'react-bootstrap'
+import {Container,Row,Card,Col,Figure,Button, Spinner,ListGroup,Popover,OverlayTrigger,Image } from 'react-bootstrap'
 import './Profile.css'
 import UserEdit from '../../users/components/UserEdit'
 import UserRecipes from './UserRecipes'
 import MealPlans from '../../mealplans/MealPlans'
+import emailIcon from '../../images/email.png'
+import ageIcon from '../../images/age.png'
+import userIcon from '../../images/user.png'
+import genderIcon from '../../images/gender.png'
+
 const  Profile = () => {
     const auth  = useContext(AuthContext)
     const [data,setData] = useState({})
@@ -101,10 +106,22 @@ const  Profile = () => {
                         </Col>
                         <Col sm={9}>
                             <ListGroup horizontal='xl' >
-                                <ListGroup.Item><strong>Username: </strong>{data.username}</ListGroup.Item>
-                                <ListGroup.Item><strong>Email: </strong>{data.email}</ListGroup.Item>
-                                <ListGroup.Item><strong>Age: </strong>{data.age}</ListGroup.Item>
-                                <ListGroup.Item><strong>Gender: </strong>{data.gender}</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span><Image className='user-icon'  src={userIcon} /></span>
+                                    <strong>Username: </strong>{data.username}
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span><Image className='email-icon' src={emailIcon} /></span>
+                                    <strong>Email: </strong>{data.email}
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span><Image className='age-icon' src={ageIcon} /></span>
+                                    <strong>Age: </strong>{data.age}
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <span><Image className='gender-icon' src={genderIcon} /></span>
+                                    <strong>Gender: </strong>{data.gender}
+                                </ListGroup.Item>
                             </ListGroup>
                             <div className='btn-container'>
                                 {data.recipes &&
@@ -209,7 +226,7 @@ const  Profile = () => {
                                       <>
                                         <hr/>
                                         <h4 className='bottom-container-title'>My Meal Plans</h4>
-                                        <MealPlans myMealPlans={data.mealplans} />
+                                        <MealPlans crud={true} myMealPlans={data.mealplans} />
                                      </>
                                     }
                                 </>

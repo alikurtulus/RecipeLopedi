@@ -3,8 +3,11 @@ import { useSelector, useDispatch}  from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import AsyncSelect from 'react-select/async'
-import {Form,Container,Button,Row, Col,CardDeck,Spinner} from 'react-bootstrap'
+import {Form,Container,Button,Row, Col,CardDeck,Spinner,Image} from 'react-bootstrap'
 import axios from 'axios'
+import hatIcon from '../../images/recipehat.png'
+
+
 import CardBox from '../components/UIElements/CardBox'
 import {fetchHeroPage} from '../../redux-stuff/actions/recipeActions'
 const Hero = props => {
@@ -78,7 +81,9 @@ const Hero = props => {
    {joke === undefined && randomRecipes === undefined &&  <Spinner animation="border" variant="primary" />}
    {joke !== undefined && randomRecipes !== undefined &&  <div className='main-container'>
    <Container>
-    <h2>RecipeLopedi</h2>
+     <div className='logo-container'>
+       <h2><span><Image  src={hatIcon}  /></span>RecipeLopedi</h2>
+      </div>
     <Form onSubmit={handleSubmit}>
         <Row className="justify-content-md-center">
             <Col sm={10}>

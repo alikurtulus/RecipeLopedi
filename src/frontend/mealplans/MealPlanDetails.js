@@ -1,10 +1,13 @@
 import React,{useEffect,useState} from 'react'
 import { useParams, useLocation} from "react-router";
 import axios from 'axios';
-import {Container,Col,Card,Row,Spinner,ListGroup} from 'react-bootstrap'
+import {Container,Col,Card,Row,Spinner,ListGroup, Image} from 'react-bootstrap'
 import WeeklyPlan from './WeeklyPlan'
 import DailyPlan from './DailyPlan'
 import './MealPlanDetails.css'
+import calorieIcon from '../images/cal.png'
+import calendarIcon from '../images/calendars.png'
+import excludeIcon from '../images/forbidden.png'
 
 const  MealPlanDetails = props => {
     const {mid} = useParams()
@@ -29,9 +32,18 @@ const  MealPlanDetails = props => {
                     <h3>{mealPlan.title}</h3>
                     <Row className='details-card-row'>
                         <div>  
-                            <p><strong>Target Calories: </strong>{mealPlan.targetCalories}</p>
-                            <p><strong>TimeFrame: </strong>{mealPlan.timeFrame}</p>
-                            <p><strong>Excludes: </strong>{mealPlan.exclude === '' ? '-' : mealPlan.exclude} </p>
+                            <p>
+                                <span><Image className='mealplan-detail-icon' src={calorieIcon} /></span>
+                                <strong>Target Calories:</strong>{mealPlan.targetCalories}
+                            </p>
+                            <p>
+                                <span><Image className='mealplan-detail-icon' src={calendarIcon} /></span>
+                                <strong>TimeFrame: </strong>{mealPlan.timeFrame}
+                            </p>
+                            <p>
+                                <span><Image className='mealplan-detail-icon' src={excludeIcon} /></span>
+                                <strong>Excludes: </strong>
+                                {mealPlan.exclude === '' ? '-' : mealPlan.exclude} </p>
                         </div>
                         <div >
                             <p><strong>Date: </strong>{mealPlan.date.substring(0, 10)}</p>

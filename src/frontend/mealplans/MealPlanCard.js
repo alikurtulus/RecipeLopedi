@@ -1,16 +1,31 @@
 import React from 'react'
-import {Card,ListGroup,Button} from 'react-bootstrap'
+import {Card,ListGroup,Button, Image} from 'react-bootstrap'
 import './MealPlan.css'
+import mealPlaIcon from '../images/mealplan.png'
+import calorieIcon from '../images/cal.png'
+import calendarIcon from '../images/calendars.png'
+import dietIcon from '../images/diet.png'
+
+
 const  MealPlanCard = props => {
     return (
         <React.Fragment>
             <Card  border="secondary" className='meal-plan-card' style={{ width: '18rem'}}>
                 <Card.Body>
-                <Card.Title className='meal-plan-title'>{props.title}</Card.Title>
+                <Card.Title className='meal-plan-title'> <span><Image className='mealplan-icon-title' src={mealPlaIcon} /></span> {props.title}</Card.Title>
                 <ListGroup>
-                        <ListGroup.Item><strong>TargetCalories: </strong>{props.targetCalories}</ListGroup.Item>
-                        <ListGroup.Item><strong>Diet: </strong>{props.diet}</ListGroup.Item>
-                        <ListGroup.Item><strong>TimeFrame: </strong>{props.timeFrame}</ListGroup.Item>
+                        <ListGroup.Item>
+                            <span><Image className='mealplan-icon' src={calorieIcon} /></span>
+                            <strong>TargetCalories: </strong>{props.targetCalories}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                           <span><Image className='mealplan-icon' src={dietIcon} /></span>
+                            <strong>Diet: </strong>{props.diet}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <span><Image className='mealplan-icon' src={calendarIcon} /></span>
+                            <strong>TimeFrame: </strong>{props.timeFrame}
+                        </ListGroup.Item>
                     </ListGroup>
                     <Button variant="primary" onClick={props.onSeeMore}>See more</Button>
                 </Card.Body>

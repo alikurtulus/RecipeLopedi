@@ -24,14 +24,7 @@ const  WeeklyPlan = props => {
             let data = chunkArray(props.data.meals,3)
             setMyData({meals:data,nutrients:props.data.nutrients})
         }
-
-        
-        
     },[])
-
-    
-   
-
     return (
         <div>
             {props.data === undefined &&   <Spinner animation="border" variant="primary" /> }
@@ -68,10 +61,6 @@ const  WeeklyPlan = props => {
                         </React.Fragment> 
                  }
                  
-                
-                
-                 
-
         </div>
     )
 }

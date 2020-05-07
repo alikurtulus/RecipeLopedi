@@ -26,7 +26,7 @@
 h3{
     border-bottom:0.2rem solid red;  
     display: inline;
-    padding-bottom: 1rem;
+    padding-bottom: 0.7rem;
 }
 .card-similar-recipe{
     margin: 2px 0 8px 8px;
@@ -47,4 +47,39 @@ h3{
 }
 .btn-delete{
     margin-left: 0.5rem;
+}
+.like-icon{
+    width: 3.1rem;
+    height: 3.1rem;
+}
+.rating-fav-container{
+    margin-top: 0.8rem;
+    margin-left: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.rating-container h4{
+    text-align: center;
+}
+.rating{
+   
+}
+.fav-container{
+    margin-left: 5.5rem;
+}
+.details-icon{
+    margin-top: 0.8rem;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.detail-icon-img{
+    width: 2.1rem;
+    height: 2.1rem;
+}
+.badges{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
