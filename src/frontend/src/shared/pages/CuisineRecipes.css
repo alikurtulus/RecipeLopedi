@@ -1,0 +1,11 @@
+.card-box-recipes{
+    margin:20px auto;
+}
+.recipe-box{
+    margin-top: 15px ;
+}
+h3{
+    border-bottom: 3px solid red;  
+    display: inline;
+    padding-bottom: 2px;
+}

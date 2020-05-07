@@ -1,0 +1,93 @@
+.recipedetails-box{
+    margin-top: 30px !important;
+    max-height: 100vh;
+}
+.badges{
+    font-size: 1.3rem;;
+}
+ .recipe-title {
+  font-size: 1.7rem;;
+  font-weight: bold;
+}
+.recipe-summary{
+    margin-top: 10px;
+    font-size: 1.0rem;
+}
+.badge{
+    margin-right: 5px;
+}
+.card-recipe-image{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+    object-position:50% 50%;
+}
+
+h3{
+    border-bottom:0.2rem solid red;  
+    display: inline;
+    padding-bottom: 0.7rem;
+}
+.card-similar-recipe{
+    margin: 2px 0 8px 8px;
+}
+.similar-header{
+  margin-top: 5px;
+}
+.badges-container{
+    margin-top: 1.4rem;
+}
+.comment-container{
+    margin-top: 1.4rem;
+}
+.crud-buttons{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+.btn-delete{
+    margin-left: 0.5rem;
+}
+.like-icon{
+    width: 2.1rem;
+    height: 2.1rem;
+    margin-left: 1.6rem;
+}
+.rating-fav-container{
+    margin-top: 1.1rem;
+    margin-left: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.rating-container{
+    margin-top: 1.2rem;
+}
+.rating-container h4{
+    text-align: center;
+}
+.rating{
+   
+}
+.fav-container{
+    margin-top: 1rem;
+    margin-left: 4.4rem;
+}
+.details-icon{
+    margin-top: 0.8rem;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.detail-icon-img{
+    width: 2.1rem;
+    height: 2.1rem;
+}
+.badges{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.badge{
+    font-size: 1rem;
+}
