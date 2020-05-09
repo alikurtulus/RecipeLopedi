@@ -1,10 +1,10 @@
-h2{
+.main-logo-name{
   margin:20px auto;
   text-align: center;
   font-size: 3.8rem;
   font-family: 'Rubik Mono One', sans-serif;
-  color:red;
-  text-shadow: 1px 1px 1px #000, 3px 3px 5px blue;
+  color:black;
+  text-shadow: 1px 4px 2px #3CCE7F, 3px 5px 3px lightblue;
 }
 .cards-container{
   margin: 60px auto 20px auto;
@@ -32,7 +32,7 @@ h2{
   height: 3.8rem;
   margin-bottom: 0.9rem;
 }
-.hero-meal-icon{
+.hero-icon{
   width: 4rem;
   height: 4rem;
   margin: 1.2rem auto;
@@ -46,4 +46,18 @@ h2{
   background-color: #ededed;
   height: 4rem;
   padding-top: 1.2rem;
+}
+.middle-title{
+  border: none;
+}
+.illustration-image{
+  width: 38rem;
+  height: 30rem;
+}
+.diet-page-container{
+  margin: 2.2rem auto;
+}
+.diet-content{
+  text-align: center;
+  margin: 5.1rem auto;
 }

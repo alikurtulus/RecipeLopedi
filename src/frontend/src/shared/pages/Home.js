@@ -2,16 +2,22 @@ import React from 'react'
 import {Form,Container} from 'react-bootstrap'
 import './Home.css'
 import Hero from './Hero'
+import CommentSide from './CommentSide'
 import SecondHome from './SecondHome'
 import MiddleHome from './MiddleHome'
 import Footer from './Footer'
+import DietPage from './DietPage'
 const Home = props => {
   return(
     <React.Fragment>
-       <Hero />
+        <Hero />
         <div className='borders'></div>
         <MiddleHome />
-        <SecondHome />
+        <div className='borders'></div>
+        <DietPage/>
+        <div className='borders'></div>
+        <CommentSide />
+        <div className='borders'></div>
         <Footer/>
     </React.Fragment>
   )

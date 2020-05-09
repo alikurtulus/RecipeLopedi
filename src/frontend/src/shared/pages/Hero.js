@@ -6,6 +6,8 @@ import AsyncSelect from 'react-select/async'
 import {Form,Container,Button,Row, Col,CardDeck,Spinner,Image} from 'react-bootstrap'
 import axios from 'axios'
 import hatIcon from '../../images/recipehat.png'
+import DietPage from './DietPage'
+import './Home.css'
 
 
 import CardBox from '../components/UIElements/CardBox'
@@ -82,7 +84,7 @@ const Hero = props => {
    {joke !== undefined && randomRecipes !== undefined &&  <div className='main-container'>
    <Container>
      <div className='logo-container'>
-       <h2><span><Image  src={hatIcon}  /></span>RecipeLopedi</h2>
+       <h2 className='main-logo-name'><span><Image  src={hatIcon}  /></span>RecipeLopedi</h2>
       </div>
     <Form onSubmit={handleSubmit}>
         <Row className="justify-content-md-center">
