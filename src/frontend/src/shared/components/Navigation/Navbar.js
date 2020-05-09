@@ -1,14 +1,17 @@
 import React,{useContext} from 'react'
-import {NavLink}  from 'react-router-dom'
+import {NavLink ,useRouteMatch,useLocation,useHistory }  from 'react-router-dom'
 import './Navbar.css'
 import {Container,Navbar, Nav} from 'react-bootstrap'
 import {AuthContext} from '../../context/auth-context'
 
+
+
 const navbar = props =>{
   const auth = useContext(AuthContext)
+  let location = useLocation()
 
    return (
-
+    
        <Navbar collapseOnSelect expand="lg"  variant="dark" className="nav-bar-cs">
          <Navbar.Brand href="#home">
          <img
@@ -22,26 +25,38 @@ const navbar = props =>{
        </Navbar.Brand>
        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
+       {location !== undefined && <>
+        <Nav className="mr-auto">
             <Nav.Link as={NavLink}  to='/' >
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to='/recipes/all'> 
+            {location.pathname !== '/recipes/all' &&
+             <Nav.Link as={NavLink} to='/recipes/all'> 
               Recipes
-            </Nav.Link>
-            {auth.isLoggedIn && (
+             </Nav.Link>
+            }
+            {location.pathname !== '/cuisines/all' && 
+             <Nav.Link as={NavLink} to='/cuisines/all'> 
+               Cuisines
+             </Nav.Link>
+            }
+           
+            {auth.isLoggedIn && location.pathname !== '/recipes/new' &&  (
             <Nav.Link as={NavLink} to='/recipes/new'> 
               Add a Recipe
             </Nav.Link>
             )}
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn &&  location.pathname !== '/mealplans/new' && (
               <Nav.Link as={NavLink} to='/mealplans/new'>
                Add a MealPlan
             </Nav.Link>
             )}
-            <Nav.Link as={NavLink} to='/mealplans/all'>
-              MealPlans
-            </Nav.Link>
+            {location.pathname !== '/mealplans/all' &&
+              <Nav.Link as={NavLink} to='/mealplans/all'>
+               MealPlans
+              </Nav.Link>
+            }
+           
           </Nav>
          
           <Nav className="justify-content-end">
@@ -52,17 +67,31 @@ const navbar = props =>{
             }
             {auth.isLoggedIn && (
                 <React.Fragment>
-                    <Nav.Link onClick={auth.logout} as={NavLink} to='/auth'>
+                  <Nav.Link onClick={auth.logout} as={NavLink} to='/auth'>
                   Logout
                   </Nav.Link>
+                {location.pathname !== '/users/profile' && 
                   <Nav.Link as={NavLink} to='/users/profile'>
-                     Profile
+                   Profile
                   </Nav.Link>
+        
+                } 
                   </React.Fragment>  
              )
             }
             
            </Nav>
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       </> } 
+          
        </Navbar.Collapse>
      </Navbar>
 

@@ -9,11 +9,11 @@ import {fetchUsersRecipeDetails} from '../../redux-stuff/actions/recipeActions'
 import axios from 'axios';
 import {AuthContext} from '../../shared/context/auth-context'
 import Comment from '../../shared/components/FormElements/Comment'
-import likedIcon from '../../images/liked.png'
-import servedIcon from '../../images/served.png'
-import clockIcon from '../../images/clock.png'
-import moneyIcon from '../../images/price.png'
-import ratingIcon from '../../images/rating.png'
+import likedIcon from '../../assets/liked.png'
+import servedIcon from '../../assets/served.png'
+import clockIcon from '../../assets/clock.png'
+import moneyIcon from '../../assets/price.png'
+import ratingIcon from '../../assets/rating.png'
 
   const  UserRecipesDetails = props =>  {
     let location = useLocation()
@@ -37,9 +37,6 @@ import ratingIcon from '../../images/rating.png'
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     
-
-
-
 
     const {rid} = useParams()
     useEffect( () => { 

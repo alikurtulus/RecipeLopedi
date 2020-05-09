@@ -1,10 +1,10 @@
 import React from 'react'
 import {Card,ListGroup,Button, Image} from 'react-bootstrap'
 import './MealPlan.css'
-import mealPlaIcon from '../images/mealplan.png'
-import calorieIcon from '../images/cal.png'
-import calendarIcon from '../images/calendars.png'
-import dietIcon from '../images/diet.png'
+import mealPlaIcon from '../assets/mealplan.png'
+import calorieIcon from '../assets/cal.png'
+import calendarIcon from '../assets/calendars.png'
+import dietIcon from '../assets/diet.png'
 
 
 const  MealPlanCard = props => {

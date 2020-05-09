@@ -6,10 +6,10 @@ const checkAuth = require('../middleware/check-auth')
 const fileUpload = require('../middleware/file-upload')
 
 
-
+router.get('/usersRecipes/details/:rid',recipeController.getRecipeById)
 router.get('/all',recipeController.getAllRecipes)
 router.get('/user/:uid',recipeController.getRecipesByUserId)
-router.get('/usersRecipes/details/:rid',recipeController.getRecipeById)
+
 
 router.use(checkAuth)
 router.post('/comment/recipe/:rid',recipeController.createComment)

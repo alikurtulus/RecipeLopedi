@@ -5,12 +5,12 @@ import {Container,Col,Card,Row,Spinner,ListGroup, Image} from 'react-bootstrap'
 import WeeklyPlan from './WeeklyPlan'
 import DailyPlan from './DailyPlan'
 import './MealPlanDetails.css'
-import calorieIcon from '../images/cal.png'
-import calendarIcon from '../images/calendars.png'
-import excludeIcon from '../images/forbidden.png'
-import mealPlaIcon from '../images/mealplan.png'
-import dietIcon from '../images/diet.png'
-import dateIcon from '../images/age.png'
+import calorieIcon from '../assets/cal.png'
+import calendarIcon from '../assets/calendars.png'
+import excludeIcon from '../assets/forbidden.png'
+import mealPlaIcon from '../assets/mealplan.png'
+import dietIcon from '../assets/diet.png'
+import dateIcon from '../assets/age.png'
 
 const  MealPlanDetails = props => {
     const {mid} = useParams()

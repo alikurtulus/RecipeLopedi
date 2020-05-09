@@ -5,12 +5,12 @@ import './RecipeDetails.css'
 import {Container,Row,Col,Figure,Table,Card,CardDeck,ListGroup, Spinner,Image,Badge} from 'react-bootstrap'
 import CardBox from '../../shared/components/UIElements/CardBox'
 import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
-import likedIcon from '../../images/liked.png'
-import servedIcon from '../../images/served.png'
-import clockIcon from '../../images/clock.png'
-import moneyIcon from '../../images/price.png'
-import ratingIcon from '../../images/rating.png'
-import dietIcon from '../../images/diet.png'
+import likedIcon from '../../assets/liked.png'
+import servedIcon from '../../assets/served.png'
+import clockIcon from '../../assets/clock.png'
+import moneyIcon from '../../assets/price.png'
+import ratingIcon from '../../assets/rating.png'
+import dietIcon from '../../assets/diet.png'
 
   const  RecipeComplexDetails = () =>  {
     const dispatch = useDispatch()

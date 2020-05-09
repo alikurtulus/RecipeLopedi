@@ -1,10 +1,9 @@
 import React  from 'react'
 import {Card, Button,ListGroup,ListGroupItem,Image } from  'react-bootstrap'
 import './CardBox.css'
-import  {Link} from 'react-router-dom'
 import {useHistory} from 'react-router-dom'
-import clockIcon from '../../../images/clock.png'
-import servedIcon from '../../../images/served.png'
+import clockIcon from '../../../assets/clock.png'
+import servedIcon from '../../../assets/served.png'
 
 const CardBox = props => {
     let url
@@ -19,13 +18,13 @@ const CardBox = props => {
     }
     else if(props.cid){
       url = {
-        pathname:`recipe/${props.rid}`,
+        pathname:`/cuisines/recipe/${props.rid}`,
         state:{cuisineId:props.cid}}
         imageUrl = props.image
     }
    
     else if(props.id) { 
-      url= { pathname:`recipe/details/${props.id}` }
+      url= { pathname:`/recipe/details/${props.id}` }
       imageUrl = props.image
     }
     const handleSeeMore = e => {

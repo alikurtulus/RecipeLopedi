@@ -1,7 +1,7 @@
 import React from 'react'
 import {Container,Image,Col,Row} from 'react-bootstrap'
-import dietImage from '../../images/diet-image.png'
-import dietIcon from '../../images/diet.png'
+import dietImage from '../../assets/diet-image.png'
+import dietIcon from '../../assets/diet.png'
 import './Home.css'
  const DietPage  = () => {
     return (

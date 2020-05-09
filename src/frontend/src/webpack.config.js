@@ -14,7 +14,7 @@ module.exports = {
   devtool: 'source-maps',
   module: {
     rules: [
-      {test: /\.(pdf|jpg|png|gif|svg|ico)$/,
+      {test: /\.(pdf|jpg|png|gif|svg|ico|mp4)$/,
         use: [
                {
                    loader: 'file-loader',

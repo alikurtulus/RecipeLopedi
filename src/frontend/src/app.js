@@ -11,6 +11,7 @@ import MealPlanList from './mealplans/MealPlanList'
 
 const RecipeComplexDetails = React.lazy(() => import('./recipes/components/RecipeComplexDetails'))
 const RecipeSearches = React.lazy(() => import ('./recipes/components/RecipeSearches'))
+const Cuisines = React.lazy(() => import('./shared/pages/Cuisines'))
 const Home = React.lazy(() => import('./shared/pages/Home'))
 const Auth = React.lazy(() => import('./users/components/Auth'))
 const CuisineRecipes = React.lazy(() => import('./shared/pages/CuisineRecipes'))
@@ -38,10 +39,10 @@ const  App = () => {
            <Route path='/users/profile'  exact>
               <Profile />
             </Route>
-           <Route path='/cuisine/recipe/:id'  >
+           <Route path='/cuisines/recipe/:id' exact  >
             <RecipeDetails />
             </Route>
-            <Route  path = '/recipes/usersRecipes/details/:rid'>
+            <Route  exact path='/recipes/usersRecipes/details/:rid'>
               <UserRecipesDetails />
             </Route>
             <Route path='/recipe/update'>
@@ -68,9 +69,12 @@ const  App = () => {
              <Route exact path='/mealplan/details/:mid'>
                 <MealPlanDetails />
              </Route>
-            <Route path='/cuisine/:id' exact>
-             <CuisineRecipes />
-            </Route>  
+             <Route exact path ='/cuisines/all'>
+               <Cuisines />
+             </Route>
+             <Route path='/cuisines/cuisine/:id' exact>
+                  <CuisineRecipes />
+            </Route>
            <Redirect to='/' />
 
         </Switch>
@@ -81,19 +85,19 @@ const  App = () => {
       routes = 
           (  
             <Switch>
-                <Route path='/auth'  exact>
-                  <Auth />
+               <Route exact path ='/cuisines/all'>
+                  <Cuisines />
                 </Route>
-                <Route path='/cuisine/recipe/:id'  >
+                <Route  exact path='/recipes/usersRecipes/details/:rid'>
+                  <UserRecipesDetails />
+                </Route>
+               <Route exact path='/cuisines/recipe/:id'  >
                   <RecipeDetails />
-                </Route>
-                <Route  path = '/recipes/usersRecipes/details/:rid'>
-                    <UserRecipesDetails />
                 </Route>
                 <Router exact path="/recipes/all">
                   <UsersRecipes />
                 </Router>
-                <Route path='/cuisine/:id' exact>
+                <Route path='/cuisines/cuisine/:id' exact>
                   <CuisineRecipes />
                 </Route>
                 <Route path='/mealplans/new'>
@@ -105,13 +109,15 @@ const  App = () => {
                 <Route exact path='/mealplans/all'>
                   <MealPlans />
                 </Route> 
-                <Route path='/recipes/searches' >
+                <Route exact path='/recipes/searches' >
                   <RecipeSearches />
                 </Route>  
                 <Route path='/recipe/details/:id' >
                  <RecipeComplexDetails   />
                 </Route>
-
+                <Route path='/auth'  exact>
+                  <Auth />
+                </Route>
                 <Route path='/' exact >
                   <Home />
                 </Route>

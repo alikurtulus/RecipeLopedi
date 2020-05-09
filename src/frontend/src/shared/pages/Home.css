@@ -38,7 +38,7 @@
   margin: 1.2rem auto;
 }
 .middle-home-container{
-  margin: 3rem auto;
+  margin: 3.2rem auto;
   text-align: center;
 }
 .footer{
@@ -49,6 +49,7 @@
 }
 .middle-title{
   border: none;
+  display: block;
 }
 .illustration-image{
   width: 38rem;

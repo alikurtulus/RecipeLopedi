@@ -3,11 +3,11 @@ import { useParams, useLocation} from "react-router";
 import {Container,Row,Col,Figure,Table,Card,ListGroup, Spinner,Badge,Image} from 'react-bootstrap'
 import cuisines from '../../shared/lib/cuisines'
 import './RecipeDetails.css'
-import likedIcon from '../../images/liked.png'
-import servedIcon from '../../images/served.png'
-import clockIcon from '../../images/clock.png'
-import moneyIcon from '../../images/price.png'
-import ratingIcon from '../../images/rating.png'
+import likedIcon from '../../assets/liked.png'
+import servedIcon from '../../assets/served.png'
+import clockIcon from '../../assets/clock.png'
+import moneyIcon from '../../assets/price.png'
+import ratingIcon from '../../assets/rating.png'
 
 
  const RecipeDetails = props =>  {

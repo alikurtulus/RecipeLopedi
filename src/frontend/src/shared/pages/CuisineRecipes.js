@@ -28,13 +28,13 @@ const fetchRecipes = () =>{
             {cuisine.length !== 0 &&
            
             <Container className='card-box-recipes'>
-                 <h3>{cuisine.cuisine}</h3>
+                 <h3 className='cuisine-title'>{cuisine.cuisine}</h3>
                 <Row>
                    <CardDeck>
                         {cuisine.recipes.map(recipe=>
                                 <Col sm={3} key={recipe.id} className='recipe-box' >
-                                   
-                                        <CardBox 
+                                  
+                                    <CardBox 
                                             price={recipe.pricePerServing}
                                             image={recipe.image}
                                             servings={recipe.serving}
@@ -43,6 +43,8 @@ const fetchRecipes = () =>{
                                             rid={recipe.id}
                                             cid={id}
                                         />
+                                   
+                                       
                                   
                                 </Col>
                         )}

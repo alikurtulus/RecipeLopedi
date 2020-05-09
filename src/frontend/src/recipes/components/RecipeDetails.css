@@ -8,6 +8,9 @@
  .recipe-title {
   font-size: 1.7rem;;
   font-weight: bold;
+  border-bottom: 0.2rem solid red;  
+  display: inline;
+  padding-bottom: 2px;
 }
 .recipe-summary{
     margin-top: 10px;
@@ -23,11 +26,6 @@
     object-position:50% 50%;
 }
 
-h3{
-    border-bottom:0.2rem solid red;  
-    display: inline;
-    padding-bottom: 0.7rem;
-}
 .card-similar-recipe{
     margin: 2px 0 8px 8px;
 }

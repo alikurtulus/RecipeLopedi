@@ -1,8 +1,8 @@
 import React,{useContext,useState,useEffect} from 'react'
 import {Container,Form,Row,Col,Card,CardDeck,Modal,Button,ListGroup,Table,ListGroupItem,Image } from 'react-bootstrap'
 import './DailyPlan2.css'
-import clockIcon from '../images/clock.png'
-import servedIcon from '../images/served.png'
+import clockIcon from '../assets/clock.png'
+import servedIcon from '../assets/served.png'
 
 const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 const nutrientIndicators = ['calories','carbohydrates','fat','protein']

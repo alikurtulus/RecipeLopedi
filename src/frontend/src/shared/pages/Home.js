@@ -3,7 +3,8 @@ import {Form,Container} from 'react-bootstrap'
 import './Home.css'
 import Hero from './Hero'
 import CommentSide from './CommentSide'
-import SecondHome from './SecondHome'
+import FirstVideoSide from './FirstVideoSide'
+import SecondVideoSide from './SecondVideoSide'
 import MiddleHome from './MiddleHome'
 import Footer from './Footer'
 import DietPage from './DietPage'
@@ -16,7 +17,11 @@ const Home = props => {
         <div className='borders'></div>
         <DietPage/>
         <div className='borders'></div>
+        <FirstVideoSide />
+        <div className='borders'></div>
         <CommentSide />
+        <div className='borders'></div>
+        <SecondVideoSide />
         <div className='borders'></div>
         <Footer/>
     </React.Fragment>

@@ -6,10 +6,10 @@ import './Profile.css'
 import UserEdit from '../../users/components/UserEdit'
 import UserRecipes from './UserRecipes'
 import MealPlans from '../../mealplans/MealPlans'
-import emailIcon from '../../images/email.png'
-import ageIcon from '../../images/age.png'
-import userIcon from '../../images/user.png'
-import genderIcon from '../../images/gender.png'
+import emailIcon from '../../assets/email.png'
+import ageIcon from '../../assets/age.png'
+import userIcon from '../../assets/user.png'
+import genderIcon from '../../assets/gender.png'
 
 const  Profile = () => {
     const auth  = useContext(AuthContext)
