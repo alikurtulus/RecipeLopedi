@@ -30,6 +30,7 @@ const NewMealPlan = props => {
     const [isSearched,setIsSearched] = useState(false)
     const [mid,setMealPlanId] = useState('')
     const [isAdded,setIsAdded] = useState(true)
+    const [isExcludeSaved,setExcludeSaved] = useState([])
     const [show, setShow] = useState(false);                                 //Error modal
     const handleClose = () => setShow(false);                                // We  use this for closing the modal.
     const handleShow = () => setShow(true);                                 // We use this for showing the modal.
@@ -121,14 +122,30 @@ const NewMealPlan = props => {
         setExcludeCount(excludeCount=> excludeCount + 1)
     }
     const handleExcludeRemove = (index) => {
+        let isSavedArr = [...isExcludeSaved]
         setExcludes(excludes.filter(exclude => exclude !== index))
-        setExcludeCount(excludeCount => excludeCount - 1)   
+        setExcludeCount(excludeCount => excludeCount - 1)
+        isSavedArr[index]= false
+        setExcludeSaved(isSavedArr)
     }
     const handleExcludeSave = (index) => {
            
         let  newArr = [...excludeData]
-        newArr[index] = formState.inputs.exclude.value
-        setExcludeData(newArr)
+        let isSavedArr = [...isExcludeSaved]
+        if(formState.inputs.exclude.value !== ''){
+          newArr[index] = formState.inputs.exclude.value
+          setExcludeData(newArr)
+          isSavedArr[index] = true
+          setExcludeSaved(isSavedArr)
+        }
+        else{
+          setErrorMessage('Make sure fill all inputs ...')
+          isSavedArr[index] = false
+          setExcludeSaved(isSavedArr)
+          setShow(true);
+
+        }
+       
         console.log(excludeData)
     }
     const handleSearch = async (e) => {
@@ -247,7 +264,9 @@ const NewMealPlan = props => {
                              key={index}
                              addExcludeHandler={() => handleExcludeSave(index)}
                              onInputHandler={inputHandler}
-                             deleteExcludeHandler={() => handleExcludeRemove(index)} iId={index} />
+                             deleteExcludeHandler={() => handleExcludeRemove(index)} iId={index}
+                             isSaved={isExcludeSaved[index]}
+                              />
                         }
                         )}
                         </Col>

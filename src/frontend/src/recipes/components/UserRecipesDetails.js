@@ -14,6 +14,8 @@ import servedIcon from '../../assets/served.png'
 import clockIcon from '../../assets/clock.png'
 import moneyIcon from '../../assets/price.png'
 import ratingIcon from '../../assets/rating.png'
+import dislikeIcon from '../../assets/dislike.png'
+
 
   const  UserRecipesDetails = props =>  {
     let location = useLocation()
@@ -26,17 +28,20 @@ import ratingIcon from '../../assets/rating.png'
     const [isCommented,setIsComment]= useState(false)
     const [userComment,setUserComment] = useState('')
     const [isFavourite,setIsFavourite] = useState(true)
-    const [selectedIndex,setSelectedIndex] = useState()
+    const [selectedIndex,setSelectedIndex] = useState(0)
     const [isRated,setIsRated] = useState(true)
+    const [wasRated,setWasRated] = useState(true)
     const [selectedRecipe,setSelectedRecipe] = useState([])
-    const [totalRating,setTotalRating] = useState(0)
-    const [rating,setRating] = useState(0)
+    const [prevRating,setPrevRating] = useState(0)
+    const [newRating,setNewRating] = useState(0)
+    const [rating,setRating] = useState()
     const [updatedComment,setUpdatedComment] = useState('')
     const auth  = useContext(AuthContext)
     const [isEdit,setIsEdit] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+    const [recComments,setReComments] = useState([])
+   
 
     const {rid} = useParams()
     useEffect( () => { 
@@ -46,13 +51,14 @@ import ratingIcon from '../../assets/rating.png'
         fetchData()
     },[dispatch,rid])
     let recipe  = useSelector(state => state.recipes.usersRecipeDetailsInfo )
- 
-    let recComments
-    if(recipe.comments !==  undefined){
-         recComments = recipe.comments.reverse()
-    }
-    const ratingChanged = (newRating) => {
-        setRating(newRating)
+     useEffect(() => {
+         if(!isCommented && recipe.comments !== undefined){
+            setReComments(recipe.comments.reverse())
+         }
+     },[isCommented,recipe])
+   
+    const ratingChanged = (currentRating) => {
+        setRating(currentRating)
         setIsRated(false)
     }
     const handleMyFavouriteClick = async () => {
@@ -76,34 +82,55 @@ import ratingIcon from '../../assets/rating.png'
             setIsFavourite(!isFavourite)
         }
     }
+    useEffect(() => {
+        const getRating = async () => {
+            const responseData = await axios.post(
+                process.env.REACT_APP_BACKEND_URL+`/recipes/recipe/getRating/${rid}`,{userId:auth.userId})
+                console.log(responseData.data.averageRating)
+                setWasRated(responseData.data.averageRating.wasUserRated)
+                setPrevRating(responseData.data.averageRating.rating)
+            }
+        getRating()
+    },[rating,prevRating])
      
     useEffect(() => {
-        const setRating = async () => {
-            if(rating !== 0){
-                const responseData = await axios.post(
-                    process.env.REACT_APP_BACKEND_URL+`/recipes/recipe/rating/${rid}`,
-                     {rating},{
-                     headers: {Authorization : `Bearer ${auth.token}`} })
-            }
+          const handleSetRating = async () => {
+             
+              if(rating > 0 ){
+                    
+                  try{ 
+                      let data = {
+                          rating:parseFloat(rating),
+                          userId: auth.userId
+                      }
+                       const responseData = await axios.post(
+                                     process.env.REACT_APP_BACKEND_URL+`/recipes/recipe/rating/${rid}`,
+                                     {data},
+                                     {headers: {Authorization : `Bearer ${auth.token}`}}
+                       )
+                       console.log(responseData.data)
+                       setIsRated(false)
+                       setNewRating(parseFloat(responseData.data.averageRating))
+                      
+                    }
+                    catch(err){
+                        setShow(true);
+                        setError(err.response.data.message)
+                    }
+             
+                  
+               }
+            
         }
-        setRating()
-        const averageRating = async () => {
-            if(recipe.ratings){
-                let ratingTotal = recipe.ratings.length +1
-                let total = 0
-                recipe.ratings.map(rat => {
-                    total += rat.point
-                })
-                total += rating
-                setTotalRating( parseFloat(total/ratingTotal).toFixed( 2 ))
-            }
-        }
-        averageRating()
-    },[rating,totalRating])   
+        handleSetRating()
+
+     },[rating,isRated])   
 
     const handleCommentChange =  (e) => {
-       
+        e.preventDefault()
+      
         setUserComment(e.target.value)
+
        
     }
     const handleSendComment = async (e) => {
@@ -128,16 +155,18 @@ import ratingIcon from '../../assets/rating.png'
        const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL +`/recipes/recipe/comments/delete/${rid}`,{commentId:index,userId:userId},{
         headers: {Authorization : `Bearer ${auth.token}`} })
         console.log(responseData)
-        setSelectedRecipe(responseData.data.recipe.comments)
+        setSelectedRecipe(responseData.data.recipe.comments.reverse())
         setIsComment(true)
         
     }
     const handleUpdateComment =   (index,userId) => {
         let selectedComment =  recipe.comments.filter(c => c.id === index)
         if(selectedComment){
+            console.log('ada')
             setIsEdit(!isEdit)
+            console.log(selectedComment)
             setSelectedIndex(index)
-            setUpdatedComment({updatedComment:''})
+            setUpdatedComment(selectedComment[0].content)
         }
     }
     const handleUpdateCommentSave = async (index,userId) => {
@@ -148,8 +177,8 @@ import ratingIcon from '../../assets/rating.png'
             console.log(responseData)
             setIsComment(true)
             setSelectedIndex(index)
-            setUpdatedComment({updatedComment:''})
-            setSelectedRecipe(responseData.data.recipe.comments)
+            setUpdatedComment('')
+            setSelectedRecipe(responseData.data.recipe.comments.reverse())
            
     }
     const handleDelete = async (e) => {
@@ -237,36 +266,47 @@ import ratingIcon from '../../assets/rating.png'
                                 </div>
                                 <div>
                                     <Badge variant="primary" className='badge'>
-                                        Rating: {totalRating}
+                                        Rating: { isRated ?  prevRating : newRating}
                                     </Badge>
                                 </div>
                               </Col>
                           </Row>
                           {auth.token &&
                            <React.Fragment>
-                            <div className='rating-fav-container'>
-                                <div className='rating-container'>
-                                        <h4 className='rating'>Rating</h4>
-                                        <ReactStars
-                                            count={5}
-                                            onChange={ratingChanged}
-                                            size={30}
-                                            edit={isRated}
-                                            value={rating}
-                                            color2={'#ffd700'} />
-                                </div>
-                                <div className='fav-container'>
-                                   <Button variant={isFavourite ? "link" :"danger" } size="lg" onClick={handleMyFavouriteClick}>
-                                     <Image src={likedIcon} className='like-icon' />
-                                   </Button>
-                                   <div>
-                                    <Badge variant="success" className='badge'>
-                                        Your Favourite
-                                    </Badge>
-                                  </div>
-                                </div>
-                            </div>
-                            
+                               {recipe.creator!== undefined && 
+                                <>
+                                 {auth.userId !== recipe.creator.id && 
+                                    <div className='rating-fav-container'>
+                                        <div className='fav-container'>
+                                          <Button variant="link"  size="lg" onClick={handleMyFavouriteClick}>
+                                           {isFavourite ? <Image src={likedIcon} className='like-icon' />  : <Image src={dislikeIcon} className='like-icon' /> } 
+                                          </Button>
+                                          <div>
+                                           <Badge variant="success" className='badge'>
+                                               Your Favourite
+                                           </Badge>
+                                         </div>
+                                        </div>
+                                        {!wasRated && 
+                                            <div className='rating-container'>
+                                              <h4 className='rating'>Rating</h4>
+                                              <ReactStars
+                                                count={5}
+                                                onChange={ratingChanged}
+                                                size={30}
+                                                edit={isRated}
+                                                value={rating}
+                                                color2={'#ffd700'} />
+                                            </div>
+                                        
+                                        }
+                                   </div>
+                                    
+                                 }
+                                </>
+                               
+                               }
+                               
                                 {isCrud !== undefined   && creator === auth.userId &&
                                     <React.Fragment>
                                         <div  className='crud-buttons'>
@@ -304,20 +344,20 @@ import ratingIcon from '../../assets/rating.png'
           </Row>
           <Row className='comment-container'>
               {auth.token &&
-                       <Col>
-                       <InputGroup className="mb-3">
-                         <FormControl
-                         placeholder="Give some comments ..."
-                         aria-label="Recipient's username"
-                         aria-describedby="basic-addon2"
-                         onChange={handleCommentChange}
-                         value={userComment}
-                         />
-                         <InputGroup.Append>
-                         <Button variant="success" onClick={handleSendComment}>Comment</Button>
-                         </InputGroup.Append>
-                      </InputGroup>
-                     </Col>
+                        <Col>
+                            <InputGroup className="mb-3">
+                                <FormControl
+                                placeholder="Give some comments ..."
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                                onChange={handleCommentChange}
+                                value={userComment}
+                                />
+                                <InputGroup.Append>
+                                <Button variant="success" onClick={handleSendComment}>Comment</Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Col>
               }
       
           </Row>

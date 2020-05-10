@@ -9,13 +9,13 @@ const fileUpload = require('../middleware/file-upload')
 router.get('/usersRecipes/details/:rid',recipeController.getRecipeById)
 router.get('/all',recipeController.getAllRecipes)
 router.get('/user/:uid',recipeController.getRecipesByUserId)
-
+router.post('/recipe/getRating/:rid',recipeController.getRecipeRating)
 
 router.use(checkAuth)
 router.post('/comment/recipe/:rid',recipeController.createComment)
 router.post('/user/myfavouriteRecipe/:rid',recipeController.addFavouriteRecipe)
 router.post('/user/usermyfavouriteRecipe/delete/:rid',recipeController.removeFavouriteRecipe)
-router.post('/recipe/rating/:rid',recipeController.getRecipeRating)
+router.post('/recipe/rating/:rid',recipeController.setRecipeRating)
 router.post('/recipe/comments/delete/:rid',recipeController.deleteComment)
 router.put('/recipe/comments/update/:rid',recipeController.updateComment)
 router.post('/new',

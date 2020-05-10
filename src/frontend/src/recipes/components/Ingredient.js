@@ -1,16 +1,48 @@
-import React from 'react'
-import {Card, Accordion,Button} from 'react-bootstrap'
+import React,{useState} from 'react'
+import {Card, Accordion,Button,Image} from 'react-bootstrap'
 import ImageUpload from '../../shared/components/FormElements/ImageUpload'
 import Input from '../../shared/components/FormElements/Input'
 import {VALIDATOR_MINLENGTH,VALIDATOR_EMAIL, VALIDATOR_REQUIRE}  from '../../shared/util/validators'
+import plusIcon from '../../assets/plus.png'
+import minusIcon from '../../assets/minus.png'
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import completedIcon from '../../assets/submit.png'
+
+const CustomToggle = ({isSaved, eventKey }) => {
+    const [isClicked,setIsClicked] = useState(false)
+    console.log(isSaved)
+   
+    const decoratedOnClick = useAccordionToggle(eventKey, () =>
+      {
+          setIsClicked(!isClicked)
+      }
+    );
+  
+    return (
+        <div className='accordion-title-main-container' onClick={decoratedOnClick}>
+            <div className='accordion-title-icon-container'>
+                <div className='accordion-title-icon'>
+                <Image src={!isClicked ? plusIcon : minusIcon} className='accordion-title-icon-img' />
+                </div>
+                <div className='accordion-title'>
+                    Ingredient
+                </div>
+            </div>
+            <div className='accordion-title-completed-icon'>
+                {isSaved  ?  <Image src={completedIcon} className='accordion-title-icon-img' /> : ''}
+            </div>
+        </div>
+    );
+  }
+
 
 const Ingredient = props => {
     return(
     <Accordion className='accordion-item'>
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey={props.iId}>
-                + Ingredient
-                </Accordion.Toggle>
+                <Card.Header>
+                    <CustomToggle eventKey={props.iId} isSaved={props.isSaved} ></CustomToggle>
+                </Card.Header>
                 <Accordion.Collapse eventKey={props.iId}>
                 <Card.Body className='accordion-card-item'>
                     <Input 

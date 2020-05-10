@@ -60,7 +60,13 @@ const recipeSchema = new mongoose.Schema({
     point:{
       type:Number,
       required:true
+    },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: true
     }
+
   }],
   comments:[commentSchema],
   nutrients:[{

@@ -1,6 +1,6 @@
 import React from 'react'
-import fishVideo from '../../images/bakedFish.mp4'
-import fishIcon from '../../images/fish.png'
+import fishVideo from '../../assets/bakedFish.mp4'
+import fishIcon from '../../assets/fish.png'
 import {Container,Image,Col,Row,ResponsiveEmbed,embed } from 'react-bootstrap'
 const FirstVideoSide = () => {
     return (

@@ -60,6 +60,7 @@
 }
 .rating-container{
     margin-top: 1.2rem;
+    margin-left: 3.6rem;
 }
 .rating-container h4{
     text-align: center;
@@ -69,7 +70,7 @@
 }
 .fav-container{
     margin-top: 1rem;
-    margin-left: 4.4rem;
+    margin-left: 0.8rem;
 }
 .details-icon{
     margin-top: 0.8rem;

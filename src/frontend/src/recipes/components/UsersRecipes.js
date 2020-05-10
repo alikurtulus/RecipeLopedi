@@ -1,10 +1,11 @@
 import React,{useEffect,useState} from 'react'
 import CardBox from '../../shared/components/UIElements/CardBox'
-import {Row,Col,Container,CardDeck, Card, Spinner} from 'react-bootstrap'
+import {Row,Col,Container,CardDeck, Card, Spinner,Image} from 'react-bootstrap'
 import { useSelector, useDispatch}  from 'react-redux'
 import {fetchUsersRecipes} from '../../redux-stuff/actions/recipeActions'
 import  {Link} from 'react-router-dom'
 import './UsersRecipes.css'
+import NotFoundIcon from '../../assets/notfoundfood.png'
 
  const UserRecipes = () => {
      const dispatch = useDispatch()
@@ -20,7 +21,13 @@ import './UsersRecipes.css'
         <div className='users-recipes-container'>
             
             <React.Fragment>
-            {recipes.length === 0 && <Spinner animation="border" variant="primary" />}
+            {recipes.length === 0 && 
+            
+            <Container className='not-found-container'>
+                <div><h2 className='not-found-title'>Recipes Not Found Yet...</h2></div>
+                <Image src={NotFoundIcon} className='not-found-food-icon' />
+            </Container>
+            }
             {recipes.length !== 0 &&
                <Container   className='cards-container'>
                     <Row>

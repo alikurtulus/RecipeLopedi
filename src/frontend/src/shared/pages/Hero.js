@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import AsyncSelect from 'react-select/async'
 import {Form,Container,Button,Row, Col,CardDeck,Spinner,Image} from 'react-bootstrap'
 import axios from 'axios'
-import hatIcon from '../../images/recipehat.png'
+import hatIcon from '../../assets/recipehat.png'
 import DietPage from './DietPage'
 import './Home.css'
 

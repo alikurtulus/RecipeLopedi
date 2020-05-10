@@ -58,7 +58,7 @@ import './Comment.css'
                         <Col sm={10} className='comment-content'>
                             <h5>{currentUser.username}</h5>
                             <p>
-                              {props.content}
+                             {props.content}
                             </p>
                             <p className='date'>{date}</p>
                             <div className='btn-crud-buttons'>
@@ -72,6 +72,7 @@ import './Comment.css'
                                             aria-label="Recipient's username"
                                             aria-describedby="basic-addon2"
                                             onChange={props.updateCommentChange}
+                                            value={props.updatedComment}
                                            
                                         />
                                         <InputGroup.Append>

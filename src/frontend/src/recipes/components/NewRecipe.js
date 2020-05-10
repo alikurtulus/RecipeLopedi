@@ -63,13 +63,15 @@ import {AuthContext} from '../../shared/context/auth-context'
     const handleClose = () => setShow(false);                                // We  use this for closing the modal.
     const handleShow = () => setShow(true);                                  // We use this for showing the modal.
     const [errorMessage,setErrorMessage] = useState('')
+    const [isIngredientSaved,setIsIngredietSaved] = useState([])
+    const [isInstructionSaved,setIsInstructionSaved] = useState([])
 
         
     const addIngredient = () => {
       
         setIngredients(prev => [...prev,ingredientCount])
         setIngredientCount(ingredientCount=> ingredientCount + 1)
-        console.log(ingredientData)
+       
     }
     const addInstruction = () => {
     
@@ -77,25 +79,59 @@ import {AuthContext} from '../../shared/context/auth-context'
         setInstructionCount(instructionCount => instructionCount + 1)
     }
     const handleIngredientRemove = (index) => {
+      let isSavedArr = [...isIngredientSaved]
         setIngredients(ingredients.filter(ingredient => ingredient !== index))
         setIngredientCount(ingredientCount => ingredientCount - 1)   
+        isSavedArr[index] = false
+        setIsIngredietSaved(isSavedArr)  
     }
     const handleInstructionRemove = (index) => {
+        let isSavedArr= [...isInstructionSaved]
         setInstructions(instructions.filter(instruction => instruction !== index))
-        setInstructionCount(instructionCount => instructionCount - 1)  
+        setInstructionCount(instructionCount => instructionCount - 1)
+        isSavedArr[index]= false
+        setIsInstructionSaved(isSavedArr)
+      
     }
     const handleSaveIngredient = (index) => {
 
         let  newArr = [...ingredientData]
-        newArr[index] = {name:formState.inputs.iName.value,amount:formState.inputs.amount.value,measure:formState.inputs.measure.value}
-         setIngredientData(newArr)
-        console.log(ingredientData)
+        let isSavedArr = [...isIngredientSaved]
+
+
+        if(formState.inputs.iName.value !== '' && formState.inputs.amount.value !== '' && formState.inputs.measure.value !== ''  ){
+          newArr[index] = {name:formState.inputs.iName.value,amount:formState.inputs.amount.value,measure:formState.inputs.measure.value}
+          setIngredientData(newArr)
+          isSavedArr[index] = true
+          setIsIngredietSaved(isSavedArr)
+        }
+        else{
+          setErrorMessage('Make sure fill all inputs ...')
+          isSavedArr[index] = false
+          setIsIngredietSaved(isSavedArr)
+          setShow(true);
+        }
+        
+        
     }
     const handleSaveInstruction = (index) => {
       let newArr = [...instructionData]
-      newArr[index] = {content:formState.inputs.content.value}
-      setInstructionData(newArr)
-      console.log(instructionData)
+      let isSavedArr= [...isInstructionSaved]
+
+      if(formState.inputs.content.value !== ''){
+        newArr[index] = {content:formState.inputs.content.value}
+        setInstructionData(newArr)
+        isSavedArr[index]= true
+        setIsInstructionSaved(isSavedArr)
+      }
+      else{
+        setErrorMessage('Make sure fill all inputs ...')
+        isSavedArr[index]= false
+        setIsInstructionSaved(isSavedArr)
+        setShow(true);
+      }
+
+     
     }
     const handleSubmit =  async e => {
 
@@ -195,32 +231,38 @@ import {AuthContext} from '../../shared/context/auth-context'
                             Add Ingredient
                         </Button>
                         {ingredients.map(index => {
-                            return <Ingredient 
-                             key={index}
-                             addIngredientHandler={() => handleSaveIngredient(index)}
-                             onInputHandler={inputHandler}
-                             deleteIngredientHandler={() => handleIngredientRemove(index)} iId={index} />
+                            return  <Ingredient 
+                            key={index}
+                            addIngredientHandler={() => handleSaveIngredient(index)}
+                            onInputHandler={inputHandler}
+                            deleteIngredientHandler={() => handleIngredientRemove(index)} iId={index} 
+                            isSaved = {isIngredientSaved[index]}
+                        />
+                           
                         }
                         )}
                         </Col>
                         <Col sm={6}>
-                        <ImageUpload
-                                id='image' 
-                                name='image'
-                                validators={[VALIDATOR_REQUIRE()]}
-                                errorText='Please import an image file.'
-                                onInput={inputHandler}
-                        />
-                        <Button className='increment-btn' variant="warning" size="lg" block onClick={addInstruction}>
-                            Add Instruction
-                        </Button>
-                        {instructions.map(index => {
-                            return   <Instruction 
-                            key={index} iId={index}
-                            onInputHandler={inputHandler}
-                            addInstructionHandler = {() => handleSaveInstruction(index)}
-                            deleteInstruction={() => handleInstructionRemove(index)} />
-                        })}
+                          <ImageUpload
+                                  id='image' 
+                                  name='image'
+                                  validators={[VALIDATOR_REQUIRE()]}
+                                  errorText='Please import an image file.'
+                                  onInput={inputHandler}
+                          />
+                          <Button className='increment-btn' variant="warning" size="lg" block onClick={addInstruction}>
+                              Add Instruction
+                          </Button>
+                          {instructions.map(index => {
+                              return  <Instruction 
+                              key={index} iId={index}
+                              onInputHandler={inputHandler}
+                              addInstructionHandler = {() => handleSaveInstruction(index)}
+                              deleteInstruction={() => handleInstructionRemove(index)} 
+                              isSaved = {isInstructionSaved[index]}
+                              />
+                              
+                          })}
                         </Col>
                       
                       </Row>

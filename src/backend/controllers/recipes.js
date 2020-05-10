@@ -61,7 +61,7 @@ const getRecipeById = async (req,res,next) => {
 
 
 }
-const getRecipeRating = async (req,res,next) => {
+const setRecipeRating = async (req,res,next) => {
   const recipeId = req.params.rid
   let existingRecipe 
   try{
@@ -70,11 +70,80 @@ const getRecipeRating = async (req,res,next) => {
       const error = new HttpError('Could not find any recipes provided user id',404)
       return next(error)
     }
-    const {rating} = req.body
-    existingRecipe.ratings.push({point:rating})
+    const {data} = req.body
+    const {rating,userId} = data
+  
+    let isRated = existingRecipe.ratings.filter(rat => rat.user == userId)
+    console.log('dad')
+    console.log(isRated)
+    console.log('sda')
+    if(isRated.length > 0){
+      const error = new HttpError('You already rated  this recipe before',403)
+      return next(error)
+    }
+    existingRecipe.ratings.push({point:parseFloat(rating),user:userId})
+   
+    if(req.userData.userId === existingRecipe.creator.id){
+      const error = new HttpError('You can not give the rating for your recipe',403)
+      return next(error)
+    }
+    
+    let sum = 0 
+    let average = 0
+    for(let i = 0; i< existingRecipe.ratings.length;i++){
+      sum += existingRecipe.ratings[i].point
+    }
+    average = parseFloat(sum / existingRecipe.ratings.length).toFixed( 2 )
+    console.log(average)
     try{
       await  existingRecipe.save()
-      res.status(200).json({recipe:existingRecipe.toObject({getters:true})})
+      res.status(200).json({averageRating:average})
+    }
+    catch(err){
+      const error = new HttpError('Could not find any recipes provided user id',404)
+      return next(error)
+    }
+
+  }
+  catch(err){
+    const error = new HttpError('Could not find any recipes provided user id',404)
+    return next(error)
+  }
+
+}
+const getRecipeRating = async (req,res,next) => {
+  const recipeId = req.params.rid
+  let existingRecipe 
+  let sum = 0 
+  let average = 0
+  try{
+    existingRecipe = await Recipe.findById(recipeId).populate('creator')
+    if(!existingRecipe){
+      const error = new HttpError('Could not find any recipes provided user id',404)
+      return next(error)
+    }
+    const {userId} = req.body
+    console.log(req.body)
+    const userRated = existingRecipe.ratings.filter( rat => rat.user == userId)
+    console.log(userRated)
+    let isRated = userRated.length > 0 ? true : false
+    console.log(isRated)
+    if (existingRecipe.ratings.length > 0){
+      for(let i = 0; i< existingRecipe.ratings.length;i++){
+        sum += existingRecipe.ratings[i].point
+      }
+      average =   parseFloat(sum / existingRecipe.ratings.length).toFixed( 2 )
+    }
+    else{
+      average = 0
+    }
+    try{
+       let data = {
+         rating:average,
+         wasUserRated:isRated
+       }
+       console.log(data)
+      res.status(200).json({averageRating:data})
     }
     catch(err){
       const error = new HttpError('Could not find any recipes provided user id',404)
@@ -476,6 +545,7 @@ exports.createRecipe = createRecipe
 exports.updateRecipe = updateRecipe
 exports.deleteRecipe = deleteRecipe
 exports.getRecipeById = getRecipeById
+exports.setRecipeRating = setRecipeRating
 exports.getRecipeRating = getRecipeRating
 exports.addFavouriteRecipe = addFavouriteRecipe
 exports.removeFavouriteRecipe = removeFavouriteRecipe

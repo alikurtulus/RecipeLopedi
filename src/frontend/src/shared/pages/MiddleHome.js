@@ -1,7 +1,7 @@
 import React from 'react'
 import {Container,Row,Col,Image} from 'react-bootstrap'
-import recipeIcon from '../../images/mealplan.png'
-import mealPlanIcon from '../../images/calendars.png'
+import recipeIcon from '../../assets/mealplan.png'
+import mealPlanIcon from '../../assets/calendars.png'
 import './Home.css'
 
  const MiddleHome = () => {
