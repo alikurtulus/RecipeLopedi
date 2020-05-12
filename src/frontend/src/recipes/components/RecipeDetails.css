@@ -39,7 +39,8 @@
     margin-top: 1.4rem;
 }
 .crud-buttons{
-  margin-top: 1rem;
+  margin-top:1.2rem;
+  margin-left:2.2rem;
   display: flex;
   justify-content: flex-start;
 }

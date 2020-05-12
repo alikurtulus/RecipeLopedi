@@ -18,7 +18,7 @@ router.post('/login',[
   check('email').normalizeEmail().isEmail(),
   check('password').isLength({min:6})
 ],usersController.login)
-
+router.post('/user',usersController.getUserById)
 
 router.use(checkAuth)
 
@@ -32,7 +32,7 @@ fileUpload.single('image'),
  check('email').normalizeEmail().isEmail(),
  check('password').isLength({min:6})
 ],usersController.editUser)
-router.post('/user',usersController.getUserById)
+
 
 
 

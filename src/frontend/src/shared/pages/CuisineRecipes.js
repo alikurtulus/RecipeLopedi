@@ -6,6 +6,7 @@ import CardBox from '../components/UIElements/CardBox'
 import {Spinner} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './CuisineRecipes.css'
+import NotFound from '../../shared/components/UIElements/NotFound'
 
 const CuisineRecipes = props =>  {
 
@@ -23,9 +24,8 @@ const fetchRecipes = () =>{
 
     return (
         <React.Fragment>
-         
-            {cuisine.length === 0 &&  <Spinner animation="border" variant="primary" />}
-            {cuisine.length !== 0 &&
+            {cuisine === undefined && <NotFound /> }
+            {cuisine !== undefined &&  cuisine.length !== 0 &&
            
             <Container className='card-box-recipes'>
                  <h3 className='cuisine-title'>{cuisine.cuisine}</h3>

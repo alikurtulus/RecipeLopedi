@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useParams} from "react-router";
 import { useSelector, useDispatch}  from 'react-redux'
 import './RecipeDetails.css'
-import {Container,Row,Col,Figure,Table,Card,CardDeck,ListGroup, Spinner,Image,Badge} from 'react-bootstrap'
+import {Container,Row,Col,Figure,Table,Card,Button,ListGroup, Spinner,Image,Badge,Modal} from 'react-bootstrap'
 import CardBox from '../../shared/components/UIElements/CardBox'
 import {fetchRecipeDetailsInfo} from '../../redux-stuff/actions/recipeActions'
 import likedIcon from '../../assets/liked.png'
@@ -13,17 +13,22 @@ import ratingIcon from '../../assets/rating.png'
 import dietIcon from '../../assets/diet.png'
 
   const  RecipeComplexDetails = () =>  {
+    const [show, setShow] = useState(false)
     const dispatch = useDispatch()
     const [index, setIndex] = useState(0);
+    const [isError,setError] = useState('')
     const [nutrientIndicators,setNutrientIndicators] = useState([{name:'energy'},{name:'fat'},{name:'saturates'},{name:'carbs'},{name:'sugars'},{name:'fibre'},{name:'protein'},{name:'salt'}])
     const {id} = useParams()
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     useEffect( () => { 
         const fetchData = async () => {
             try{
                 await  dispatch(fetchRecipeDetailsInfo(id))
             }
             catch(err){
-                console.log(err.response.data)
+                setShow(true);
+                setError(err.response.data.message)
             }
           
         }
@@ -39,7 +44,19 @@ import dietIcon from '../../assets/diet.png'
     
     return (
         <React.Fragment>
+               <Modal show={show} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                <Modal.Title>Error Message</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{isError}</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+               </Modal>
          {recipe === undefined   &&  similarRecipes === undefined && recipeNutrition === undefined && <Spinner animation="border" variant="primary" /> }
+      
          {recipe !==  undefined  && similarRecipes !== undefined && recipeNutrition !== undefined &&
         <Container className='recipedetails-box'>
                 <Row>
@@ -73,7 +90,7 @@ import dietIcon from '../../assets/diet.png'
                                     </div>
                                     <div>
                                         <Badge variant="success" className='badge'>
-                                            PerServingPrice: {recipe.pricePerServing}
+                                            PerServingPrice:£ {parseFloat(recipe.pricePerServing /40).toFixed(2)} 
                                         </Badge>
                                     </div>
                                 </Col>

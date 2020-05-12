@@ -2,7 +2,7 @@ import React,{useContext,useState,useEffect} from 'react'
 import {Container,Form,Row,Col,Card,CardDeck,Modal,Button,ListGroup,Table,ListGroupItem,Image } from 'react-bootstrap'
 import clockIcon from '../assets/clock.png'
 import servedIcon from '../assets/served.png'
-
+import './DailyPlan.css'
 
 const nutrientIndicators = ['calories','carbohydrates','fat','protein']
 const  DailyPlan = props => {

@@ -9,16 +9,407 @@
     text-align: center;
   
 }
- 
+.auth-card-container{
+    width: 28rem;
+    background-color: #eff0f3;
+    margin: 1.5rem auto;
+}
 .authentication form {
     margin: 1rem;
 }
 
 .auth-main{
-    width: 100vw;
-    height: 100vh;
+   
+    height: 115vh;
     background-position: center;
     background-size: cover;
-    background-repeat:no-repeat;
-    background-image: url('https://images.pexels.com/photos/277253/pexels-photo-277253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); 
+    background-repeat:repeat;
+    background-image: url('../../assets/background.jpg');
+   
+   
+}
+.head-border{
+    color:white;
+}
+
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .auth-card-container{
+        width: 18.5rem;
+        background-color: #eff0f3;
+       
+        
+    }
+    .authentication{
+        margin-right: 5rem ;
+    }
+    .auth-main{
+        height: 220vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+    .head-border{
+        color:black;
+    }
+    .image-container{
+        width:100%;
+    }
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+    .auth-card-container{
+        width: 20.5rem;
+        background-color: #eff0f3;
+        margin: auto;
+       
+        
+    }
+    .authentication{
+        margin-left: 3.2rem ;
+       
+    }
+    .auth-main{
+        height: 320vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+    .head-border{
+        color:black;
+        display: inline;
+        height: 0.2rem;
+    }
+    .image-container{
+        width:100%;
+    }
+
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+    .auth-card-container{
+        width: 23.5rem;
+      
+        background-color: #eff0f3;
+        margin: auto;
+       
+        
+    }
+    .authentication{
+        margin-left: 4.8rem ;
+        margin-bottom: 0.4rem;
+       
+    }
+    .auth-main{
+        height: 320vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+    .head-border{
+        color:black;
+        display: none;
+       
+    }
+    .image-container{
+        width:100%;
+    }
+
+
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+    .authentication{
+        margin-left: 1.4rem ;
+        margin-bottom: 0.4rem;
+       
+    }
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+    .authentication{
+        margin-left: 5.9rem ;
+        margin-bottom: 1.6rem;
+       
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+       
+       
+    }
+    .auth-card-container{
+        margin: 0;
+    }
+    .auth-main{
+        height: 320vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .auth-card-container{
+        width: 21rem;
+      
+        background-color: #eff0f3;
+        margin: auto; 
+    }
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+    .auth-main{
+        height: 450vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+        display: inline;
+       
+       
+    }
+
+
+}
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .auth-card-container{
+        width: 19.8rem;
+        background-color: #eff0f3;
+        margin: auto; 
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+    .auth-card-container{
+        width: 19.8rem;
+        background-color: #eff0f3;
+        margin:0 auto 0.5rem auto; 
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+        display: inline;
+       
+       
+    }
+    .auth-main{
+        height: 450vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+}
+
+
+
+
+/* ----------- Galaxy S3 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) {
+    .auth-card-container{
+        width: 19.8rem;
+        background-color: #eff0f3;
+        margin:0 auto 0.5rem auto; 
+    }
+    .authentication{
+        margin-left: 0.4rem ;
+        margin-bottom: 1.6rem;
+       
+    }
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Galaxy S4, S5 and Note 3 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Galaxy S6 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: landscape) {
+
 }

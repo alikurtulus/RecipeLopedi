@@ -5,6 +5,7 @@ import Navbar from './shared/components/Navigation/Navbar'
 import {AuthContext} from './shared/context/auth-context'
 import {Spinner} from 'react-bootstrap'
 import {useAuth} from './shared/hooks/auth-hook'
+import history from './history';
 import {Provider} from 'react-redux'
 import store from './store'
 import MealPlanList from './mealplans/MealPlanList'
@@ -24,6 +25,9 @@ const UserRecipesDetails = React.lazy(() => import('./recipes/components/UserRec
 const NewMealPlan = React.lazy(() => import ('./mealplans/NewMealPlan'))
 const MealPlans = React.lazy(() => import('./mealplans/MealPlans'))
 const MealPlanDetails = React.lazy(() => import('./mealplans/MealPlanDetails'))
+const NotFound = React.lazy(() => import ('./shared/components/UIElements/NotFound'))
+
+
 
 const  App = () => {
   const {token, login, logout, userId} = useAuth()
@@ -33,14 +37,12 @@ const  App = () => {
       routes = (
 
         <Switch>
-           <Route path='/' exact>
-             <Home />
-           </Route>
+           
            <Route path='/users/profile'  exact>
               <Profile />
             </Route>
            <Route path='/cuisines/recipe/:id' exact  >
-            <RecipeDetails />
+                <RecipeDetails />
             </Route>
             <Route  exact path='/recipes/usersRecipes/details/:rid'>
               <UserRecipesDetails />
@@ -75,6 +77,10 @@ const  App = () => {
              <Route path='/cuisines/cuisine/:id' exact>
                   <CuisineRecipes />
             </Route>
+            <Route path='/' exact>
+               <Home />
+            </Route>
+           
            <Redirect to='/' />
 
         </Switch>
@@ -85,41 +91,42 @@ const  App = () => {
       routes = 
           (  
             <Switch>
+              
                <Route exact path ='/cuisines/all'>
                   <Cuisines />
-                </Route>
-                <Route  exact path='/recipes/usersRecipes/details/:rid'>
-                  <UserRecipesDetails />
-                </Route>
-               <Route exact path='/cuisines/recipe/:id'  >
-                  <RecipeDetails />
-                </Route>
-                <Router exact path="/recipes/all">
-                  <UsersRecipes />
-                </Router>
-                <Route path='/cuisines/cuisine/:id' exact>
-                  <CuisineRecipes />
-                </Route>
-                <Route path='/mealplans/new'>
-                  <NewMealPlan />
                 </Route> 
+                <Route exact path='/cuisines/recipe/:id'  >
+                  <RecipeDetails />
+                 </Route>
+                 <Route  exact path='/recipes/usersRecipes/details/:rid' >
+                   <UserRecipesDetails />
+                 </Route>
+                 <Route exact path='/cuisines/cuisine/:id' >
+                  <CuisineRecipes />
+                 </Route>
                 <Route  exact path='/mealplan/details/:mid'>
                    <MealPlanDetails />
-                </Route>
-                <Route exact path='/mealplans/all'>
+                 </Route>
+                 <Route exact path='/mealplans/all'>
                   <MealPlans />
-                </Route> 
-                <Route exact path='/recipes/searches' >
+                 </Route> 
+                 <Route exact path='/recipes/searches' >
                   <RecipeSearches />
-                </Route>  
-                <Route path='/recipe/details/:id' >
-                 <RecipeComplexDetails   />
+                 </Route>  
+                 <Route exact path='/recipe/details/:id' >
+                  <RecipeComplexDetails   />
+                 </Route>
+                <Route exact path="/recipes/all">
+                  <UsersRecipes />
                 </Route>
                 <Route path='/auth'  exact>
                   <Auth />
                 </Route>
                 <Route path='/' exact >
                   <Home />
+                </Route>
+                <Route path='*'>
+                  <NotFound />
                 </Route>
                 <Redirect to='/auth' />
             
@@ -140,7 +147,7 @@ const  App = () => {
               login:login,
               logout:logout}
             }>
-        <Router>
+        <Router history={history}>
           <Navbar />
           <main>
             <Suspense fallback={

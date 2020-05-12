@@ -22,8 +22,11 @@ import dislikeIcon from '../../assets/dislike.png'
     const dispatch = useDispatch()
     const history = useHistory()
     const [show, setShow] = useState(false)
-    const [isCrud,SetIsCrud] = useState(location.state.crud)
-    const [creator,setCreator] = useState(location.state.creator)
+
+    const [isCrud,setIsCrud] = useState('')
+    const [creator,setCreator] = useState('')
+   
+    
     const [isError,setError] = useState('')
     const [isCommented,setIsComment]= useState(false)
     const [userComment,setUserComment] = useState('')
@@ -46,7 +49,20 @@ import dislikeIcon from '../../assets/dislike.png'
     const {rid} = useParams()
     useEffect( () => { 
         const fetchData = async () => {
-          await  dispatch(fetchUsersRecipeDetails(rid))
+            try{
+                await  dispatch(fetchUsersRecipeDetails(rid))
+                if(location.state !== undefined){
+                    setIsCrud(location.state.crud)
+                    setCreator(location.state.creator)
+
+                }
+                
+            }
+            catch(err){
+                setError(err.response.data.message)
+                setShow(true)
+            }
+         
         }
         fetchData()
     },[dispatch,rid])
@@ -75,20 +91,34 @@ import dislikeIcon from '../../assets/dislike.png'
             }
         }
         else{
-            const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+`/recipes/user/usermyfavouriteRecipe/delete/${rid}`,{userId:auth.userId},
+            try{ 
+                const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+`/recipes/user/usermyfavouriteRecipe/delete/${rid}`,{userId:auth.userId},
             {
             headers: {Authorization : `Bearer ${auth.token}`} })
-            
             setIsFavourite(!isFavourite)
+           }
+           catch(err){
+            setError(err.response.data.message)
+                setShow(true)
         }
+           
+        }
+     
+    
     }
     useEffect(() => {
         const getRating = async () => {
-            const responseData = await axios.post(
+            try{ const responseData = await axios.post(
                 process.env.REACT_APP_BACKEND_URL+`/recipes/recipe/getRating/${rid}`,{userId:auth.userId})
                 console.log(responseData.data.averageRating)
                 setWasRated(responseData.data.averageRating.wasUserRated)
                 setPrevRating(responseData.data.averageRating.rating)
+            }
+            catch(err){
+                setError(err.response.data.message)
+                setShow(true)
+            }
+           
             }
         getRating()
     },[rating,prevRating])
@@ -190,7 +220,8 @@ import dislikeIcon from '../../assets/dislike.png'
                 history.push('/users/profile')
         }
         catch(err){
-            console.log(err)
+            setShow(true);
+            setError(err.response.data.message)
         }
 
     }
@@ -202,10 +233,7 @@ import dislikeIcon from '../../assets/dislike.png'
     return (
         <React.Fragment>
          {recipe === undefined   && <Spinner animation="border" variant="primary" /> }
-         {recipe !==  undefined  &&
-         
-          <Container className='recipedetails-box'>
-              <Modal show={show} onHide={handleClose} animation={false}>
+         <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
                 <Modal.Title>Error Message</Modal.Title>
                 </Modal.Header>
@@ -216,6 +244,10 @@ import dislikeIcon from '../../assets/dislike.png'
                 </Button>
                 </Modal.Footer>
                </Modal>
+         {recipe !==  undefined  &&
+         
+          <Container className='recipedetails-box'>
+            
           <Row>
               <Col sm={4}>
                   <Figure  border="secondary">
@@ -246,7 +278,7 @@ import dislikeIcon from '../../assets/dislike.png'
                                 </div>
                                 <div>
                                     <Badge variant="success" className='badge'>
-                                        PerServingPrice: {recipe.price}
+                                        PerServingPrice:£ {recipe.price} 
                                     </Badge>
                                 </div>
                               </Col>
@@ -305,7 +337,8 @@ import dislikeIcon from '../../assets/dislike.png'
                                  }
                                 </>
                                
-                               }
+                               } 
+                                {isCrud === undefined && <div></div>}
                                
                                 {isCrud !== undefined   && creator === auth.userId &&
                                     <React.Fragment>

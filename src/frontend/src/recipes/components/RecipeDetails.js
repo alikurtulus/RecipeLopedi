@@ -8,6 +8,7 @@ import servedIcon from '../../assets/served.png'
 import clockIcon from '../../assets/clock.png'
 import moneyIcon from '../../assets/price.png'
 import ratingIcon from '../../assets/rating.png'
+import NotFound from '../../shared/components/UIElements/NotFound'
 
 
  const RecipeDetails = props =>  {
@@ -15,11 +16,17 @@ import ratingIcon from '../../assets/rating.png'
    const [totalRating,setTotalRating] = useState(0)
    const {id} = useParams()
    let location = useLocation();
+ 
   
-   let cId = location.state.cuisineId
    const fetchRecipeData = () => {
-    const selectedRecipe = cuisines[cId -1].recipes.filter(r => r.id === parseInt(id))
-    setRecipe(selectedRecipe[0])
+    let cId
+    if(location.state !== undefined){
+        let cId = location.state.cuisineId
+        const selectedRecipe = cuisines[cId -1].recipes.filter(r => r.id === parseInt(id))
+        setRecipe(selectedRecipe[0])
+       }
+      
+ 
    
    }
 
@@ -27,7 +34,7 @@ import ratingIcon from '../../assets/rating.png'
 
     return (
         <React.Fragment>
-         {recipe.length === 0 &&  <Spinner animation="border" variant="primary" /> }
+         {recipe.length === 0 &&  <NotFound /> }
          {recipe.length !== 0 &&
         <Container className='recipedetails-box'>
                 <Row>
@@ -64,7 +71,7 @@ import ratingIcon from '../../assets/rating.png'
                                 </div>
                                 <div>
                                     <Badge variant="success" className='badge'>
-                                        PerServingPrice: {recipe.pricePerServing}
+                                        PerServingPrice: {recipe.pricePerServing} 
                                     </Badge>
                                 </div>
                               </Col>

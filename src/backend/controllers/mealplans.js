@@ -17,7 +17,7 @@ const getMealPlansByUserId = async (req, res, next) => {
       user = await User.findById(userId).populate('mealplans')
   }
   catch(err){
-    const error = new HttpError('Something went wrong, please try again',500)
+    const error = new HttpError('Something went wrong, please try again2',500)
     return next(error)
   }
   if(!user){
@@ -222,7 +222,7 @@ const getMealPlanById = async (req, res, next) => {
     res.status(201).json({mealplan:existingMealPlan.toObject({getters:true})})
   }
   catch(err){
-    const error = new HttpError('Something went wrong, please try again',500)
+    const error = new HttpError('Could not find any mealplan',404)
     return next(error)
   }
 }

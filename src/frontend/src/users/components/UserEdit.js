@@ -6,6 +6,7 @@ import ImageUpload from '../../shared/components/FormElements/ImageUpload'
 import {useForm} from '../../shared/hooks/form-hooks'
 import {AuthContext} from '../../shared/context/auth-context'
 import {VALIDATOR_MINLENGTH,VALIDATOR_EMAIL, VALIDATOR_REQUIRE}  from '../../shared/util/validators'
+import  './UserEdit.css'
 
 const genderType = ['Choose','Female','Male','Other']
  const  UserEdit = props =>{
@@ -80,7 +81,7 @@ const genderType = ['Choose','Female','Male','Other']
 
     return (
 
-        <Container>
+        <Container className='edit-form-container'>
               {show && <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Notification</Modal.Title>
@@ -93,7 +94,7 @@ const genderType = ['Choose','Female','Male','Other']
               </Modal.Footer>
             </Modal>} 
           
-              <Form >
+              <Form className='edit-form' >
                     <Row>
                         <Col sm={6}>
                                 <Input 

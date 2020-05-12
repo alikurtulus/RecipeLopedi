@@ -74,9 +74,6 @@ const setRecipeRating = async (req,res,next) => {
     const {rating,userId} = data
   
     let isRated = existingRecipe.ratings.filter(rat => rat.user == userId)
-    console.log('dad')
-    console.log(isRated)
-    console.log('sda')
     if(isRated.length > 0){
       const error = new HttpError('You already rated  this recipe before',403)
       return next(error)
@@ -174,7 +171,7 @@ const addFavouriteRecipe = async (req,res,next ) =>{
       user = await User.findById(userId,'-password').exec()                          
     }
     catch(err){
-      const errors = new HttpError('Something went wrong 2',500)
+      const errors = new HttpError('Something went wrong ',500)
       return next(error)
     }
     if(!user){

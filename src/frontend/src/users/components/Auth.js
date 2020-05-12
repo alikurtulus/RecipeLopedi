@@ -101,8 +101,6 @@ const singUp = props => {
            if(formState.inputs.password.value !== formState.inputs.passwordConfirmation.value){
             SetError('Password does not match')
            }
-          
-         
            const responseData = await axios.post(process.env.REACT_APP_BACKEND_URL+'/users/signUp', formData)
           
              auth.login(responseData.data.userId, responseData.data.token)
@@ -115,7 +113,7 @@ const singUp = props => {
         }
     return (
         <div className='auth-main'>
-           <h3>-</h3>
+           <h3 className='head-border'>-</h3>
           <Container className='authentication'>
               {show && <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -128,7 +126,7 @@ const singUp = props => {
                     </Button>
                   </Modal.Footer>
                 </Modal>} 
-                <Card  border="secondary"  style={{ width: '24rem' }}>
+                <Card  border="secondary" className='auth-card-container'  >
                       <Form >
                           <Input 
                             element='input'
@@ -200,14 +198,17 @@ const singUp = props => {
                                 options={genderType}
                                 onInput={inputHandler}
                               />
-                              <ImageUpload
-                                id='image' 
-                                name='image'
-                                validators={[VALIDATOR_REQUIRE()]}
-                                errorText='Please import an image file.'
-                                onInput={inputHandler}
-                                
-                              />
+                              <div className='image-container'>
+                                <ImageUpload
+                                  id='image' 
+                                  name='image'
+                                  validators={[VALIDATOR_REQUIRE()]}
+                                  errorText='Please import an image file.'
+                                  onInput={inputHandler}
+                                  
+                                />
+                              </div>
+                             
                         </React.Fragment>
 
                         )}                  

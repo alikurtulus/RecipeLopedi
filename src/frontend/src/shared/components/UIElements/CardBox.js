@@ -1,38 +1,52 @@
-import React  from 'react'
+import React,{useEffect, useState,useContext}  from 'react'
 import {Card, Button,ListGroup,ListGroupItem,Image } from  'react-bootstrap'
 import './CardBox.css'
 import {useHistory} from 'react-router-dom'
 import clockIcon from '../../../assets/clock.png'
 import servedIcon from '../../../assets/served.png'
+import {AuthContext} from '../../../shared/context/auth-context'
 
 const CardBox = props => {
-    let url
+    const [url,setUrl] = useState('')
+    const [imageUrl,setImageUrl] = useState('')
     let history = useHistory()
-    let imageUrl
-   
-    if(props.uId){
-      imageUrl = process.env.REACT_APP_ASSET_URL +`/${props.image}`
-      url = {pathname:`/recipes/usersRecipes/details/${props.uId}`,
-             state:{crud:props.crud,creator:props.creator}
-           }
-    }
-    else if(props.cid){
-      url = {
-        pathname:`/cuisines/recipe/${props.rid}`,
-        state:{cuisineId:props.cid}}
-        imageUrl = props.image
-    }
-   
-    else if(props.id) { 
-      url= { pathname:`/recipe/details/${props.id}` }
-      imageUrl = props.image
-    }
-    const handleSeeMore = e => {
+    const auth  = useContext(AuthContext)
+    useEffect(() => {
+      if(props.uId){
+        if(auth.userId){
+          setImageUrl(process.env.REACT_APP_ASSET_URL +`/${props.image}`)
+          setUrl({pathname:`/recipes/usersRecipes/details/${props.uId}`,
+          state:{crud:props.crud,creator:props.creator}
+        }) 
+        }
+        else{
+          setImageUrl(process.env.REACT_APP_ASSET_URL +`/${props.image}`)
+          setUrl({pathname:`/recipes/usersRecipes/details/${props.uId}`})
+
+        }
+      
+      }
+      else if(props.cid){
+        setUrl({
+          pathname:`/cuisines/recipe/${props.rid}`,
+          state:{cuisineId:props.cid}}) 
+          setImageUrl(props.image)
+      }
+     
+      else if(props.id) { 
+        setUrl({ pathname:`/recipe/details/${props.id}` })
+        setImageUrl(props.image)
+      }
+  
+    },[])
+
+
+    const handleSeeMore = async (e) => {
       e.preventDefault()
-      history.push(url,{crud:props.crud})
+     
+      history.push(url)
     }
-    console.log(url)
- 
+  
   return (
 
     <Card border="secondary" style={{ width: '18rem'}}>
@@ -50,7 +64,7 @@ const CardBox = props => {
                 </ListGroupItem>
               </ListGroup>
           <div className='more-btn'>
-            <Button  variant="primary" className='more-btn' onClick={handleSeeMore}
+            <Button   variant="primary" className='more-btn' onClick={handleSeeMore}
                 >See more..
             </Button>
           </div>

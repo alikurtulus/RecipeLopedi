@@ -1,0 +1,9 @@
+.notfound-container{
+    text-align: center;
+    font-size: 1.8rem;
+}
+.not-found-img{
+    width: 35rem;
+    height: 35rem;
+    margin: 1rem auto;
+}

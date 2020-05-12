@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import { useParams, useLocation} from "react-router";
 import axios from 'axios';
-import {Container,Col,Card,Row,Spinner,ListGroup, Image} from 'react-bootstrap'
+import {Container,Col,Card,Row,Spinner,ListGroup,Button , Image, Modal} from 'react-bootstrap'
 import WeeklyPlan from './WeeklyPlan'
 import DailyPlan from './DailyPlan'
 import './MealPlanDetails.css'
@@ -11,26 +11,50 @@ import excludeIcon from '../assets/forbidden.png'
 import mealPlaIcon from '../assets/mealplan.png'
 import dietIcon from '../assets/diet.png'
 import dateIcon from '../assets/age.png'
+import Notfound from '../../src/shared/components/UIElements/NotFound'
 
 const  MealPlanDetails = props => {
     const {mid} = useParams()
     let location = useLocation()
     const [mealPlan,setMealPlan] = useState()
+    const [isError,setError] = useState('')
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+ 
     
     useEffect(() => {
         const fetchData = async () => {
-            const responseData = await axios.get(process.env.REACT_APP_BACKEND_URL +`/mealplans/meal/${mid}`)
+            try{    const responseData = await axios.get(process.env.REACT_APP_BACKEND_URL +`/mealplans/meal/${mid}`)
             console.log(responseData.data)
-            setMealPlan(responseData.data.mealplan)
+            setMealPlan(responseData.data.mealplan)}
+            catch(err){
+               
+                setShow(true)
+                setError(err.response.data.message)
+            }
+        
         }
         fetchData()
-    },[])
+    },[setShow,setError])
     
     return (
         <React.Fragment>
-            {mealPlan === undefined && <Spinner animation="border" role="status"> <span className="sr-only">Loading...</span></Spinner>}
+            {mealPlan === undefined && <Spinner animation="border"  size='lg'/> }
+            <Modal show={show} onHide={handleClose} animation={false}>
+                        <Modal.Header closeButton>
+                        <Modal.Title>Error Message</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>{isError}</Modal.Body>
+                        <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                        </Modal.Footer>
+                 </Modal>
             {mealPlan !== undefined && (
              <Container className='details-container'>
+                
                  <Card border='secondary' className='details-card'>
                      <div  className='details-card-row-title'>
                          <div><span><Image className='mealplan-detail-icon-title' src={mealPlaIcon} /></span></div><div><h3>{mealPlan.title}</h3></div>

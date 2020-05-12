@@ -5,7 +5,7 @@ import { useSelector, useDispatch}  from 'react-redux'
 import {fetchUsersRecipes} from '../../redux-stuff/actions/recipeActions'
 import  {Link} from 'react-router-dom'
 import './UsersRecipes.css'
-import NotFoundIcon from '../../assets/notfoundfood.png'
+
 
  const UserRecipes = () => {
      const dispatch = useDispatch()
