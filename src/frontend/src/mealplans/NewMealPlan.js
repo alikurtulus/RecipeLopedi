@@ -93,7 +93,7 @@ const NewMealPlan = props => {
               history.push('/mealplans/all')  
              }
               catch(err){
-               setErrorMessage(err.message)
+               setErrorMessage(err.response.data.message)
                setShow(true);
            }
            }
@@ -279,7 +279,7 @@ const NewMealPlan = props => {
             </Container>
             {isSearched && 
               <Container className='new-recipe-container plan-container' >
-                <Card  border="secondary" className='recipe-form'>
+                <Card  border="secondary" className='recipe-form results-container'>
                   {isDaily && dailyPlanData !== undefined  &&  <DailyPlan data={dailyPlanData} />}
                   {isWeekly && weeklyPlanData !== undefined && <WeeklyPlan data={weeklyPlanData} week={true} /> }
                 </Card>

@@ -3,7 +3,7 @@
     max-height: 100vh;
 }
 .badges{
-    font-size: 1.3rem;;
+    font-size: 1.3rem;
 }
  .recipe-title {
   font-size: 1.7rem;;
@@ -73,7 +73,7 @@
     margin-left: 0.8rem;
 }
 .details-icon{
-    margin-top: 0.8rem;
+    margin: 1rem auto;
     display: flex;
     flex-direction:column;
     align-items: center;
@@ -89,4 +89,9 @@
 }
 .badge{
     font-size: 1rem;
+    color: white;
+    font-weight: 500;
+}
+tr{
+    text-emphasis: center;
 }

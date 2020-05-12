@@ -3,16 +3,25 @@
    justify-content:center;
    align-items: flex-end;
    margin: 10px  auto  5px auto;
-
-
+}
+.more-btn .btn {
+   background-color: #ff8e3c;
+   color: #0d0d0d;
+   border: none;
+}
+.more-btn .btn:hover{
+   background-color: #ff8e3c;
+   color: #eff0f3;
 }
 .title-text{
    font-size: 1.2rem;
    text-align: center;
    font-weight: bold;
+   color: #0d0d0d;
 }
 .details{
    font-size: 1rem;
+   color:#2a2a2a;
 }
 .card-image{
    width:100%;
@@ -21,6 +30,7 @@
    object-position:50% 50%;
 }
 .card-body{
+   background-color: #eff0f3;
    width:100%;
    height:280px;
    object-fit:cover;

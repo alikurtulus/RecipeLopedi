@@ -1,7 +1,17 @@
 .meal-plan-container{
     margin: 2.4rem auto;
+    background-color: white;
    
 }
 h4{
     text-align: center;
 }
+.more-btn{
+    display: flex;
+    justify-content:center;
+    align-items: flex-end;
+    margin: 10px  auto  5px auto;
+ }
+ tr{
+     text-align:center ;
+ }

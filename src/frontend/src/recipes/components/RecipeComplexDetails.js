@@ -19,13 +19,20 @@ import dietIcon from '../../assets/diet.png'
     const {id} = useParams()
     useEffect( () => { 
         const fetchData = async () => {
-          await  dispatch(fetchRecipeDetailsInfo(id))
+            try{
+                await  dispatch(fetchRecipeDetailsInfo(id))
+            }
+            catch(err){
+                console.log(err.response.data)
+            }
+          
         }
         fetchData()
     },[dispatch,id])
  
     const recipeData  = useSelector(state => state.recipes.recipeDetailsInfo )
     const recipe = recipeData[0]
+    console.log(recipe)
     const similarRecipes = recipeData[1]
     const recipeNutrition = recipeData[2]
     console.log(similarRecipes)
@@ -48,14 +55,14 @@ import dietIcon from '../../assets/diet.png'
                         <Row>
                             <Col className='some-details'>
                             <h3 className='recipe-title'>{recipe.title}</h3>
-                            <p className='recipe-summary'>{recipe.summary.replace(/<\/?[^>]+(>|$)/g, "")}</p>
+                           
                             <Row className='badges badges-container'> 
                                 <Col className='details-icon'>
                                     <div>
                                     <Image className='detail-icon-img' src={servedIcon}/>
                                     </div>
                                     <div>
-                                        <Badge variant="warning" className='badge'>
+                                        <Badge variant="secondary" className='badge'>
                                             Serving: {recipe.servings}
                                         </Badge>
                                     </div>
@@ -80,23 +87,22 @@ import dietIcon from '../../assets/diet.png'
                                         </Badge>
                                     </div>
                                 </Col>
+                                <Col sm={3} className='details-icon'>
+                                <div>
+                                    <Image className='detail-icon-img' src={ratingIcon}/>
+                                </div>
+                                <div>
+                                    <Badge variant="primary" className='badge'>
+                                        Rating: {   Math.floor((Math.random() * 4) + 1) + '.'+ Math.floor((Math.random() * 100) + 1)}
+                                    </Badge>
+                                </div>
+                              </Col>
                                
                             </Row>
-                            <Row>
-                                {recipe.diets.map(diet => 
-                                    <Col className='details-icon'>
-                                            <div>
-                                                <Image className='detail-icon-img' src={dietIcon}/>
-                                            </div>
-                                        <Badge key={diet} variant='primary' className='badge'>
-                                            {diet}
-                                        </Badge>
-                                    </Col>
-                                    )}
-                            </Row>
+                           
                             </Col>
                         </Row>
-                        <Row className='badges badges-container'>
+                        <Row >
                             <Col>
                                 <Table responsive>
                                     <thead>
@@ -107,17 +113,19 @@ import dietIcon from '../../assets/diet.png'
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                           <td>{recipeNutrition.calories}cal</td>
-                                           <td>{recipeNutrition.fat}</td>
-                                           <td>{recipeNutrition.bad[2].amount}</td>
-                                           <td>{recipeNutrition.carbs}</td>
-                                           <td>{recipeNutrition.bad[4].amount}</td>
-                                           <td>{recipeNutrition.good[17].amount}</td>
-                                           <td>{recipeNutrition.protein}</td>
+                                        {recipeNutrition.good[17] !== undefined && 
+                                          <tr>
+                                            <td>{recipeNutrition.calories}cal</td>
+                                            <td>{recipeNutrition.fat}</td>
+                                            <td>{recipeNutrition.bad[2].amount}</td>
+                                            <td>{recipeNutrition.carbs}</td>
+                                            <td>{recipeNutrition.bad[4].amount}</td>
+                                            <td>{recipeNutrition.good[17].amount}</td>
+                                            <td>{recipeNutrition.protein}</td>
                                             <td>1.3g</td>
-                                        </tr>
-                                    
+                                         </tr>
+                                        
+                                        }
                                     </tbody>
                                 </Table>
                                 
@@ -139,7 +147,7 @@ import dietIcon from '../../assets/diet.png'
                         <Card  style={{ width: '46rem' }}>
                                
                                 <ListGroup variant="flush">
-                                    {recipe.analyzedInstructions[0].steps.map(method =>
+                                    {recipe.analyzedInstructions[0] !== undefined && recipe.analyzedInstructions[0].steps.map(method =>
 
                                     <ListGroup.Item key={method.number}>{method.step}</ListGroup.Item>
                                         
@@ -148,25 +156,7 @@ import dietIcon from '../../assets/diet.png'
                         </Card>
                     </Col>
                 </Row>
-                <h3 className='similar-header'>Similar Recipes</h3>
-                <Row className='cards-container'>
-                
-                  <CardDeck className='card-deck'>
-                  
-                    {similarRecipes.map(similar => 
-                    <Col className='card-similar-recipe' sm={3} key={similar.id}>
-                        <CardBox 
-                                 cId={similar.id}
-                                 title={similar.title}
-                                 image={similar.image}
-                                 servings={similar.servings}
-                                 readyInMinutes={similar.readyInMinutes}
-                                 mySimilar='similar'
-                        />
-                    </Col>    
-                    )}
-                  </CardDeck>
-                </Row>
+              
                 
                   
     

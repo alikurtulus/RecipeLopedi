@@ -51,7 +51,7 @@ const handleMealPlans = (arr,myMeals,myNutrients) =>{
     return [myMeals,myNutrients]
   }
   catch(err){
-    const error = new HttpError('Invalid inputs passed, please check your data. 2',422)
+    const error = new HttpError('Invalid inputs passed, please check your data. ',422)
     return error
   }
 }
@@ -59,7 +59,7 @@ const handleMealPlans = (arr,myMeals,myNutrients) =>{
 const createMealPlan = async (req, res, next) =>{     
   const errors = validationResult(req)
   if(!errors.isEmpty()){
-    const error = new HttpError('Invalid inputs passed, please check your data. 2',422)
+    const error = new HttpError('Invalid inputs passed, please check your data.',422)
     return next(error)
   } 
    
@@ -118,7 +118,7 @@ const createMealPlan = async (req, res, next) =>{
       }
       catch(err){
         console.log(err.message)
-        const error = new HttpError('Created recipe failed, please create again 2',500)
+        const error = new HttpError('Created recipe failed, please create again ',500)
     
         return next(error)
       }

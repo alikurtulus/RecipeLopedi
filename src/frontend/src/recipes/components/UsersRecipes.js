@@ -17,39 +17,34 @@ import NotFoundIcon from '../../assets/notfoundfood.png'
           fetchData()
      },[dispatch])
      const recipes = useSelector(state => state.recipes.usersRecipes)
-    return (
-        <div className='users-recipes-container'>
-            
+    return (    
             <React.Fragment>
-            {recipes.length === 0 && 
-            
-            <Container className='not-found-container'>
-                <div><h2 className='not-found-title'>Recipes Not Found Yet...</h2></div>
-                <Image src={NotFoundIcon} className='not-found-food-icon' />
-            </Container>
-            }
+            {recipes.length === 0 &&  <Spinner animation="border" variant="primary" /> }
             {recipes.length !== 0 &&
                <Container   className='cards-container'>
-                    <Row>
-                        <CardDeck>
-                         {recipes.map(recipe => 
-                                    <Col sm={3} key={recipe.id} className='recipe-card'>
-                                        <CardBox 
-                                           title={recipe.title}
-                                           readyInMinutes={recipe.readyInMinutes}
-                                           image={recipe.image}
-                                           price={recipe.price}
-                                           servings={recipe.servings}
-                                           uId={recipe.id}
-                                        />          
-                                    </Col>       
-                         )}
-                        </CardDeck>
-                    </Row>
+                    <CardDeck>
+                        {recipes.map((recipe,index) => 
+                           <Row>
+                             <Col sm={4} key={recipe.id} className='recipe-card'>
+                                    <CardBox 
+                                    title={recipe.title}
+                                    readyInMinutes={recipe.readyInMinutes}
+                                    image={recipe.image}
+                                    price={recipe.price}
+                                    servings={recipe.servings}
+                                    uId={recipe.id}
+                                    />          
+                                </Col>   
+                           </Row>
+                                  
+                        )}
+                      
+                    </CardDeck>
+                
                </Container>
             }
             </React.Fragment>
-        </div>
+       
     )
 }
 export default UserRecipes

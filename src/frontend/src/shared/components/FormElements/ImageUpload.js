@@ -52,8 +52,8 @@ const ImageUpload = props =>{
                     <Figure className='image-upload__preview' >
                       {previewUrl && 
                         <Figure.Image
-                          width={181}
-                          height={180}
+                          width={170}
+                          height={170}
                           alt="preview"
                           className='image-name'
                           src={previewUrl}
@@ -81,7 +81,7 @@ const ImageUpload = props =>{
                     <Form.Control  id='image-path' value={fileName} onChange={pickedHandler} />
             
                     <InputGroup.Append>
-                      <Button variant="outline-secondary" onClick={pickImageHandler}>Pick Image</Button> 
+                      <Button variant="secondary" onClick={pickImageHandler}>Pick Image</Button> 
                     </InputGroup.Append>
                   </Col>
                 </Row>

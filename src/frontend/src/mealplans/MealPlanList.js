@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {Container,CardDeck,Row,Col} from 'react-bootstrap'
 import MealPlanCard from './MealPlanCard'
 import {useHistory} from 'react-router-dom'
+import './MealPlan.css'
 const  MealPlanList = props => {
     const history = useHistory()
     console.log(props.crud)
@@ -11,10 +12,10 @@ const  MealPlanList = props => {
     }
     return (
         <Container>
-            <CardDeck>
-                {props.mplans.map(mp => 
-                    <>
-                          <Col sm={3}>
+            <CardDeck className='mealplan-card-deck'>
+                    {props.mplans.map(mp => 
+                         <Row>
+                              <Col sm={3}>
                               <MealPlanCard
                                 title={mp.title}
                                 timeFrame={mp.timeFrame}
@@ -23,9 +24,12 @@ const  MealPlanList = props => {
                                 onSeeMore={ () => handleSeeMore(mp.id,mp.timeFrame)}
                               />
                           </Col>
-                    </>
+                         </Row>
+                   
                 )}
+                
             </CardDeck>
+           
         </Container>
     ) 
 }

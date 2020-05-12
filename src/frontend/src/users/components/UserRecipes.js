@@ -12,10 +12,11 @@ import  '../../recipes/components/UsersRecipes.css'
             {props.recipes.length === 0 && <Spinner animation="border" variant="primary" />}
             {props.recipes.length !== 0 &&
                <Container  className='cards-container'>
-                    <Row>
-                        <CardDeck>
+                    
+                        <CardDeck className='cardeck-container'>
                          {props.recipes.map(recipe => 
-                                    <Col sm={3} key={recipe.id} className='recipe-card'>
+                             <Row>
+                                <Col sm={4} key={recipe.id} className='recipe-card'>
                                        
                                         <CardBox 
                                            title={recipe.title}
@@ -27,10 +28,12 @@ import  '../../recipes/components/UsersRecipes.css'
                                            crud={props.crud}
                                            creator={recipe.creator}
                                         />          
-                                    </Col>       
+                                 </Col>       
+                             </Row>
+                                    
                          )}
                         </CardDeck>
-                    </Row>
+                   
                </Container>
             }
             </React.Fragment>

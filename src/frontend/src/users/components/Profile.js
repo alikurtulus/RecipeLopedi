@@ -1,7 +1,7 @@
 import React, {useEffect, useState,useContext} from 'react'
 import axios from 'axios'
 import {AuthContext} from '../../shared/context/auth-context'
-import {Container,Row,Card,Col,Figure,Button, Spinner,ListGroup,Popover,OverlayTrigger,Image } from 'react-bootstrap'
+import {Container,Row,Card,Col,Figure,Button, Spinner,ListGroup,Popover,OverlayTrigger,Image, CardDeck } from 'react-bootstrap'
 import './Profile.css'
 import UserEdit from '../../users/components/UserEdit'
 import UserRecipes from './UserRecipes'
@@ -78,13 +78,15 @@ const  Profile = () => {
         setData(updatedUser)
     }
     return (
-        <Container className='profile-container'>
+        <div className='profile-container'>
+            
             {data === undefined && <Spinner animation="border" variant="primary" />}
             {data !== undefined &&
-                <Card>
-                    <h4 className='bottom-container-title'>User Info</h4>
+                <>
+                   <Container>
+                    <Card>
+                    <h4 className='container-title'>User Info</h4>
                     <Row className='user-details-container'>
-                
                         <Col sm={3}>
                             <Figure>
                                 <Figure.Image
@@ -187,36 +189,45 @@ const  Profile = () => {
                                 }                    
                             </div>
                         </Col>
-                    </Row>
-                   
-                    <Row>
-                        <Col sm={12}>
+                    </Row>  
+                    </Card>
+                    </Container>
+                   <Container>
+                       <Card>
+                       <Row>
+                        <Col >
                             {!isEditClicked && 
                                 <>
                                     <hr />
-                                    <h4 className='bottom-container-title'>User Details</h4>
+                                    <h4 className='container-title'>User Details</h4>
                                     <UserEdit data={data} onUpdateUser={handleUpdate} />
                                 </>
                             }
                             {!isRecClicked &&
                                 <>
                                     {data.recipes.length !== 0 && 
-                                     <>
+                                     <div className='profile-recipes-container'>
                                         <hr />
-                                        <h4 className='bottom-container-title'>My Recipes</h4>
-                                        <UserRecipes crud={true} recipes={data.recipes} />
-                                     </>
+                                        <h4 className='container-title'>My Recipes</h4>
+                                        <div className='recipes-container'>
+                                            <UserRecipes crud={true} recipes={data.recipes}  />
+                                        </div>
+                                      
+                                     </div>
                                     }
                                 </>
                             }
                             {!isFavClicked &&
                                 <>
                                     {data.myFavouriteRecipes.length !== 0 && 
-                                     <>
+                                     <div>
                                         <hr />
-                                        <h4 className='bottom-container-title'>My Favourites Recipes</h4>
-                                        <UserRecipes crud={true} recipes={data.myFavouriteRecipes} />
-                                     </>
+                                        <h4 className='container-title'>My Favourites Recipes</h4>
+                                        <div className='recipes-container'>
+                                          <UserRecipes crud={true} recipes={data.myFavouriteRecipes} />
+                                        </div>
+                                       
+                                     </div>
                                     }
                                 </>
                             }
@@ -225,19 +236,20 @@ const  Profile = () => {
                                     {data.mealplans.length !== 0 && 
                                       <>
                                         <hr/>
-                                        <h4 className='bottom-container-title'>My Meal Plans</h4>
+                                        <h4 className='container-title'>My meal plans</h4>
                                         <MealPlans crud={true} myMealPlans={data.mealplans} />
-                                     </>
+                                      </>
                                     }
                                 </>
                             }
                         </Col>
                     </Row>
-                </Card>
-            
+                       </Card>
+                   </Container>
+                </>
             }
-          
-        </Container>
+           
+        </div>
     )
 }
 export default Profile

@@ -1,5 +1,6 @@
 .profile-container{
     margin-top: 1.6rem;
+    width: 100%;
 }
 .user-details-container{
     padding: 1.8rem 1.8rem 0  1.8rem;
@@ -27,7 +28,7 @@
     margin-left:1.2rem;
     margin-bottom: 1rem;
 }
-.bottom-container-title{
+.container-title{
 
     padding: 0.8rem 0;
     border-bottom: 0.2rem solid red;
@@ -52,4 +53,12 @@
     width: 2.2rem;
     height: 2.2rem;
     margin-right: 0.4rem;
+}
+.profile-recipes{
+    width: 100%;
+    height: auto;
+}
+.profile-recipes-container{
+    width: 100%;
+   
 }

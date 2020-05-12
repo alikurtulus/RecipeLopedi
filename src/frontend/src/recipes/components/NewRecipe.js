@@ -165,8 +165,9 @@ import {AuthContext} from '../../shared/context/auth-context'
         }
     }
     return (
-        <div className='recipe-main'>
-            <h3>-</h3>
+      <div className='recipe-container'>
+         <div className='recipe-main'>
+            <div>-</div>
            {show && <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Error Message</Modal.Title>
@@ -227,7 +228,7 @@ import {AuthContext} from '../../shared/context/auth-context'
                             placeholder='Please enter a price...'
                             onInput={inputHandler}
                         />
-                        <Button className='increment-btn' variant="warning" size="lg" block onClick={addIngredient}>
+                        <Button className='increment-btn' size="lg" block onClick={addIngredient}>
                             Add Ingredient
                         </Button>
                         {ingredients.map(index => {
@@ -250,7 +251,7 @@ import {AuthContext} from '../../shared/context/auth-context'
                                   errorText='Please import an image file.'
                                   onInput={inputHandler}
                           />
-                          <Button className='increment-btn' variant="warning" size="lg" block onClick={addInstruction}>
+                          <Button className='increment-btn'  size="lg" block onClick={addInstruction}>
                               Add Instruction
                           </Button>
                           {instructions.map(index => {
@@ -271,6 +272,9 @@ import {AuthContext} from '../../shared/context/auth-context'
                 </Card>
             </Container>
         </div>
+        
+      </div>
+       
     )
 }
 export default NewRecipe

@@ -27,7 +27,10 @@ const  MealPlanCard = props => {
                             <strong>TimeFrame: </strong>{props.timeFrame}
                         </ListGroup.Item>
                     </ListGroup>
-                    <Button variant="primary" onClick={props.onSeeMore}>See more</Button>
+                    <div className='more-btn'>
+                    <Button className='btn-see-more' onClick={props.onSeeMore}>See more</Button>
+                    </div>
+                    
                 </Card.Body>
             </Card>
         </React.Fragment>

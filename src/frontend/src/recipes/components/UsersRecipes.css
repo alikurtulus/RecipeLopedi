@@ -1,5 +1,5 @@
 .recipe-card{
-    margin:1.5rem;
+    margin:1.2rem auto;
  
 }
 .card-image{
@@ -8,25 +8,12 @@
     object-fit:cover;
     object-position:50% 50%;
  }
- .users-recipes-container{
- 
- }
+
  .rating{
      text-align: left;
  }
- .not-found-title{
-     font-size: 3rem;
-     text-align: center;
- }
- .not-found-food-icon{
-     width: 10rem;
-     height: 10rem;
- }
- .not-found-container{
-     margin: 10rem auto;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
+.cardeck-container{
+    margin-left: -2.8rem;
+    
 
- }
+}

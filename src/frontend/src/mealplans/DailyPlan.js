@@ -27,7 +27,10 @@ const  DailyPlan = props => {
                                                <strong>Servings:</strong> {m.servings
                                             }</ListGroupItem>
                                         </ListGroup>
-                                       <a variant="primary" className='btn-see-more' target="_blank" href={m.sourceUrl}>See more</a>
+                                        <div className='more-btn'>
+                                        <Button variant="primary" className='btn-see-more' target="_blank" href={m.sourceUrl}>See more</Button>
+                                        </div>
+                                    
                                    </Card.Body>
                                </Card>
                             </Col>

@@ -8,10 +8,10 @@ import './Home.css'
         <Container className='diet-page-container'>
             <Row>
                
-                <Col sm={6} >
+                <Col sm={7} >
                   <Image className='illustration-image' src={feedBackImage} />
                 </Col>
-                <Col sm={6} className='diet-content'>
+                <Col sm={5} className='diet-content'>
                 <Image src={commentIcon} className='hero-icon' />
                   <h3 className='middle-title'>See your feedbacks </h3>
                   <p>

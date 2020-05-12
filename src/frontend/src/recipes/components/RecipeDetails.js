@@ -46,15 +46,15 @@ import ratingIcon from '../../assets/rating.png'
                         <Row>
                             <Col className='some-details'>
                              <h3 className='recipe-title'>{recipe.title}</h3>
-                             <p className='recipe-summary'>{recipe.summary}</p>
+                           
                             <Row className='badges badges-container'>
                               <Col sm={3} className='details-icon'>
                                 <div>
                                 <Image className='detail-icon-img' src={servedIcon}/>
                                 </div>
                                 <div>
-                                    <Badge variant="warning" className='badge'>
-                                        Serving: {recipe.servings}
+                                    <Badge variant="secondary" className='badge'>
+                                        Serving: {recipe.serving}
                                     </Badge>
                                 </div>
                               </Col>

@@ -32,31 +32,31 @@ const  WeeklyPlan = props => {
                  
                 <React.Fragment>
             
-                 <h4>monday</h4>
+                 <h4>Monday</h4>
                  {props.data.week.monday !== undefined && <DailyPlan data={props.data.week.monday} />}
                  <hr/>
-                 <h4>tuesday</h4>
+                 <h4>Tuesday</h4>
                  {props.data.week.tuesday !== undefined && <DailyPlan data={props.data.week.tuesday} />}
                  <hr/>
-                 <h4>wednesday</h4>
+                 <h4>Wednesday</h4>
                  {props.data.week.wednesday !== undefined && <DailyPlan data={props.data.week.wednesday} />}
                  <hr/>
-                 <h4>thursday</h4>
+                 <h4>Thursday</h4>
                  {props.data.week.thursday !== undefined && <DailyPlan data={props.data.week.thursday} />}
                  <hr/>
-                 <h4>friday</h4>
+                 <h4>Friday</h4>
                  {props.data.week.friday !== undefined && <DailyPlan data={props.data.week.friday} />}
                  <hr/>
-                 <h4>saturday</h4>
+                 <h4>Saturday</h4>
                  {props.data.week.saturday !== undefined && <DailyPlan data={props.data.week.saturday} />}
                  <hr/>
-                 <h4>sunday</h4>
+                 <h4>Sunday</h4>
                  {props.data.week.sunday !== undefined && <DailyPlan data={props.data.week.sunday} />}
                
                 </React.Fragment>
                  }
                  {props.data.week == undefined && 
-                        <React.Fragment>
+                        <React.Fragment className='result-container'>
                               <DailyPlan2 data={myData} />
                         </React.Fragment> 
                  }

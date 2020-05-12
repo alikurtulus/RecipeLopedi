@@ -315,7 +315,7 @@ const createRecipe = async (req, res, next) =>{
       await sess.commitTransaction()
   }
   catch(err){
-    const error = new HttpError('Created recipe failed, please create again 2',500)
+    const error = new HttpError('Created recipe failed, please create again ',500)
 
     return next(error)
   }

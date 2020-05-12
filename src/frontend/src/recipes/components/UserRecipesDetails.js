@@ -235,7 +235,7 @@ import dislikeIcon from '../../assets/dislike.png'
                                 <Image className='detail-icon-img' src={servedIcon}/>
                                 </div>
                                 <div>
-                                    <Badge variant="warning" className='badge'>
+                                    <Badge variant="secondary" className='badge'>
                                         Serving: {recipe.servings}
                                     </Badge>
                                 </div>
@@ -246,7 +246,7 @@ import dislikeIcon from '../../assets/dislike.png'
                                 </div>
                                 <div>
                                     <Badge variant="success" className='badge'>
-                                        PerServingPrice: {recipe.pricePerServing}
+                                        PerServingPrice: {recipe.price}
                                     </Badge>
                                 </div>
                               </Col>
