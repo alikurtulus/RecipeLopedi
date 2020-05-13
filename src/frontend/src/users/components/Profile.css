@@ -20,7 +20,7 @@
     object-fit:cover;
     object-position:50% 50%;
 }
-.btns-container{
+.btn-container{
   display: flex;
   justify-content:flex-end;
 }
@@ -61,4 +61,572 @@
 .profile-recipes-container{
     width: 100%;
    
+}
+
+
+
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+    .btn-container{
+        display: flex;
+        justify-content:flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+      .btn-button{
+          font-size: 0.9rem;
+          width: 12.8rem;
+          margin-right: 1rem;
+      }
+      .list-group{
+          font-size: 0.8rem;
+      }
+      .email-icon{
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 0.4rem;
+    }
+    .age-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .user-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .gender-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .profile-recipes-container{
+        margin: auto;
+    }
+    .recipes-container{
+        margin: auto;
+       
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .avatar {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .avatar {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+      .card{
+          width: 21rem;
+        
+          overflow-x: hidden;
+      }
+    .btn-container{
+        display: flex;
+        justify-content:flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+      .btn-button{
+          font-size: 0.9rem;
+          width: 12.8rem;
+          margin-right: 1rem;
+      }
+      .list-group{
+          font-size: 0.9rem;
+      }
+      .email-icon{
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 0.4rem;
+    }
+    .age-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .user-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .gender-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .profile-recipes-container{
+        padding: 0;
+        margin: auto;
+        overflow-x: hidden;
+    }
+    .recipes-container{
+        margin: auto;
+       
+    }
+    .container-title{
+        font-size: 1.2rem;
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .avatar {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+      .card{
+          width: 22.4rem;
+        
+          overflow-x: hidden;
+      }
+    .btn-container{
+        display: flex;
+        justify-content:flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+      .btn-button{
+          font-size: 0.9rem;
+          width: 12.8rem;
+          margin-right: 1rem;
+      }
+      .list-group{
+          font-size: 0.9rem;
+      }
+      .email-icon{
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 0.4rem;
+    }
+    .age-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .user-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .gender-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .profile-recipes-container{
+        padding: 0;
+        margin: auto;
+        overflow-x: hidden;
+    }
+    .recipes-container{
+        margin: auto;
+       
+    }
+    .container-title{
+        font-size: 1.2rem;
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+
+}
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+      .navbar-brand{
+          
+          font-size: 1.2rem;
+      }
+      .container-title{
+          font-size: 1.2rem;
+      }
+    .navbar-toggler {
+        padding: .25rem .75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        margin-right: 0.7rem;
+    }
+    .avatar {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+    
+      .card{
+          width: 20.4rem;
+        
+          overflow-x: hidden;
+      }
+    .btn-container{
+        display: flex;
+        justify-content:flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+      .btn-button{
+          font-size: 0.9rem;
+          width: 12.8rem;
+          margin-right: 1rem;
+      }
+      .list-group{
+          font-size: 0.9rem;
+      }
+      .email-icon{
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 0.4rem;
+    }
+    .age-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .user-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .gender-icon{
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.4rem;
+    }
+    .profile-recipes-container{
+        padding: 0;
+        margin: auto;
+        overflow-x: hidden;
+    }
+    .recipes-container{
+        margin: auto;
+       
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+
+}
+
+
+/* ----------- iPad 1, 2, Mini and Air ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+  
+    
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .navbar-brand{
+        margin-left: 1.3rem;
+        font-size: 1.2rem;
+    }
+    .navbar-toggler{
+        margin-right: 2.2rem;
+    }
+  
+    .card{
+        width: 41.4rem;
+        overflow-x: hidden;
+    }
+    .btn-container{
+        display: flex;
+        align-items: flex-end;
+        flex-direction: row;
+    }
+    .btn-button{
+        font-size: 0.7rem;
+        width: 8rem;
+        margin: auto;
+    }
+    .btn-container .btn-button{
+          font-size: 0.7rem;
+          width: 9rem;
+          text-align: center;
+          margin-bottom: 0.4rem;    
+         
+      }
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+    .card{
+        width: 48.4rem;
+        margin: auto;
+        overflow-x: hidden;
+    }
+}
+
+/* ----------- iPad 3, 4 and Pro 9.7" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* ----------- iPad Pro 10.5" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 834px) 
+  and (max-device-width: 1112px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 834px) 
+  and (max-device-width: 834px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 1112px) 
+  and (max-device-width: 1112px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* ----------- iPad Pro 12.9" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+    .card{
+        width: 48.4rem;
+        margin: auto;
+        overflow-x: hidden;
+    }
+    .btn-container{
+        display: flex;
+        align-items: flex-end;
+        flex-direction: row;
+    }
+    .btn-button{
+        font-size: 0.7rem;
+        width: 8rem;
+        margin: auto;
+    }
+    .btn-container .btn-button{
+          font-size: 0.7rem;
+          width: 9rem;
+          text-align: center;
+          margin-bottom: 0.4rem;    
+         
+      }
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 1366px) 
+  and (max-device-width: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .card{
+        width: 56.4rem;
+        margin: auto;
+        overflow-x: hidden;
+    }
+    .btn-container{
+        display: flex;
+        align-items: flex-end;
+        flex-direction: row;
+    }
+    .btn-button{
+        font-size: 0.8rem;
+        width: 10rem;
+        margin: auto;
+    }
+    .btn-container .btn-button{
+          font-size: 0.8rem;
+          width: 10rem;
+          text-align: center;
+          margin-bottom: 0.4rem;    
+         
+      }
+
 }

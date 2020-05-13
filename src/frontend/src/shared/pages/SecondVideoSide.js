@@ -1,6 +1,7 @@
 import React from 'react'
 import fishVideo from '../../assets/bakedFish.mp4'
 import fishIcon from '../../assets/fish.png'
+import './Home.css'
 import {Container,Image,Col,Row,ResponsiveEmbed,embed } from 'react-bootstrap'
 const FirstVideoSide = () => {
     return (
@@ -15,7 +16,7 @@ const FirstVideoSide = () => {
                   </p>
                 </Col>
                 <Col sm={6} >
-                    <div style={{ width: 660, height: 'auto' }}>
+                    <div className='video-container' >
                         <ResponsiveEmbed aspectRatio="16by9" >
                           <video  loop autoPlay >
                             <source src={ fishVideo } type="video/mp4" />

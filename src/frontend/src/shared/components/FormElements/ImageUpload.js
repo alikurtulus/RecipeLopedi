@@ -52,8 +52,7 @@ const ImageUpload = props =>{
                     <Figure className='image-upload__preview' >
                       {previewUrl && 
                         <Figure.Image
-                          width={170}
-                          height={160}
+                      
                           alt="preview"
                           className='image-name'
                           src={previewUrl}

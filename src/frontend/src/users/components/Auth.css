@@ -3,8 +3,8 @@
     text-align: center;
   }
 .authentication {
-    width: 90%;
-    max-width: 25rem;
+   
+   
     margin: auto;
     text-align: center;
   
@@ -46,7 +46,7 @@
         
     }
     .authentication{
-        margin-right: 5rem ;
+      
     }
     .auth-main{
         height: 220vh;
@@ -171,7 +171,7 @@
   and (max-device-width: 667px) 
   and (-webkit-min-device-pixel-ratio: 2) { 
     .authentication{
-        margin-left: 1.4rem ;
+       
         margin-bottom: 0.4rem;
        
     }
@@ -226,7 +226,6 @@
   and (-webkit-min-device-pixel-ratio: 3) { 
     .auth-card-container{
         width: 21rem;
-      
         background-color: #eff0f3;
         margin: auto; 
     }
@@ -306,8 +305,6 @@
         margin: 0;
         padding:0;
         display: inline;
-       
-       
     }
     .auth-main{
         height: 450vh;
@@ -329,15 +326,19 @@
   and (device-height: 640px) 
   and (-webkit-device-pixel-ratio: 2) {
     .auth-card-container{
-        width: 19.8rem;
+        width: 17.2rem;
         background-color: #eff0f3;
-        margin:0 auto 0.5rem auto; 
+        margin: auto 1.8rem auto 0;
+        font-size: 0.9rem;
+      
     }
     .authentication{
-        margin-left: 0.4rem ;
-        margin-bottom: 1.6rem;
-       
+        margin:auto
+        
     }
+    
+   
+    
 }
 
 /* Portrait */
@@ -355,7 +356,21 @@
   and (device-height: 640px) 
   and (-webkit-device-pixel-ratio: 2) 
   and (orientation: landscape) {
-
+    .auth-card-container{
+        width: 19.8rem;
+        background-color: #eff0f3;
+        margin:0 auto 0.5rem auto; 
+    }
+    .authentication{
+        margin-left: 0.4rem ;
+        margin-bottom: 1.6rem;
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+        display: none;
+    }
 }
 
 /* ----------- Galaxy S4, S5 and Note 3 ----------- */
@@ -365,7 +380,16 @@
   and (device-width: 320px) 
   and (device-height: 640px) 
   and (-webkit-device-pixel-ratio: 3) {
-
+    .auth-card-container{
+        width: 20.8rem;
+        background-color: #eff0f3;
+        margin: auto;
+    }
+    .authentication{
+      
+         margin: auto;
+        
+    }
 }
 
 /* Portrait */
@@ -374,6 +398,7 @@
   and (device-height: 640px) 
   and (-webkit-device-pixel-ratio: 3) 
   and (orientation: portrait) {
+   
 
 }
 
@@ -387,6 +412,75 @@
 }
 
 /* ----------- Galaxy S6 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) {
+    .auth-card-container{
+        width: 22.8rem;
+        background-color: #eff0f3;
+        margin: auto;
+       
+    }
+    .authentication{
+        
+        
+        
+    }
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: landscape) {
+
+}
+
+
+
+
+/* ----------- Google Pixel ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Google Pixel XL ----------- */
 
 /* Portrait and Landscape */
 @media screen 
@@ -412,4 +506,353 @@
   and (-webkit-device-pixel-ratio: 4) 
   and (orientation: landscape) {
 
+}
+
+
+/* ----------- iPad 1, 2, Mini and Air ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .auth-card-container{
+        width: 25.8rem;
+        background-color: #eff0f3;
+        margin:auto; 
+    }
+    .authentication{
+        margin: auto ;
+        
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+       
+    }
+ 
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .auth-main{
+        height: 145vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+
+}
+
+/* ----------- iPad 3, 4 and Pro 9.7" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* ----------- iPad Pro 10.5" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 834px) 
+  and (max-device-width: 1112px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .auth-main{
+        height: 125vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+    .auth-card-container{
+        width: 25.8rem;
+        background-color: #eff0f3;
+        margin:auto; 
+    }
+    .authentication{
+        margin: auto ;
+        
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+       
+    }
+
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 834px) 
+  and (max-device-width: 834px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 1112px) 
+  and (max-device-width: 1112px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* ----------- iPad Pro 12.9" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen 
+  and (min-device-width: 1366px) 
+  and (max-device-width: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* ----------- Nexus 7 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 601px) 
+  and (device-height: 906px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) {
+    .auth-card-container{
+        width: 22.8rem;
+        background-color: #eff0f3;
+       
+         
+    }
+    .authentication{
+        margin: 2rem auto ;
+       max-width: 30rem;
+       font-size: 1.1rem;
+        
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+       
+    }
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 601px) 
+  and (device-height: 906px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 601px) 
+  and (device-height: 906px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Nexus 9 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 1536px) 
+  and (device-height: 2048px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 1536px) 
+  and (device-height: 2048px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 1536px) 
+  and (device-height: 2048px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) 
+  and (orientation: landscape) {
+
+}
+/* ----------- Kindle Fire HD 7" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 800px) 
+  and (max-device-width: 1280px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 800px) 
+  and (max-device-width: 1280px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) 
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 800px) 
+  and (max-device-width: 1280px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Kindle Fire HD 8.9" ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    .auth-card-container{
+        width: 25.8rem;
+        background-color: #eff0f3;
+       
+         
+    }
+    .authentication{
+        margin: 2rem auto ;
+       max-width: 30rem;
+       font-size: 1.1rem;
+        
+    }
+    .head-border{
+        color:black;
+        margin: 0;
+        padding:0;
+       
+    }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) 
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) 
+  and (orientation: landscape) {
+
+    .auth-main{
+        height: 135vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+}
+/* ----------- Non-Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+    .auth-main{
+        height: 135vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat:repeat;
+        background-image: url('../../assets/background.jpg');
+    }
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) { 
+}
+.auth-main{
+    height: 135vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat:repeat;
+    background-image: url('../../assets/background.jpg');
 }

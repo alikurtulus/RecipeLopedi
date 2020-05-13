@@ -98,6 +98,7 @@ const  Profile = () => {
                                 />
                                 <Figure.Caption className='btn-edt-container'>
                                 <Button
+                                       className='btn-button'
                                        variant={isEditClicked ? "primary" : "danger"}
                                        onClick={handleEditClick}>
                                        {isEditClicked ? 'Edit Profile' : "Don't Edit Profile"}
