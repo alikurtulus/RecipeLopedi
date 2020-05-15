@@ -151,8 +151,8 @@ import dietIcon from '../../assets/diet.png'
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={4}>
-                        <Card  style={{ width: '22rem' }}>
+                    <Col xs={12} md={4} lg={4} xl={4}>
+                        <Card className='ingredient-container' >
                                 <ListGroup variant="flush">
                                     {recipe.extendedIngredients.map(ingredient => 
                                         <ListGroup.Item>{ingredient.originalString}</ListGroup.Item>   
@@ -160,8 +160,8 @@ import dietIcon from '../../assets/diet.png'
                                 </ListGroup>
                         </Card>
                     </Col>
-                    <Col sm={8}>
-                        <Card  style={{ width: '46rem' }}>
+                    <Col xs={12} md={8} lg={8} xl={8}>
+                        <Card  className='instruction-container'  >
                                
                                 <ListGroup variant="flush">
                                     {recipe.analyzedInstructions[0] !== undefined && recipe.analyzedInstructions[0].steps.map(method =>

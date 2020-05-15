@@ -38,24 +38,23 @@ import NotFound from '../../shared/components/UIElements/NotFound'
          {recipe.length !== 0 &&
         <Container className='recipedetails-box'>
                 <Row>
-                    <Col sm={4}>
-                        <Figure>
+                    <Col xs={12} md={6} lg={4}>
+                        <Figure className='recipe-image-container'>
                             <Figure.Image
-                                width={280}
-                                height={280}
+                               
                                 alt="171x180"
                                 src={recipe.image}
                             />
   
                         </Figure>
                     </Col>
-                    <Col sm={8}>
+                    <Col xs={12} md={6} lg={8}>
                         <Row>
                             <Col className='some-details'>
                              <h3 className='recipe-title'>{recipe.title}</h3>
                            
                             <Row className='badges badges-container'>
-                              <Col sm={3} className='details-icon'>
+                              <Col xs={12} md={6} lg={3} className='details-icon'>
                                 <div>
                                 <Image className='detail-icon-img' src={servedIcon}/>
                                 </div>
@@ -65,7 +64,7 @@ import NotFound from '../../shared/components/UIElements/NotFound'
                                     </Badge>
                                 </div>
                               </Col>
-                              <Col sm={3} className='details-icon'>
+                              <Col xs={12} md={6} lg={3} className='details-icon'>
                                 <div>
                                     <Image className='detail-icon-img' src={moneyIcon}/>
                                 </div>
@@ -75,17 +74,7 @@ import NotFound from '../../shared/components/UIElements/NotFound'
                                     </Badge>
                                 </div>
                               </Col>
-                              <Col sm={3} className='details-icon'>
-                                <div>
-                                    <Image className='detail-icon-img' src={clockIcon}/>
-                                </div>
-                                <div>
-                                    <Badge variant="danger" className='badge'>
-                                        ReadyInMinutes: {recipe.readyInMinutes}
-                                    </Badge>
-                                </div>
-                              </Col>
-                              <Col sm={3} className='details-icon'>
+                              <Col xs={12} md={6} lg={3} className='details-icon'>
                                 <div>
                                     <Image className='detail-icon-img' src={ratingIcon}/>
                                 </div>
@@ -95,6 +84,17 @@ import NotFound from '../../shared/components/UIElements/NotFound'
                                     </Badge>
                                 </div>
                               </Col>
+                              <Col xs={12} md={6} lg={3} className='details-icon'>
+                                <div>
+                                    <Image className='detail-icon-img' src={clockIcon}/>
+                                </div>
+                                <div>
+                                    <Badge variant="danger" className='badge'>
+                                        ReadyInMinutes: {recipe.readyInMinutes}
+                                    </Badge>
+                                </div>
+                              </Col>
+                             
                           </Row>
                             </Col>
                         </Row>
@@ -123,8 +123,8 @@ import NotFound from '../../shared/components/UIElements/NotFound'
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={4}>
-                        <Card   style={{ width: '18rem' }}>
+                    <Col xs={12} md={4} lg={4}>
+                        <Card  className='ingredient-container'>
                                 <ListGroup variant="flush">
                                     {recipe.Ingredients.map(ingredient => 
                                         <ListGroup.Item>{ingredient}</ListGroup.Item>
@@ -133,9 +133,9 @@ import NotFound from '../../shared/components/UIElements/NotFound'
                                 </ListGroup>
                         </Card>
                     </Col>
-                    <Col sm={8}>
+                    <Col sm={12} md={8} lg={8}>
                   
-                        <Card   style={{ width: '46rem' }}>
+                        <Card  className='instruction-container' >
                                
                                 <ListGroup variant="flush">
                                     {recipe.Instructions.map(method =>

@@ -87,7 +87,7 @@ const Hero = props => {
        <h2 className='main-logo-name'><span><Image  src={hatIcon}  /></span>RecipeLopedi</h2>
       </div>
     <Form onSubmit={handleSubmit}>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center searchbar">
             <Col sm={10}>
               <AsyncSelect
                 value= {selectedOption}
@@ -112,7 +112,7 @@ const Hero = props => {
       <Row>
         <CardDeck>
         {randomRecipes.map(recipe =>
-        <Col sm={3} key={recipe.id}>
+        <Col xs={3} md={6} lg={3} xl={3} key={recipe.id}>
           <CardBox
               id={recipe.id}
               price={recipe.pricePerServing}

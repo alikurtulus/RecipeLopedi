@@ -45,7 +45,7 @@ const  DailyPlan2 = props => {
                          </Row>
                         <Row>
                             <Col sm={12} className='nutrients-container'>
-                                    <Table responsive>
+                                    <Table  responsive="sm">
                                         <thead>
                                             <tr>
                                             {nutrientIndicators.map( n => 

@@ -84,10 +84,10 @@ const  Profile = () => {
             {data !== undefined &&
                 <>
                    <Container>
-                    <Card>
+                    <Card className='user-card-container'>
                     <h4 className='container-title'>User Info</h4>
                     <Row className='user-details-container'>
-                        <Col sm={3}>
+                        <Col sm={3} className='user-avatar'>
                             <Figure>
                                 <Figure.Image
                                     width={175}
@@ -235,11 +235,11 @@ const  Profile = () => {
                             {!isMealClicked && 
                                 <>
                                     {data.mealplans.length !== 0 && 
-                                      <>
+                                      <div className='my-mealplan-container'>
                                         <hr/>
                                         <h4 className='container-title'>My meal plans</h4>
                                         <MealPlans crud={true} myMealPlans={data.mealplans} />
-                                      </>
+                                      </div>
                                     }
                                 </>
                             }

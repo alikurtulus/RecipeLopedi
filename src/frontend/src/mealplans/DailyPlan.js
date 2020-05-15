@@ -43,7 +43,8 @@ const  DailyPlan = props => {
                 {props.data === undefined && (<p></p>)}
                 {props.data !== undefined &&
                     <Col sm={12} className='nutrients-container'>
-                    <Table responsive>
+                        <div>
+                        <Table   responsive="sm">
                         <thead>
                             <tr>
                             {nutrientIndicators.map( n => 
@@ -82,6 +83,8 @@ const  DailyPlan = props => {
                         
                         </tbody>
                     </Table>
+                        </div>
+                    
                 </Col>
                   
                 }

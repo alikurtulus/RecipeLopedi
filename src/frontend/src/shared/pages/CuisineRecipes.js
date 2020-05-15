@@ -32,7 +32,7 @@ const fetchRecipes = () =>{
                 <Row>
                    <CardDeck>
                         {cuisine.recipes.map(recipe=>
-                                <Col sm={3} key={recipe.id} className='recipe-box' >
+                                <Col xs={3} md={6} lg={3}  key={recipe.id} className='recipe-box' >
                                   
                                     <CardBox 
                                             price={recipe.pricePerServing}

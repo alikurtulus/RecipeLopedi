@@ -21,11 +21,11 @@ import './UsersRecipes.css'
             <React.Fragment>
             {recipes.length === 0 &&  <Spinner animation="border" variant="primary" /> }
             {recipes.length !== 0 &&
-               <Container   className='cards-container'>
+               <Container   className='user-cards-recipes'>
                     <CardDeck>
                         {recipes.map((recipe,index) => 
                            <Row>
-                             <Col sm={4} key={recipe.id} className='recipe-card'>
+                             <Col xs={12} md={6} lg={6} xl={4} key={recipe.id} className='recipe-card'>
                                     <CardBox 
                                     title={recipe.title}
                                     readyInMinutes={recipe.readyInMinutes}

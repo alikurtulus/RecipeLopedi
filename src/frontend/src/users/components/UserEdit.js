@@ -185,7 +185,7 @@ const genderType = ['Choose','Female','Male','Other']
                                     initialValue={props.data.gender}
                                     initialValid={true}
                                 />
-                                <div className='btns-container'>
+                                <div className='btn-container'>
                                     <Button onClick={handleSubmit} variant='success' className='btn-button'>Update Profile</Button>
                                 </div>
                         </Col>

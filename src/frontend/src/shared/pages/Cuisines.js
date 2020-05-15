@@ -14,7 +14,7 @@ const SecondHome = props => {
     
       <Container className='cuisine-card-box'>
       <Row>
-         <CardDeck>
+         <CardDeck className='cuisines-container'>
            {cuisines.map(cus=>
             <Col sm={3} key={cus.id} >
               <Link to={`cuisine/${cus.id}`}>  <CardCuisine  title={cus.cuisine} image={cus.mainImage} /></Link>  
