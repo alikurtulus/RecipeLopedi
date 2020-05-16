@@ -5,6 +5,7 @@ const Dotenv = require('dotenv-webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+
 module.exports = {
   entry: './app.js',
   output: {
@@ -44,9 +45,11 @@ module.exports = {
     new Dotenv(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
+      favicon: "../src/assets/favicon.ico",
       template: './index.html',
       filename: 'index.html',
       inject: 'body'
-    })
+    }),
+    
   ]
 }

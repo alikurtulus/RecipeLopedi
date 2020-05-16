@@ -94,13 +94,13 @@ import {AuthContext} from '../../shared/context/auth-context'
         let  newArr = [...ingredientData]
         newArr[index] = {name:formState.inputs.iName.value,amount:formState.inputs.amount.value,measure:formState.inputs.measure.value}
          setIngredientData(newArr)
-        console.log(ingredientData)
+       
     }
     const handleSaveInstruction = (index) => {
       let newArr = [...instructionData]
       newArr[index] = {content:formState.inputs.content.value}
       setInstructionData(newArr)
-      console.log(instructionData)
+      
     }
     const handleSubmit =  async e => {
        
@@ -121,7 +121,7 @@ import {AuthContext} from '../../shared/context/auth-context'
                 process.env.REACT_APP_BACKEND_URL+`/recipes/${selectedRecipe.id}`,
                  formData,{
                  headers: {Authorization : `Bearer ${auth.token}`} })
-                 console.log(responseData)
+              
             if(responseData) {
                 history.push('/recipes/all')
             }
@@ -134,7 +134,7 @@ import {AuthContext} from '../../shared/context/auth-context'
           }
 
         catch(err){
-          console.log(err)
+        
           setErrorMessage(err.response.data.message)
           setShow(true);
         }

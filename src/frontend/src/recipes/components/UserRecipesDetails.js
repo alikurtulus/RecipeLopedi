@@ -110,7 +110,7 @@ import dislikeIcon from '../../assets/dislike.png'
         const getRating = async () => {
             try{ const responseData = await axios.post(
                 process.env.REACT_APP_BACKEND_URL+`/recipes/recipe/getRating/${rid}`,{userId:auth.userId})
-                console.log(responseData.data.averageRating)
+              
                 setWasRated(responseData.data.averageRating.wasUserRated)
                 setPrevRating(responseData.data.averageRating.rating)
             }

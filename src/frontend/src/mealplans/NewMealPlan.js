@@ -87,7 +87,7 @@ const NewMealPlan = props => {
              process.env.REACT_APP_BACKEND_URL+'/mealplans/new',
              data,{
               headers: {Authorization : `Bearer ${auth.token}`} })
-              console.log(responseData)
+             
               setMealPlanId(responseData.data.mealplan.id)
              
               history.push('/mealplans/all')  
@@ -146,7 +146,7 @@ const NewMealPlan = props => {
 
         }
        
-        console.log(excludeData)
+       
     }
     const handleSearch = async (e) => {
         e.preventDefault()

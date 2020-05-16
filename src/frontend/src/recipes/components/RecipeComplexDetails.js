@@ -37,10 +37,10 @@ import dietIcon from '../../assets/diet.png'
  
     const recipeData  = useSelector(state => state.recipes.recipeDetailsInfo )
     const recipe = recipeData[0]
-    console.log(recipe)
+    
     const similarRecipes = recipeData[1]
     const recipeNutrition = recipeData[2]
-    console.log(similarRecipes)
+  
     
     return (
         <React.Fragment>
@@ -124,8 +124,8 @@ import dietIcon from '../../assets/diet.png'
                                 <Table responsive>
                                     <thead>
                                         <tr>
-                                        {nutrientIndicators.map( n => 
-                                             <th>{n.name} </th>
+                                        {nutrientIndicators.map( (n,index) => 
+                                             <th key={index}>{n.name} </th>
                                         )}    
                                         </tr>
                                     </thead>
@@ -154,8 +154,8 @@ import dietIcon from '../../assets/diet.png'
                     <Col xs={12} md={4} lg={4} xl={4}>
                         <Card className='ingredient-container' >
                                 <ListGroup variant="flush">
-                                    {recipe.extendedIngredients.map(ingredient => 
-                                        <ListGroup.Item>{ingredient.originalString}</ListGroup.Item>   
+                                    {recipe.extendedIngredients.map((ingredient,index) => 
+                                        <ListGroup.Item key={index}>{ingredient.originalString}</ListGroup.Item>   
                                      )}
                                 </ListGroup>
                         </Card>

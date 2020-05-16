@@ -30,7 +30,7 @@ const  WeeklyPlan = props => {
             {props.data === undefined &&   <Spinner animation="border" variant="primary" /> }
                 {props.data.week !== undefined && 
                  
-                <React.Fragment>
+                <div>
             
                  <h4>Monday</h4>
                  {props.data.week.monday !== undefined && <DailyPlan data={props.data.week.monday} />}
@@ -53,12 +53,12 @@ const  WeeklyPlan = props => {
                  <h4>Sunday</h4>
                  {props.data.week.sunday !== undefined && <DailyPlan data={props.data.week.sunday} />}
                
-                </React.Fragment>
+                </div>
                  }
                  {props.data.week == undefined && 
-                        <React.Fragment className='result-container'>
+                        <div className='result-container'>
                               <DailyPlan2 data={myData} />
-                        </React.Fragment> 
+                        </div> 
                  }
                  
         </div>

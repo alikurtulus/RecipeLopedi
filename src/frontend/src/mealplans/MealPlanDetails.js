@@ -26,7 +26,7 @@ const  MealPlanDetails = props => {
     useEffect(() => {
         const fetchData = async () => {
             try{    const responseData = await axios.get(process.env.REACT_APP_BACKEND_URL +`/mealplans/meal/${mid}`)
-            console.log(responseData.data)
+          
             setMealPlan(responseData.data.mealplan)}
             catch(err){
                

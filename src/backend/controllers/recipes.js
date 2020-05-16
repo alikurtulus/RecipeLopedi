@@ -47,7 +47,7 @@ const getRecipeById = async (req,res,next) => {
   const recipeId = req.params.rid
   let existingRecipe
   try {
-    existingRecipe = await Recipe.findById(recipeId).populate('creator')
+    existingRecipe = await Recipe.findById(recipeId).populate('creator','-password').exec()
     if(!existingRecipe){
       const error = new HttpError('Could not find any recipes provided user id',404)
       return next(error)
@@ -120,11 +120,11 @@ const getRecipeRating = async (req,res,next) => {
       return next(error)
     }
     const {userId} = req.body
-    console.log(req.body)
+    
     const userRated = existingRecipe.ratings.filter( rat => rat.user == userId)
-    console.log(userRated)
+  
     let isRated = userRated.length > 0 ? true : false
-    console.log(isRated)
+  
     if (existingRecipe.ratings.length > 0){
       for(let i = 0; i< existingRecipe.ratings.length;i++){
         sum += existingRecipe.ratings[i].point
@@ -139,7 +139,7 @@ const getRecipeRating = async (req,res,next) => {
          rating:average,
          wasUserRated:isRated
        }
-       console.log(data)
+       
       res.status(200).json({averageRating:data})
     }
     catch(err){

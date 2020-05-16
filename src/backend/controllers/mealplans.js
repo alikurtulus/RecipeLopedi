@@ -67,7 +67,7 @@ const createMealPlan = async (req, res, next) =>{
     let allResult = []
     let myMeals = []
     let myNutrients = []
-     console.log(myPlan)
+    
     let weeklyPl  = []
     if(myPlan.week){
       weeklyPl[0] = myPlan.week.monday
@@ -96,7 +96,7 @@ const createMealPlan = async (req, res, next) =>{
             creator
           })
           let user
-          console.log(newMealPlan)
+         
           try{
             user = await User.findById(req.userData.userId)                             // When we add a new recipe we need user's recipes array,too.That's why We need user who add this recipe.
           }
@@ -117,7 +117,7 @@ const createMealPlan = async (req, res, next) =>{
           await sess.commitTransaction()
       }
       catch(err){
-        console.log(err.message)
+       
         const error = new HttpError('Created recipe failed, please create again ',500)
     
         return next(error)

@@ -1,5 +1,7 @@
 import React,   {Suspense} from 'react'
 import ReactDOM from 'react-dom'
+import {Helmet} from "react-helmet";
+import titleIcon from '../src/assets/favicon.ico'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Navbar from './shared/components/Navigation/Navbar'
 import {AuthContext} from './shared/context/auth-context'
@@ -148,7 +150,13 @@ const  App = () => {
               logout:logout}
             }>
         <Router history={history}>
+       
           <Navbar />
+          <Helmet>
+               <meta charSet="utf-8" />
+                <title>RecipeLopedi find your right recipe</title>
+                <link rel="icon" type="image/png" href={titleIcon} sizes="32x32" />
+        </Helmet>
           <main>
             <Suspense fallback={
               <Spinner animation="border" role="status">
@@ -158,6 +166,7 @@ const  App = () => {
             {routes}
             </Suspense>
           </main>
+         
         </Router>
         </AuthContext.Provider>
         </Provider>

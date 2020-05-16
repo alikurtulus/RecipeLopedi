@@ -12,8 +12,8 @@ const  DailyPlan = props => {
                 <Col sm={12}>
                       <Row className='meals-container'>
                         {props.data.meals === undefined   && <Spinner animation="border" variant="primary" /> }
-                        {props.data.meals !== undefined && props.data.meals.map(m =>
-                            ( <Col sm={4}>
+                        {props.data.meals !== undefined && props.data.meals.map((m,index) =>
+                            ( <Col key={index} sm={4}>
                                <Card key={m.id} style={{ width: '18rem' }}>
                                    <Card.Body>
                                        <Card.Title>{m.title}</Card.Title>

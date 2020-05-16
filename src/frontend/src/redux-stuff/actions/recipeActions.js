@@ -77,7 +77,7 @@ export  const fetchUsersRecipes = () => async dispatch => {
 export const fetchUsersRecipeDetails = (rid) => async dispatch => {
   try{
     const responseData = await axios.get(`http://localhost:5000/api/recipes/usersRecipes/details/${rid}`)
-    console.log(responseData.data.recipe)
+   
     dispatch({
       type:FETCH_USERS_RECIPE_DETAILS_INFO,
       payload:responseData.data.recipe

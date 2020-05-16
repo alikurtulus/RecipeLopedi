@@ -5,16 +5,15 @@ import {useHistory} from 'react-router-dom'
 import './MealPlan.css'
 const  MealPlanList = props => {
     const history = useHistory()
-    console.log(props.crud)
-    console.log(props.mplans)
+  
     const handleSeeMore = (mid,timeFrame) => {
       history.push(`/mealplan/details/${mid}`,{timeFrame:timeFrame})
     }
     return (
         <Container>
             <CardDeck className='mealplan-card-deck'>
-                    {props.mplans.map(mp => 
-                         <Row>
+                    {props.mplans.map((mp,index) => 
+                         <Row key={index}>
                               <Col sm={3}>
                               <MealPlanCard
                                 title={mp.title}
