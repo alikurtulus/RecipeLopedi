@@ -13,6 +13,11 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
+  performance: {
+    hints: false
+  }
+  ,
+
   devtool: 'source-maps',
   module: {
     rules: [

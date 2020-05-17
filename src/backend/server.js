@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const cors = require('cors')
 const express = require('express')                                               // We import express module in our project.
 const app = express()                                                            // We assign express's functions to app variable.
 const bodyParser = require('body-parser')                                        // BodyParser catches data from the http request(POST,PATCH,PUT) and parsing this data to JSON object.
@@ -34,6 +35,7 @@ app.use((req, res, next) => {                                                   
   const error = new HttpError('Could not find this route', 404)
   throw error
 })
+app.use(cors())
 app.use((err,req,res,next) => {                                                 // We check if user pick file for importing an image.
   if(req.file){
     fs.unlink(req.file.path, err => {
